@@ -1,0 +1,6 @@
+name = Immoklink Deployment
+description = Installation profile for Immoklink Site Deployment.
+core = 7.x
+
+dependencies[] = immoklink_deploy
+

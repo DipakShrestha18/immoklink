@@ -1,0 +1,7 @@
+name = Immoklink Sitewide elements
+description = Elements and tools used across the whole Immoklink site.
+package = Immoklink
+core = 7.x
+
+dependencies[] = panels
+dependencies[] = page_manager

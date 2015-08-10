@@ -1,6 +1,6 @@
-name = Corp
-description =  Custom Corporate theme
-package = Corporate
+name = Immoklink
+description =  Custom Immoklink theme
+package = Immoklink
 core = 7.x
 
 ; Stylesheets

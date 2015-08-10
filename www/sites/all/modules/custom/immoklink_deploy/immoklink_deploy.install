@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * immoklink Site deploy module.
+ * This install file contains hook_update_n handlers to script automated
+ * deployed updates.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function immoklink_deploy_install() {
+  immoklink_deploy_module_disable();
+  immoklink_deploy_module_enable();
+  immoklink_deploy_wysiwyg_settings();
+  immoklink_deploy_set_theme();
+  immoklink_deploy_features();
+  immoklink_deploy_panel_pages_enable();
+  secure_permissions_rebuild();
+}
+
+///**
+// * Information about what the hook is doing.
+// */
+//function immoklink_deploy_update_7001() {
+//}

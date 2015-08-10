@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Corporate Site deploy module.
+ * immoklinkorate Site deploy module.
  *
  * Functions for aiding zero touch deployment.
  */
@@ -10,7 +10,7 @@
 /*
  * Disable unneeded modules.
  */
-function corp_deploy_module_disable() {
+function immoklink_deploy_module_disable() {
   // Modules to disable.
   $disable = array(
     'aggregator',
@@ -49,7 +49,7 @@ function corp_deploy_module_disable() {
  * Enable needed modules.
  */
 
-function corp_deploy_module_enable() {
+function immoklink_deploy_module_enable() {
   // Modules to enable.
   $enable = array(
     'block',
@@ -111,7 +111,7 @@ function corp_deploy_module_enable() {
     'secure_permissions_data',
     'admin_views',
     // Custom modules.
-    'corp_sitewide',
+    'immoklink_sitewide',
     // GA  & SEO
     'googleanalytics',
     'eu_cookie_compliance'
@@ -128,7 +128,7 @@ function corp_deploy_module_enable() {
 /**
  * Function for enabling all the sites features.
  */
-function corp_deploy_features() {
+function immoklink_deploy_features() {
   $enable[] = array(
   );
   foreach ($enable as $group) {
@@ -140,7 +140,7 @@ function corp_deploy_features() {
 /**
  * Set the default settings for wysiwyg module
  */
-function corp_deploy_wysiwyg_settings() {
+function immoklink_deploy_wysiwyg_settings() {
   $values = array(
     'default' => 1,
     'user_choose' => 0,
@@ -201,15 +201,15 @@ function corp_deploy_wysiwyg_settings() {
   wysiwyg_profile_cache_clear();
 }
 
-function corp_deploy_set_theme() {
-  theme_enable(array('corp_base'));
+function immoklink_deploy_set_theme() {
+  theme_enable(array('immoklink_base'));
   theme_disable(array('bartik'));
 }
 
 /**
  * Function to enable all the needed system pages that come disabled by default.
  */
-function corp_deploy_panel_pages_enable() {
+function immoklink_deploy_panel_pages_enable() {
   if (module_exists('page_manager')) {
     // Array of the system pages (or page manager tasks) we want to enable.
     $system_pages = array(
@@ -219,7 +219,7 @@ function corp_deploy_panel_pages_enable() {
     );
 
     foreach ($system_pages as $page_manager_task) {
-      corp_deploy_panel_page_enable($page_manager_task);
+      immoklink_deploy_panel_page_enable($page_manager_task);
     }
   }
 }
@@ -227,9 +227,9 @@ function corp_deploy_panel_pages_enable() {
 /**
  * Enable a single system page (page manager task).
  */
-function corp_deploy_panel_page_enable($page_manager_task) {
+function immoklink_deploy_panel_page_enable($page_manager_task) {
   if (module_exists('page_manager')) {
-    if ($enable_function = corp_deploy_page_manager_task_enable_function($page_manager_task)) {
+    if ($enable_function = immoklink_deploy_page_manager_task_enable_function($page_manager_task)) {
       page_manager_get_task($page_manager_task);
       // All page manager tasks expects a $cache param that is not used, and then
       // the value (FALSE to enable, TRUE to disable). It's weird but it's like
@@ -245,7 +245,7 @@ function corp_deploy_panel_page_enable($page_manager_task) {
  * @return String|Null The name of the function that needs to be used to enable
  *   a specific panel page, or NULL if there's no such function defined.
  */
-function corp_deploy_page_manager_task_enable_function($page_manager_task) {
+function immoklink_deploy_page_manager_task_enable_function($page_manager_task) {
   $page_manager_task_functions = array(
     'node_view' => 'page_manager_node_view_enable',
     'user_view' => 'page_manager_user_view_enable',

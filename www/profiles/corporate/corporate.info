@@ -1,6 +1,0 @@
-name = Corporate Deployment
-description = Installation profile for Corporate Site Deployment.
-core = 7.x
-
-dependencies[] = corp_deploy
-

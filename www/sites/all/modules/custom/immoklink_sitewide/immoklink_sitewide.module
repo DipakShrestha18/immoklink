@@ -9,7 +9,7 @@
 /**
  * Implements hook_ctools_plugin_api().
  */
-function corp_sitewide_ctools_plugin_api($module, $api) {
+function immoklink_sitewide_ctools_plugin_api($module, $api) {
   if ($module == 'panels' && $api == 'styles') {
     return array('version' => 2.0);
   }
@@ -33,7 +33,7 @@ function corp_sitewide_ctools_plugin_api($module, $api) {
 /**
  * Implements hook_ctools_plugin_directory()
  */
-function corp_sitewide_ctools_plugin_directory($module, $plugin) {
+function immoklink_sitewide_ctools_plugin_directory($module, $plugin) {
   if ($module == 'page_manager' || $module == 'panels' || $module == 'ctools') {
     return 'plugins/' . $plugin;
   }
@@ -42,11 +42,11 @@ function corp_sitewide_ctools_plugin_directory($module, $plugin) {
 /**
  * Implements hook_default_page_manager_pages().
  */
-function corp_sitewide_default_page_manager_pages() {
+function immoklink_sitewide_default_page_manager_pages() {
   // A page manager page is a custom page, built using panels, which has its
   // own discrete menu path.
   $pages = array();
-  $module = 'corp_sitewide';
+  $module = 'immoklink_sitewide';
   $path = drupal_get_path('module', $module) . '/plugins/page_manager_pages';
   foreach (glob("{$path}/*.inc") as $file) {
     include($file);
@@ -58,11 +58,11 @@ function corp_sitewide_default_page_manager_pages() {
 /**
  * Implements hook_default_page_manager_handlers().
  */
-function corp_sitewide_default_page_manager_handlers() {
+function immoklink_sitewide_default_page_manager_handlers() {
   // A page manager handler is an override to an existing page manager task:
   // For example: a custom panel page for the node-view page.
   $handlers = array();
-  $module = 'corp_sitewide';
+  $module = 'immoklink_sitewide';
   $path = drupal_get_path('module', $module) . '/plugins/page_manager_handlers';
   foreach (glob("{$path}/*.inc") as $file) {
     include($file);
@@ -74,9 +74,9 @@ function corp_sitewide_default_page_manager_handlers() {
 /**
  * Implementation of hook_default_panels_mini().
  */
-function corp_sitewide_default_panels_mini() {
+function immoklink_sitewide_default_panels_mini() {
   $minis = array();
-  $module = 'corp_sitewide';
+  $module = 'immoklink_sitewide';
   $path = drupal_get_path('module', $module) . '/plugins/panels_mini';
   foreach (glob("{$path}/*.inc") as $file) {
     include($file);
@@ -88,9 +88,9 @@ function corp_sitewide_default_panels_mini() {
 /**
  * Implementation of hook_default_ctools_custom_content().
  */
-function corp_sitewide_default_ctools_custom_content() {
+function immoklink_sitewide_default_ctools_custom_content() {
   $content_panes = array();
-  $module = 'corp_sitewide';
+  $module = 'immoklink_sitewide';
   $path = drupal_get_path('module', $module) . '/plugins/content_panes';
   foreach (glob("{$path}/*.inc") as $file) {
     include($file);
@@ -102,18 +102,18 @@ function corp_sitewide_default_ctools_custom_content() {
 /**
  * Implements hook_ctools_content_subtype_alter().
  */
-function corp_sitewide_ctools_content_subtype_alter(&$subtype, &$plugin) {
+function immoklink_sitewide_ctools_content_subtype_alter(&$subtype, &$plugin) {
   // Panels UI is bugged. Use a custom icon for Mini panels, so they are easily
   // spotted in the UI.
   if ($plugin['module'] == 'panels_mini') {
-    $plugin['icon'] = $subtype['icon'] = drupal_get_path('module', 'corp_sitewide') . '/images/mini_panel_icon.png';
+    $plugin['icon'] = $subtype['icon'] = drupal_get_path('module', 'immoklink_sitewide') . '/images/mini_panel_icon.png';
   }
 }
 
 /**
  * Implements hook_views_api().
  */
-function corp_sitewide_views_api() {
+function immoklink_sitewide_views_api() {
   return array(
     'api' => '3.0',
   );
@@ -122,8 +122,8 @@ function corp_sitewide_views_api() {
 /**
  * Implements hook_views_default_views().
  */
-function corp_sitewide_views_default_views() {
-  $files = file_scan_directory(drupal_get_path('module', 'corp_sitewide') . '/plugins/views', '/inc$/', array('key' => 'filename', 'recurse' => FALSE));
+function immoklink_sitewide_views_default_views() {
+  $files = file_scan_directory(drupal_get_path('module', 'immoklink_sitewide') . '/plugins/views', '/inc$/', array('key' => 'filename', 'recurse' => FALSE));
   $views = array();
   if (!empty($files)) {
     foreach ($files as $file) {
