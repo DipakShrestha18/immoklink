@@ -1,0 +1,19 @@
+name = Corp
+description =  Custom Corporate theme
+package = Corporate
+core = 7.x
+
+; Stylesheets
+stylesheets[all][] = css/main.css
+
+; Scripts
+scripts[] = js/global.js
+scripts[] = js/html5shiv.min.js
+scripts[] = js/modernizr.min.js
+scripts[] = js/selectivizr.min.js
+scripts[] = js/jquery-selectivizr.js
+
+; Regions
+; This *appears* to successfully remove all regions
+; regions[] = none
+regions[content] = Content

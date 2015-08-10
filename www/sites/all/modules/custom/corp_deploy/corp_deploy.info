@@ -1,0 +1,5 @@
+name = Corporate Deployment
+description = Module activation and non-features settings.
+core = 7.x
+
+package = Corporate

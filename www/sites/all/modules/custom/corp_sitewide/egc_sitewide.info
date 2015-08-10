@@ -1,0 +1,7 @@
+name = Corp Sitewide elements
+description = Elements and tools used across the whole Corporate site.
+package = Corporate
+core = 7.x
+
+dependencies[] = panels
+dependencies[] = page_manager

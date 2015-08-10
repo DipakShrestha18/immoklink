@@ -1,0 +1,260 @@
+<?php
+
+/**
+ * @file
+ * Corporate Site deploy module.
+ *
+ * Functions for aiding zero touch deployment.
+ */
+
+/*
+ * Disable unneeded modules.
+ */
+function corp_deploy_module_disable() {
+  // Modules to disable.
+  $disable = array(
+    'aggregator',
+    'blog',
+    'book',
+    'color',
+    'comment',
+    'contact',
+    'translation',
+    'dashboard',
+    'forum',
+    'locale',
+    'openid',
+    'overlay',
+    'php',
+    'poll',
+    'statistics',
+    'toolbar',
+    'tracker',
+    'trigger',
+    'profile',
+    'tracker',
+    'trigger',
+    'comment',
+  );
+
+  foreach ($disable as $module) {
+    if (module_exists($module)) {
+      module_disable(array($module));
+    }
+  }
+  menu_rebuild();
+}
+
+/*
+ * Enable needed modules.
+ */
+
+function corp_deploy_module_enable() {
+  // Modules to enable.
+  $enable = array(
+    'block',
+    'dblog',
+    'field',
+    'field_ui',
+    'file',
+    'filter',
+    'help',
+    'image',
+    'options',
+    'number',
+    'list',
+    'menu',
+    'node',
+    'taxonomy',
+    'user',
+    'system',
+    'token',
+    'ctools',
+    'features',
+    'strongarm',
+    'panels',
+    'page_manager',
+    'admin_menu',
+    'admin_menu_toolbar',
+    'entity',
+    'entityreference',
+    'views',
+    'views_ui',
+    'views_content',
+    'path',
+    'field_group',
+    'diff',
+    'libraries',
+    'wysiwyg',
+    'pasteformat',
+    //date
+    'date',
+    'date_api',
+    'date_popup',
+    'date_views',
+    'planer',
+    'semanticviews',
+    'panels_everywhere',
+    'panels_mini',
+    'ctools_custom_content',
+    // Media
+    'file_entity',
+    'media',
+    'mediafield',
+    'pathauto',
+    'pathauto_persist',
+    // UX
+    'save_edit',
+    // Modules for development.
+    'devel',
+    'secure_permissions',
+    'secure_permissions_data',
+    'admin_views',
+    // Custom modules.
+    'corp_sitewide',
+    // GA  & SEO
+    'googleanalytics',
+    'eu_cookie_compliance'
+  );
+
+  foreach ($enable as $module) {
+    if (!module_exists($module)) {
+      module_enable(array($module));
+    }
+  }
+  menu_rebuild();
+}
+
+/**
+ * Function for enabling all the sites features.
+ */
+function corp_deploy_features() {
+  $enable[] = array(
+  );
+  foreach ($enable as $group) {
+    features_install_modules($group);
+    menu_rebuild();
+  }
+}
+
+/**
+ * Set the default settings for wysiwyg module
+ */
+function corp_deploy_wysiwyg_settings() {
+  $values = array(
+    'default' => 1,
+    'user_choose' => 0,
+    'show_toggle' => 1,
+    'theme' => 'advanced',
+    'language' => 'en',
+    'buttons' => array(
+      'default' => array(
+        'Bold' => 1,
+        'Italic' => 1,
+        'BulletedList' => 1,
+        'NumberedList' => 1,
+        'Undo' => 1,
+        'Redo' => 1,
+        'Link' => 1,
+        'Unlink' => 1,
+        'Anchor' => 1,
+        'Blockquote' => 1,
+        'Source' => 1,
+        'Subscript' => 1,
+        'Superscript' => 1,
+        'RemoveFormat' => 1,
+        'SpecialChar' => 1,
+        'Table' => 1,
+      ),
+      'media' => array(
+        'media' => 1,
+      ),
+      'pasteformat' => array(
+        'pasteformat' => 1,
+      ),
+    ),
+    'toolbar_loc' => 'top',
+    'toolbar_align' => 'left',
+    'path_loc' => 'bottom',
+    'resizing' => 1,
+    'verify_html' => 1,
+    'preformatted' => 0,
+    'convert_fonts_to_spans' => 1,
+    'remove_linebreaks' => 1,
+    'apply_source_formatting' => 1,
+    'paste_auto_cleanup_on_paste' => 1,
+    'block_formats' => 'p,address,pre,h2,h3,h4,h5,h6,div',
+    'css_settings' => 'theme',
+    'css_path' => '',
+    'css_classes' => '',
+  );
+
+  // Insert filtered html profile data.
+  db_merge('wysiwyg')
+    ->key(array('format' => 'full_html'))
+    ->fields(array(
+      'editor' => 'ckeditor',
+      'settings' => serialize($values),
+    ))
+    ->execute();
+
+  wysiwyg_profile_cache_clear();
+}
+
+function corp_deploy_set_theme() {
+  theme_enable(array('corp_base'));
+  theme_disable(array('bartik'));
+}
+
+/**
+ * Function to enable all the needed system pages that come disabled by default.
+ */
+function corp_deploy_panel_pages_enable() {
+  if (module_exists('page_manager')) {
+    // Array of the system pages (or page manager tasks) we want to enable.
+    $system_pages = array(
+      'node_view',
+      'user_view',
+      'term_view',
+    );
+
+    foreach ($system_pages as $page_manager_task) {
+      corp_deploy_panel_page_enable($page_manager_task);
+    }
+  }
+}
+
+/**
+ * Enable a single system page (page manager task).
+ */
+function corp_deploy_panel_page_enable($page_manager_task) {
+  if (module_exists('page_manager')) {
+    if ($enable_function = corp_deploy_page_manager_task_enable_function($page_manager_task)) {
+      page_manager_get_task($page_manager_task);
+      // All page manager tasks expects a $cache param that is not used, and then
+      // the value (FALSE to enable, TRUE to disable). It's weird but it's like
+      // it is. Ask merlinofchaos, not me.
+      $enable_function(NULL, FALSE);
+    }
+  }
+}
+
+/**
+ * Returns the function that should be used to enable a specific page manager page.
+ *
+ * @return String|Null The name of the function that needs to be used to enable
+ *   a specific panel page, or NULL if there's no such function defined.
+ */
+function corp_deploy_page_manager_task_enable_function($page_manager_task) {
+  $page_manager_task_functions = array(
+    'node_view' => 'page_manager_node_view_enable',
+    'user_view' => 'page_manager_user_view_enable',
+    'term_view' => 'page_manager_term_view_enable',
+    'myworkbench' => 'page_manager_myworkbench_enable',
+  );
+
+  if (isset($page_manager_task_functions[$page_manager_task])) {
+    return $page_manager_task_functions[$page_manager_task];
+  }
+  return NULL;
+}

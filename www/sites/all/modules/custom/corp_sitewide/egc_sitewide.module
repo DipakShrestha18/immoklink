@@ -1,0 +1,135 @@
+<?php
+/**
+ * @file
+ * MWT Sitewide.
+ * Exported panels layouts, pages, content-types and mini panels that are used
+ * across the whole site.
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function corp_sitewide_ctools_plugin_api($module, $api) {
+  if ($module == 'panels' && $api == 'styles') {
+    return array('version' => 2.0);
+  }
+  // This module exposes exported panels pages.
+  if ($module == 'page_manager' && $api == 'pages_default') {
+    return array('version' => 1);
+  }
+  // This is for mini panels.
+  if ($module == "panels_mini" && $api == "panels_default") {
+    return array("version" => "1");
+  }
+  // Now for pm_existing_pages pages.
+  if ($module == 'pm_existing_pages' && $api == 'pm_existing_pages') {
+    return array('version' => 1);
+  }
+  if ($module == "ctools_custom_content" && $api == "ctools_content") {
+    return array("version" => "1");
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory()
+ */
+function corp_sitewide_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'page_manager' || $module == 'panels' || $module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_default_page_manager_pages().
+ */
+function corp_sitewide_default_page_manager_pages() {
+  // A page manager page is a custom page, built using panels, which has its
+  // own discrete menu path.
+  $pages = array();
+  $module = 'corp_sitewide';
+  $path = drupal_get_path('module', $module) . '/plugins/page_manager_pages';
+  foreach (glob("{$path}/*.inc") as $file) {
+    include($file);
+    $pages[$page->name] = $page;
+  }
+  return $pages;
+}
+
+/**
+ * Implements hook_default_page_manager_handlers().
+ */
+function corp_sitewide_default_page_manager_handlers() {
+  // A page manager handler is an override to an existing page manager task:
+  // For example: a custom panel page for the node-view page.
+  $handlers = array();
+  $module = 'corp_sitewide';
+  $path = drupal_get_path('module', $module) . '/plugins/page_manager_handlers';
+  foreach (glob("{$path}/*.inc") as $file) {
+    include($file);
+    $handlers[] = $handler;
+  }
+  return $handlers;
+}
+
+/**
+ * Implementation of hook_default_panels_mini().
+ */
+function corp_sitewide_default_panels_mini() {
+  $minis = array();
+  $module = 'corp_sitewide';
+  $path = drupal_get_path('module', $module) . '/plugins/panels_mini';
+  foreach (glob("{$path}/*.inc") as $file) {
+    include($file);
+    $minis[$mini->name] = $mini;
+  }
+  return $minis;
+}
+
+/**
+ * Implementation of hook_default_ctools_custom_content().
+ */
+function corp_sitewide_default_ctools_custom_content() {
+  $content_panes = array();
+  $module = 'corp_sitewide';
+  $path = drupal_get_path('module', $module) . '/plugins/content_panes';
+  foreach (glob("{$path}/*.inc") as $file) {
+    include($file);
+    $content_panes[$content->name] = $content;
+  }
+  return $content_panes;
+}
+
+/**
+ * Implements hook_ctools_content_subtype_alter().
+ */
+function corp_sitewide_ctools_content_subtype_alter(&$subtype, &$plugin) {
+  // Panels UI is bugged. Use a custom icon for Mini panels, so they are easily
+  // spotted in the UI.
+  if ($plugin['module'] == 'panels_mini') {
+    $plugin['icon'] = $subtype['icon'] = drupal_get_path('module', 'corp_sitewide') . '/images/mini_panel_icon.png';
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function corp_sitewide_views_api() {
+  return array(
+    'api' => '3.0',
+  );
+}
+
+/**
+ * Implements hook_views_default_views().
+ */
+function corp_sitewide_views_default_views() {
+  $files = file_scan_directory(drupal_get_path('module', 'corp_sitewide') . '/plugins/views', '/inc$/', array('key' => 'filename', 'recurse' => FALSE));
+  $views = array();
+  if (!empty($files)) {
+    foreach ($files as $file) {
+      @include ($file->uri);
+      $views[$view->name] = $view;
+    }
+  }
+  return $views;
+}

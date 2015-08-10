@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Corporate Site deploy module.
+ * This install file contains hook_update_n handlers to script automated
+ * deployed updates.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function corp_deploy_install() {
+  corp_deploy_module_disable();
+  corp_deploy_module_enable();
+  corp_deploy_wysiwyg_settings();
+  corp_deploy_set_theme();
+  corp_deploy_features();
+  corp_deploy_panel_pages_enable();
+  secure_permissions_rebuild();
+}
+
+///**
+// * Information about what the hook is doing.
+// */
+//function corp_deploy_update_7001() {
+//}
