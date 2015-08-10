@@ -1,2 +1,2 @@
 # corporate
-Repo for the Wellcome Trust corporate site
+Repo for the Immoklink site
