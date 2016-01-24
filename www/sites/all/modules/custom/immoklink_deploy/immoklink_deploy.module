@@ -114,7 +114,13 @@ function immoklink_deploy_module_enable() {
     'immoklink_sitewide',
     // GA  & SEO
     'googleanalytics',
-    'eu_cookie_compliance'
+    'eu_cookie_compliance',
+    'metatag',
+    'link',
+    'views_bulk_operations',
+    'token',
+    'entityreference_autocomplete',
+    'chosen',
   );
 
   foreach ($enable as $module) {

@@ -20,8 +20,17 @@ function immoklink_deploy_install() {
   secure_permissions_rebuild();
 }
 
-///**
-// * Information about what the hook is doing.
-// */
-//function immoklink_deploy_update_7001() {
-//}
+/**
+ * Enable metatag module.
+ */
+function immoklink_deploy_update_7001() {
+  module_enable(array(
+    'metatag',
+    'link',
+    'views_bulk_operations',
+    'entityreference_prepopulate',
+    'token',
+    'entityreference_autocomplete',
+    'chosen',
+  ));
+}
