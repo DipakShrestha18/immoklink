@@ -20,6 +20,9 @@ function immoklink_deploy_install() {
   secure_permissions_rebuild();
 }
 
+//Module not to update
+//wysiwyg
+
 /**
  * Enable metatag module.
  */
@@ -32,5 +35,6 @@ function immoklink_deploy_update_7001() {
     'token',
     'entityreference_autocomplete',
     'chosen',
+    'ckeditor',
   ));
 }

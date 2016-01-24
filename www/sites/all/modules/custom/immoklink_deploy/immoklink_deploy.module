@@ -121,6 +121,7 @@ function immoklink_deploy_module_enable() {
     'token',
     'entityreference_autocomplete',
     'chosen',
+    'ckeditor',
   );
 
   foreach ($enable as $module) {
