@@ -47,8 +47,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = yes">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <?php print $styles; ?>
-    <?php print $scripts; ?>
+
+  <link rel="stylesheet" type="text/css" href="/sites/all/themes/immoklink_base/css/screen_styles.css" />
+  <link rel="stylesheet" type="text/css" href="/sites/all/themes/immoklink_base/css/screen_layout_large.css" />
+  <link rel="stylesheet" type="text/css" media="only screen and (min-width:50px) and (max-width:500px)" href="/sites/all/themes/immoklink_base/css/screen_layout_small.css" />
+  <link rel="stylesheet" type="text/css" media="only screen and (min-width:501px) and (max-width:800px)" href="/sites/all/themes/immoklink_base/css/screen_layout_medium.css" />
+
+  <?php print $styles; ?>
+  <?php print $scripts; ?>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
     <script>
       (function flagSVG() {
         var ns = {'svg': 'http://www.w3.org/2000/svg'};
@@ -61,7 +70,6 @@
     <div id="skip-link">
       <a href="#main" class="element-invisible element-focusable" role="link"><?php print t('Skip to main content'); ?></a>
     </div>
-  <?php print $breadcrumb; ?>
   <?php print $page_top; ?>
   <?php print $page; ?>
   <?php print $page_bottom; ?>

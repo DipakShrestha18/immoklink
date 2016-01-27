@@ -4,14 +4,16 @@ package = Immoklink
 core = 7.x
 
 ; Stylesheets
-stylesheets[all][] = css/main.css
+;stylesheets[all][] = css/screen_styles.css
+;stylesheets[all][] = css/screen_layout_large.css
+
+;<link rel="stylesheet" type="text/css" media="only screen and (min-width:50px) and (max-width:500px)" href="../css/screen_layout_small.css" />
+;<link rel="stylesheet" type="text/css" media="only screen and (min-width:501px) and (max-width:800px)" href="../css/screen_layout_medium.css" />
 
 ; Scripts
-scripts[] = js/global.js
-scripts[] = js/html5shiv.min.js
-scripts[] = js/modernizr.min.js
-scripts[] = js/selectivizr.min.js
-scripts[] = js/jquery-selectivizr.js
+scripts[] = js/jquery-1.8.3.min.js
+scripts[] = js/farinspace/jquery.imgpreload.min.js
+scripts[] = js/design.js
 
 ; Regions
 ; This *appears* to successfully remove all regions
