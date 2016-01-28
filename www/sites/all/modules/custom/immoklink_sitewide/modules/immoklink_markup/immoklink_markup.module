@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * immoklink_markup module.
+ * Custom Theming functions for Immoklink Project.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function immoklink_markup_theme() {
+  return array(
+    'date_format' => array(
+      'variables' => array('items' => array(), 'type' => array(), 'attributes' => array()),
+    ),
+  );
+}
+
+/**
+ * Theming function for date format.
+ */
+function theme_date_format(&$variables) {
+  $output = '';
+  if (!empty($variables['value'])) {
+    if (is_numeric($variables['value']) && (int) $variables['value'] == $variables['value']) {
+      $timestamp = $variables['value'];
+    } else {
+      $timestamp = strtotime($variables['value']);
+    }
+
+    $date = date('l j F Y', $timestamp);
+    $iso_date = format_date($timestamp, 'custom', 'j F Y');
+    $output .= '<time datetime="' . $iso_date . '">' . $iso_date . '</time>';
+  }
+
+  return $output;
+}
+

@@ -122,6 +122,8 @@ function immoklink_deploy_module_enable() {
     'entityreference_autocomplete',
     'chosen',
     'ckeditor',
+    'media_ckeditor',
+    'immoklink_markup'
   );
 
   foreach ($enable as $module) {
@@ -137,6 +139,8 @@ function immoklink_deploy_module_enable() {
  */
 function immoklink_deploy_features() {
   $enable[] = array(
+    'fimmoklink_news',
+    'fimmoklink_text_formats_and_wysiwyg_profiles',
   );
   foreach ($enable as $group) {
     features_install_modules($group);

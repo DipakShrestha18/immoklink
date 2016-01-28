@@ -1,0 +1,4 @@
+name = Immoklink Markup
+description = "Custom Theming functions"
+package = Immoklink
+core = 7.x

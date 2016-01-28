@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK News feature.
+ */
+
+include_once 'fimmoklink_news.features.inc';

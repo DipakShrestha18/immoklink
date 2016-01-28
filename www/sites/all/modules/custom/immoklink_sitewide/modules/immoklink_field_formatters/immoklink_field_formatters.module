@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * immoklink_field_formatters module.
+ * Field formatters for various field types across the site.
+ */
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function immoklink_field_formatters_field_formatter_info() {
+  return array(
+    'date_format' => array(
+      'label' => t('Date format'),
+      'field types' => array('date', 'datestamp', 'datetime'),
+    )
+  );
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function immoklink_field_formatters_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function immoklink_field_formatters_field_formatter_settings_summary($field, $instance, $view_mode) {
+
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function immoklink_field_formatters_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  $settings = $display['settings'];
+  switch ($display['type']) {
+    case 'date_format':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#markup' => theme('date_format', $item),
+        );
+      }
+      break;
+
+  }
+
+  return $element;
+}

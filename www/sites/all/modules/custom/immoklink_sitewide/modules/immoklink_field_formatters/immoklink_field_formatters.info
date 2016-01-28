@@ -1,0 +1,4 @@
+name = Immoklink Field Formatters
+description = "Field formatters for various field types across the site"
+package = Immoklink
+core = 7.x

@@ -36,5 +36,9 @@ function immoklink_deploy_update_7001() {
     'entityreference_autocomplete',
     'chosen',
     'ckeditor',
+    'media_ckeditor',
+    'immoklink_markup',
+    'fimmoklink_news',
+    'fimmoklink_text_formats_and_wysiwyg_profiles',
   ));
 }

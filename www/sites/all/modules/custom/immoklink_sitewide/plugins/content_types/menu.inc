@@ -11,13 +11,9 @@
 $plugin = array(
   'single' => TRUE,
   'title' => t('Sitewide menu'),
-  // 'icon' => intranet_sitewide_panels_ui_panel_icon_path(),
   'category' => t('Immo Klink'),
   'defaults' => array(),
   'render callback' => 'immoklink_sitewide_menu_content_type_render',
-  'required context' => array(
-    new ctools_context_required(t('User'), 'user'),
-  ),
 );
 
 /**
