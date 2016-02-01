@@ -28,7 +28,7 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
                     <a href="projects.html">Works</a>
                     <a href="fashion.html">Fashion</a>
                     <a href="about.html">Info</a>
-                    <a href="news.html">News</a>';
+                    <a href="news">News</a>';
 
   $block = new stdClass();
   $block->title = '';
