@@ -142,6 +142,8 @@ function immoklink_deploy_features() {
   $enable[] = array(
     'fimmoklink_news',
     'fimmoklink_text_formats_and_wysiwyg_profiles',
+    'fimmoklink_image_config',
+    'fimmoklink_path'
   );
   foreach ($enable as $group) {
     features_install_modules($group);

@@ -41,5 +41,7 @@ function immoklink_deploy_update_7001() {
     'fimmoklink_news',
     'fimmoklink_text_formats_and_wysiwyg_profiles',
     'immoklink_field_formatters',
+    'fimmoklink_image_config',
+    'fimmoklink_path',
   ));
 }

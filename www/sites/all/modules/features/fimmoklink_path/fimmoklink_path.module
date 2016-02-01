@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK Path feature.
+ */
+
+include_once 'fimmoklink_path.features.inc';

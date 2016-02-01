@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK Image Config feature.
+ */
+
+include_once 'fimmoklink_image_config.features.inc';

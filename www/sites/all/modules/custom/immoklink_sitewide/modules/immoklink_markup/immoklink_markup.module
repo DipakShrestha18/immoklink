@@ -14,6 +14,9 @@ function immoklink_markup_theme() {
     'date_format' => array(
       'variables' => array('items' => array(), 'type' => array(), 'attributes' => array()),
     ),
+    'immoklink_news' => array(
+      'variables' => array(),
+    ),
   );
 }
 
@@ -37,3 +40,29 @@ function theme_date_format(&$variables) {
   return $output;
 }
 
+/**
+ * Theming function for news listings.
+ */
+function theme_immoklink_news(&$variables) {
+  $nodes = $variables['node'];
+  $output = '';
+
+  $output .= '<div id="three-columns" class="grid-container" style="display:block;"><ul class="news columns-3">';
+  foreach ($nodes as $node) {
+    $image_path = $node->field_news_image_main[LANGUAGE_NONE][0]['uri'];
+    $image = theme_image_style(array('style_name' => 'listings_image', 'path' => $image_path, 'width' => '', 'height' => '', 'attributes' => array('class' => array('media__image'))));
+    $path = drupal_get_path_alias('node/' . $node->nid);
+
+    $output .= '<li class="media">';
+    $output .= '<a class="hoover" href="' . $path .  '">' . $image .
+                  '<div class="media__body">
+                     <h2>' . $node->title . '</h2>
+                     <p>' . $node->field_news_listing_text[LANGUAGE_NONE][0]['value'] . '</p>
+                   </div>
+                </a>
+                </li>';
+  }
+  $output .= '</ul></div>';
+
+  return $output;
+}

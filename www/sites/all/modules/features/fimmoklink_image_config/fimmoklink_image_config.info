@@ -1,0 +1,8 @@
+name = IMMOKLINK Image Config
+description = Image styles and all config relating to images.
+core = 7.x
+package = Immoklink General Site Configuration
+version = 7.x-1.0
+dependencies[] = image
+features[features_api][] = api:2
+features[image][] = listings_image
