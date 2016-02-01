@@ -123,7 +123,8 @@ function immoklink_deploy_module_enable() {
     'chosen',
     'ckeditor',
     'media_ckeditor',
-    'immoklink_markup'
+    'immoklink_markup',
+    'immoklink_field_formatters',
   );
 
   foreach ($enable as $module) {
