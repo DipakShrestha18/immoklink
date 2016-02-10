@@ -1,0 +1,312 @@
+<?php
+
+/**
+ * Implements hook_field_info().
+ */
+function immoklink_image_field_field_info() {
+  return array(
+    'immoklink_image_field' => array(
+      'label' => t('Immoklink image'),
+      'description' => t("This field stores images and their details."),
+      'settings' => array('allowed_values' => array(), 'allowed_values_function' => ''),
+      'default_widget' => 'immoklink_image_field',
+      'default_formatter' => 'immoklink_image_field',
+      'property_type' => 'immoklink_image_field',
+      'property_callbacks' => array('immoklink_image_field_property_info_callback'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function immoklink_image_field_field_widget_info() {
+  return array(
+    'immoklink_image_field' => array(
+      'label' => t('Image field'),
+      'field types' => array('immoklink_image_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function immoklink_image_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  switch ($instance['widget']['type']) {
+
+    // Compound field for video urls and their preview.
+    case 'immoklink_image_field':
+
+      // The fields to be rendered.
+      $fields = array(
+        'image_fid' => t('Image'),
+        'image_description' => t('Image description'),
+        'video_url' => t('Video url'),
+        'image_caption' => t('Image caption'),
+      );
+
+      // Loop through each field and create the appropriate widget.
+      foreach ($fields as $key => $label) {
+        switch($key) {
+          case 'image_fid':
+            $element[$key] = array(
+              '#type' => 'managed_file',
+              '#upload_location' => 'public://gallery_images',
+              '#progress_indicator' => "bar",
+              '#title' => $label,
+              '#default_value' => isset($items[$delta][$key]) ? $items[$delta][$key] : 0,
+            );
+
+            // Add the validators
+            $supported_extensions = array('png', 'gif', 'jpg', 'jpeg');
+            $element[$key]['#upload_validators']['file_validate_extensions'][0] = implode(' ', $supported_extensions);
+            break;
+          case 'image_description':
+            $element[$key] = array(
+              '#type' => 'textfield',
+              '#title' => $label,
+              '#default_value' => isset($items[$delta][$key]) ? $items[$delta][$key] : '',
+            );
+            break;
+          case 'video_url':
+            $element[$key] = array(
+              '#type' => 'textfield',
+              '#title' => $label,
+              '#default_value' => isset($items[$delta][$key]) ? $items[$delta][$key] : '',
+            );
+            break;
+          case 'image_caption':
+            $element[$key] = array(
+              '#type' => 'textarea',
+              '#title' => $label,
+              '#default_value' => isset($items[$delta][$key]) ? $items[$delta][$key] : '',
+            );
+            break;
+          default:
+            break;
+        }
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_validate().
+ */
+function immoklink_image_field_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  global $user;
+
+  if ($field['type'] == 'immoklink_image_field') {
+    foreach ($items as $delta => $item) {
+
+      // Check if we have an image, if we do make it permanent.
+      if (!empty($item['image_fid'])) {
+        $file = file_load($item['image_fid']);
+
+        // Change status to permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+
+        // Save.
+        file_save($file);
+
+        // Record that the module is using the file.
+        file_usage_add($file, 'immoklink_image_field', 'general', $user->uid);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function immoklink_image_field_field_formatter_info() {
+  return array(
+    'immoklink_image_field' => array(
+      'label' => t('Image'),
+      'field types' => array('immoklink_image_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function immoklink_image_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  $node = menu_get_object();
+
+  if (!empty($node)) {
+    switch ($display['type']) {
+      case 'immoklink_image_field':
+
+        // Theme items.
+        foreach ($items as $key => $item) {
+          $image = array(
+            'image_description' => $node->title . ' ' . t('image') . ' ' . ($key + 1),
+            'video_url' => $item['video_url'],
+            'image_caption' => $item['image_caption'],
+          );
+
+          // Add preview if available.
+          if (!empty($item['image_fid'])) {
+            $image['image_id'] = immoklink_helpers_get_full_path($item['image_fid']);
+          }
+
+          $element[$key] = array('#markup' => theme('immoklink_image_field', $image));
+        }
+        break;
+    }
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function immoklink_image_field_theme($existing, $type, $theme, $path) {
+  return array(
+    'immoklink_image_field' => array(
+      'variables' => array('items' => array(), 'type' => 'ul', 'attributes' => array()),
+    ),
+  );
+}
+
+/**
+ * @param $variables
+ * @return string
+ */
+function theme_immoklink_image_field(&$variables) {
+//  dpm($variables);
+//
+//  $path = drupal_get_path('theme', 'immoklink_base') . '/images';
+//  $output = '';
+//  $output .= '<div class="content slides"><div class="slide-wrap"><ul class="slide-list init" id="slide-list">';
+//  $output .= '<li class="slide slide0 init-on-load" data-slide="0">';
+//  $output .= $variables['image_id'];
+//  $output .= '<div class="share-overlay"><div class="icon-wrap">';
+//  $output .= '<a class="no-state" href="https://twitter.com/share?text=Immo+Klink&url=http://immoklink.com/site/history/biography/" target="_blank">';
+//  $output .= '<img src="' . $path . '/twitter-bird.png"></a>';
+//  $output .= '<a class="no-state" href="http://www.facebook.com/sharer.php?t=Immo+klink&u=http://immoklink.com/site/history/biography/" target="_blank">';
+//  $output .= '<img src="' . $path . '/facebook_logo.png"></a>';
+//  $output .= '<p class="overlay-text">' . $variables['image_description'] . '</p>';
+//  $output .= '</div></div>';
+//  $output .= '<div class="caption">' . $variables['image_caption'] . '</div>';
+//  $output .= '</li>';
+//  $output .= '</ul></div></div>';
+  $output = "<div class='content slides'>
+        <div class='slide-wrap'>
+            <ul class='slide-list init' id='slide-list'>li
+                <li class='slide slide0 init-on-load' data-slide='0'>hello helo1
+                    <img class='slide-img' src=
+                    'http://immoklink.site/sites/default/files/gallery_images/11Miner%27sDaughter-3254.jpg'>
+                    <div class='share-overlay'>
+                         <div class='icon-wrap'>
+                            <a class='no-state' href=
+                            'https://twitter.com/share?text=Immo+Klink&url=http://immoklink.com/site/history/biography/'
+                            target='_blank'>
+                            <img src='../images/assets/twitter-bird.png'></a>
+                            <a class='no-state' href=
+                            'http://www.facebook.com/sharer.php?t=Immo+klink&u=http://immoklink.com/site/history/biography/'
+                            target='_blank'>
+                            <img src='../images/assets/facebook_logo.png'></a>
+                            <p class='overlay-text'>simply dummy </p>
+                        </div>
+                    </div>
+                </li>
+                <li class='slide slide1 init-on-load'
+                data-slide='1'>
+                    <img class='slide-img' src=
+                    'http://immoklink.site/sites/default/files/gallery_images/11Miner%27sDaughter-3254.jpg'>
+                    <div class='share-overlay'>
+                        <div class='icon-wrap'>
+                            <a class='no-state' href=
+                            'https://twitter.com/share?text=Immo+Klink&url=http://immoklink.com/site/history/biography/'
+                            target='_blank'>
+                            <img src='../images/assets/twitter-bird.png'></a>
+                            <a class='no-state' href=
+                            'http://www.facebook.com/sharer.php?t=Immo+klink&u=http://immoklink.com/site/history/biography/'
+                            target='_blank'>
+                            <img src='../images/assets/facebook_logo.png'></a>
+                            <p class='overlay-text'>Lorem Ipsum is simply dummy</p>
+                        </div>
+                    </div>
+                </li></ul></div></div>";
+
+  return $output;
+}
+
+/**
+ * @param $fid
+ * @return bool|mixed|\stdClass|string
+ */
+function immoklink_helpers_get_full_path($fid) {
+  $file = file_load($fid);
+  $image = image_load($file->uri);
+  $content = array(
+    'file' => array(
+      '#theme' => 'image_style',
+      '#style_name' => 'gallery_images',
+      '#path' => $image->source,
+      '#width' => $image->info['width'],
+      '#height' => $image->info['height'],
+    ),
+  );
+  $image = drupal_render($content);
+  $image = (string)$image;
+  $image = str_replace('/styles/gallery_images/public', '', $image);
+  return $image;
+}
+
+
+/**
+ * Custom callback function for metadata.
+ *
+ * @param $info
+ * @param $entity_type
+ * @param $field
+ * @param $instance
+ * @param $field_type
+ */
+function immoklink_image_field_property_info_callback(&$info, $entity_type, $field, $instance, $field_type) {
+  $property = &$info[$entity_type]['bundles'][$instance['bundle']]['properties'][$field['field_name']];
+
+  $property['getter callback'] = 'entity_metadata_field_verbatim_get';
+  $property['setter callback'] = 'entity_metadata_field_verbatim_set';
+
+  unset($property['query callback']);
+
+  $property['property info']['image_fid'] = array(
+    'type' => 'text',
+    'label' => t('Image fid'),
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $property['property info']['image_description'] = array(
+    'type' => 'text',
+    'label' => t('Image description'),
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $property['property info']['video_url'] = array(
+    'type' => 'text',
+    'label' => t('Video URL'),
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $property['property info']['image_caption'] = array(
+    'type' => 'text',
+    'label' => t('Image caption'),
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function immoklink_image_field_field_is_empty($item, $field) {
+  if ($field['type'] == 'immoklink_image_field') {
+    return empty($item['image_fid']);
+  }
+}
+

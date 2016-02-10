@@ -1,0 +1,4 @@
+name = Immoklink Custom Fields for image
+description = Contains the image compound field.
+package = Immoklink
+core = 7.x

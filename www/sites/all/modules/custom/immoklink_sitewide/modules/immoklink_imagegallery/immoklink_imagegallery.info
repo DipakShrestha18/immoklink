@@ -1,0 +1,23 @@
+name = Immoklink Image Gallery Entity
+description = Module for adding image gallery entities
+package = Immoklink
+core = 7.x
+
+dependencies[] = entity
+dependencies[] = ctools
+dependencies[] = panels
+dependencies[] = views
+dependencies[] = features
+
+; Entity API Classes
+files[] = includes/entity_classes/immoklink_imagegallery.classes.inc
+files[] = includes/entity_classes/immoklink_imagegallery.inline_entity_form.inc
+
+; Entity API Controllers
+files[] = includes/entity_controllers/immoklink_imagegallery.controllers.inc
+
+; Views Controllers
+files[] = includes/views_controllers/immoklink_imagegallery.views.inc
+
+; Views Includes
+files[] = includes/views/immoklink_imagegallery.views._default.inc

@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the immoklink_imagegallery module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function immoklink_imagegallery_install() {}
+
+/**
+ * Implements hook_schema().
+ */
+function immoklink_imagegallery_schema() {
+  // immoklink Image gallery table.
+  $schema['immoklink_imagegallery'] = array(
+    'description' => 'Stores Image gallery entity information.',
+    'fields' => array(
+      'imagegallery_id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique Image gallery Entity ID.',
+      ),
+      'title' => array(
+        'description' => 'The title of the Image gallery Entity.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => 'Unix timestamp of when the Image gallery entity was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updated' => array(
+        'description' => 'Unix timestamp of when the Image gallery entity was modified.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'revision_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => 'The ID of the entity\'s default revision.',
+      ),
+    ),
+    'primary key' => array('imagegallery_id'),
+    'foreign keys' => array(),
+  );
+
+  $schema['immoklink_imagegallery_revision'] = array(
+    'description' => 'Stores image gallery entity information.',
+    'fields' => array(
+      'imagegallery_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => 'The ID of the attached entity.',
+      ),
+      'title' => array(
+        'description' => 'The title of the Image gallery Entity.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => 'Unix timestamp of when the Image gallery entity was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updated' => array(
+        'description' => 'Unix timestamp of when the Image gallery entity was modified.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'revision_id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique revision ID.',
+      ),
+    ),
+    'primary key' => array('revision_id'),
+    'foreign keys' => array(),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function immoklink_imagegallery_uninstall() {}

@@ -1,0 +1,52 @@
+<?php
+/**
+ * @file
+ *  This file contains the schema for the image fields module.
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function immoklink_image_field_field_schema($field) {
+  return array(
+    'columns' => array(
+      'id' => array(
+        'description' => 'The primary identifier for a image.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'image_fid' => array(
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'image_description' => array(
+        'type' => 'varchar',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
+      'video_url' => array(
+        'type' => 'varchar',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
+      'image_caption' => array(
+        'type' => 'varchar',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
+    ),
+
+    'indexes' => array(
+      'id' => array('id'),
+    ),
+    'foreign keys' => array(
+      'image_fid' => array(
+        'table' => 'file_managed',
+        'columns' => array('fid' => 'image_fid'),
+      ),
+    ),
+  );
+}

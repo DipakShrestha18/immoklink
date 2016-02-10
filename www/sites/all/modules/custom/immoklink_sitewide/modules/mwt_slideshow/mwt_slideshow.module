@@ -1,0 +1,327 @@
+<?php
+
+/**
+ * @file
+ * mwt slideshow module.
+ * Logic and Controllers for the MWT Slideshow Entity.
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function mwt_slideshow_entity_info() {
+   // MWT slideshow Entity
+  $items['mwt_slideshow'] = array(
+    'label' => t('Slideshow'),
+    'controller class' => 'MWTSlideshowController',
+    'entity class' => 'MWTSlideshow',
+    'base table' => 'mwt_slideshow',
+    'revision table' => 'mwt_slideshow_revision',
+    'fieldable' => TRUE,
+    'access callback' => 'mwt_slideshow_access',
+    'entity keys' => array(
+      'id' => 'slideshow_id',
+      'label' => 'title',
+      'revision' => 'revision_id',
+    ),
+    'bundles' => array(
+      'mwt_slideshow' => array(
+        'label' => t('Slideshow'),
+        'admin' => array(
+          'path' => 'admin/structure/slideshow',
+          'access arguments' => array('administer slideshow entity'),
+        ),
+      ),
+    ),
+    'inline entity form' => array(
+      'controller' => 'SlideshowInlineEntityFormController',
+    ),
+    'uri callback' => 'entity_class_uri',
+    'module' => 'mwt_slideshow',
+    'views controller class' => 'MWTSlideshowViewsController',
+    'entity cache' => module_exists('entitycache'),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function mwt_slideshow_menu() {
+  $items['admin/structure/slideshow'] = array(
+    'title' => 'Administer slideshow',
+    'access arguments' => array('administer slideshow entity'),
+  );
+
+  $items['admin/content/slideshows'] = array(
+    'title' => 'Slideshows',
+    'description' => 'Add, edit and delete slideshows.',
+    'page callback' => 'mwt_slideshow_overview',
+    'access arguments' => array('administer slideshow entity'),
+    'file' => 'mwt_slideshow.admin.inc',
+    'weight' => 105,
+  );
+
+  $items['slideshow/add'] = array(
+    'title' => 'Add slideshow',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mwt_slideshow_ui_form'),
+    'access arguments' => array('administer slideshow entity'),
+    'type' => MENU_LOCAL_ACTION,
+    'file' => 'mwt_slideshow.admin.inc',
+  );
+
+  $items['slideshow/%mwt_slideshow/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 0,
+  );
+
+  $items['slideshow/%mwt_slideshow/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mwt_slideshow_ui_form', 1),
+    'access arguments' => array('administer slideshow entity'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+    'file' => 'mwt_slideshow.admin.inc',
+  );
+
+  $items['slideshow/%mwt_slideshow/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mwt_slideshow_confirm_delete_form', 1),
+    'access arguments' => array('administer slideshow entity'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 2,
+    'file' => 'mwt_slideshow.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function mwt_slideshow_admin_paths() {
+  if (variable_get('node_admin_theme')) {
+    $paths = array(
+      'slideshow/*/edit' => TRUE,
+      'slideshow/*/delete' => TRUE,
+      'slideshow/*/revisions' => TRUE,
+      'slideshow/add' => TRUE,
+      'slideshow/add/*' => TRUE,
+    );
+    return $paths;
+  }
+}
+
+/**
+ * Access callback for the MWT Slideshow Entity.
+ */
+function mwt_slideshow_access($op, $entity, $account = NULL, $entity_type = '') {
+  // TODO: Implement this.
+  return TRUE;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function mwt_slideshow_permission() {
+  return array(
+    'administer slideshow entity' =>  array(
+      'title' => t('Administer Slideshow Entity'),
+      'description' => t('Perform administration tasks on Slideshow Entity.'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function mwt_slideshow_views_api() {
+  return array(
+    'api' => '3.0',
+    'path' => drupal_get_path('module', 'mwt_slideshow') . '/includes/views',
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function mwt_slideshow_ctools_plugin_api($module, $api) {
+  if ($module == 'page_manager' && $api == 'pages_default') {
+    return array('version' => 1);
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory()
+ */
+function mwt_slideshow_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'page_manager' || $module == 'panels' || $module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function mwt_slideshow_field_formatter_info() {
+  return array (
+    'slideshow_rendering' => array(
+      'label' => t('Slideshow rendering'),
+      'field types' => array('entityreference'),
+    ),
+    'slideshow_image' => array(
+      'label' => t('Slideshow image'),
+      'field types' => array('image'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function mwt_slideshow_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = '';
+  switch ($display['type']) {
+    case 'slideshow_rendering':
+      foreach ($items as $delta => $item) {
+        $slideshow = MWTSlideshow::load($item['target_id']);
+        $vars = array();
+        if (isset($slideshow)) {
+          $vars = $slideshow->field_slideshow_image;
+          $vars['title'] = $slideshow->title;
+          $vars['id'] = $slideshow->slideshow_id;
+          if (isset($slideshow->field_imagecredit[LANGUAGE_NONE])) {
+            $vars['imagecredit'] = $slideshow->field_imagecredit[LANGUAGE_NONE][0]['value'];
+          }
+          if (isset($slideshow->field_licensing_information[LANGUAGE_NONE])) {
+            $vars['licensing'] = $slideshow->field_licensing_information[LANGUAGE_NONE][0]['value'];
+          }
+        }
+
+        $element[$delta] = array(
+          '#markup' => theme('slideshow_rendering', $vars),
+        );
+      }
+      break;
+    case 'slideshow_image':
+      foreach ($items as $delta => $item) {
+        $item['delta'] = $delta;
+        $element[$delta] = array(
+          '#markup' => theme('slideshow_image', $item),
+        );
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mwt_slideshow_theme() {
+  return array(
+    'slideshow_rendering' => array(
+      'variables' => array('items' => array(), 'type' => array(), 'attributes' => array()),
+    ),
+    'slideshow_image' => array(
+      'variables' => array('items' => array(), 'type' => array(), 'attributes' => array()),
+    ),
+  );
+}
+
+function theme_slideshow_rendering($variables) {
+  $output = '<div class="royalslider-container slideshow-' . $variables['id'] . '">
+		<div class="royalSlider rsMosaic">';
+  foreach ($variables[LANGUAGE_NONE] as $delta => $image) {
+    dpm($image);
+    if (isset($variables['imagecredit'])) {
+      $image['field_imagecredit'][LANGUAGE_NONE][0]['value'] = $variables['imagecredit'];
+    }
+    if (isset($variables['licensing'])) {
+      $image['field_licensing_information'][LANGUAGE_NONE][0]['value'] = $variables['licensing'];
+    }
+    $image['delta'] = $delta;
+    $output .= theme('slideshow_image', $image);
+  }
+  $output .= '</div>';
+  $output .= '</div>';
+  $output .= l($variables['title'] . ' slideshow', '#', array('attributes' => array('class' => 'slideshow-link')));
+  return $output;
+}
+
+/**
+ * Theming function for home page images.
+ */
+function theme_slideshow_image($image) {
+ // dpm($image);
+  $output = '';
+  // Get image file uri.
+  $image_file_uri = $image['uri'];
+  $output .= '<img src="' . drupal_realpath($image_file_uri) . '"/>';
+
+
+  // Get path to the different image styles we need.
+  $data_large = image_style_url('fullscreen', $image_file_uri);
+  $default_img = image_style_url('slideshow', $image_file_uri);
+  $data_alt = isset($image['alt']) ? $image['alt'] : '';
+
+  $output .= '<figure class="slideshowimage-' . $image['delta'] . '">
+				<a class="rsImg" data-rsBigImg="' . $data_large . '" href="' . $default_img . '">
+					<noscript>
+						<img src="' . $default_img . '" alt="' . $data_alt . '">
+					</noscript>
+				</a>';
+  $strip_html = array('<p>', '</p>');
+  $output .= '<div class="rsCaption">';
+  $label = '';
+  if (isset($image['field_licensing_information'][LANGUAGE_NONE]) && $image['field_licensing_information'][LANGUAGE_NONE][0]['value'] !== "Someone else's copyright") {
+    $label = '<a href="http://creativecommons.org/licenses/by/4.0/">' . $image['field_licensing_information'][LANGUAGE_NONE][0]['value'] . '</a>: ';
+  }
+  if (isset($image['field_imagecredit'][LANGUAGE_NONE])) {
+    $output .= '<p class="image-credit">' . $label . str_replace($strip_html,'', $image['field_imagecredit'][LANGUAGE_NONE][0]['value']) . '</p>';
+  }
+  if (isset($image['field_imagecaption'][LANGUAGE_NONE])) {
+    $output .= '<p class="image-caption">' . str_replace($strip_html, '', $image['field_imagecaption'][LANGUAGE_NONE][0]['value']) . '</p>';
+  }
+	$output .= '</div></figure>';
+  return $output;
+}
+
+/**
+ * Load function for returning slideshows.
+ */
+function mwt_slideshow_load($slideshow_id) {
+  return MWTSlideshow::load($slideshow_id);
+}
+
+/**
+ * Implement hook_views_data_alter().
+ */
+function mwt_slideshow_views_data_alter(&$data) {
+  $data['file_usage']['table']['join']['slideshow'] = array(
+    'field' => 'id',
+    'left_field' => 'slideshow_id',
+    'extra' => array(array('field' => 'type', 'value' => 'mwt_slideshow')),
+  );
+  $data['file_usage']['file_to_slideshow'] = array(
+    'title' => t('Slideshow'),
+    'help' => t('Slideshow that is associated with this file, usually because this file is in the slideshow.'),
+    // Only provide this field/relationship/etc. when the 'file_managed' base table is present.
+    'skip base' => array('node', 'node_revision', 'users', 'comment', 'taxonomy_term_data', 'taxonomy_vocabulary'),
+    'real field' => 'id',
+    'relationship' => array(
+      'title' => t('Slideshow'),
+      'label' => t('Slideshow'),
+      'base' => 'mwt_slideshow',
+      'base field' => 'slideshow_id',
+      'relationship field' => 'id',
+      'extra' => array(array('table' => 'file_usage', 'field' => 'type', 'operator' => '=', 'value' => 'mwt_slideshow')),
+    ),
+  );
+}

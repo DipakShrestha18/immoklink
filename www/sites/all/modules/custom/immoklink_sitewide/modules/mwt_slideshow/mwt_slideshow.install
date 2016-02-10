@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the mwt_slideshow module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function mwt_slideshow_install() {}
+
+/**
+ * Implements hook_schema().
+ */
+function mwt_slideshow_schema() {
+  // MWT Slideshow table.
+  $schema['mwt_slideshow'] = array(
+    'description' => 'Stores Slideshow entity information.',
+    'fields' => array(
+      'slideshow_id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique Slideshow Entity ID.',
+      ),
+      'title' => array(
+        'description' => 'The title of the Slideshow Entity.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => 'Unix timestamp of when the slideshow entity was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updated' => array(
+        'description' => 'Unix timestamp of when the slideshow entity was modified.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'revision_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => 'The ID of the entity\'s default revision.',
+      ),
+    ),
+    'primary key' => array('slideshow_id'),
+    'foreign keys' => array(),
+  );
+
+  $schema['mwt_slideshow_revision'] = array(
+    'description' => 'Stores Slideshow entity information.',
+    'fields' => array(
+      'slideshow_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => 'The ID of the attached entity.',
+      ),
+      'title' => array(
+        'description' => 'The title of the Slideshow Entity.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => 'Unix timestamp of when the slideshow entity was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updated' => array(
+        'description' => 'Unix timestamp of when the slideshow entity was modified.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'revision_id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique revision ID.',
+      ),
+    ),
+    'primary key' => array('revision_id'),
+    'foreign keys' => array(),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function mwt_slideshow_uninstall() {}

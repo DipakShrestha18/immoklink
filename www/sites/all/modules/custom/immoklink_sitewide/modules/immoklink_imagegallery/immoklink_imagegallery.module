@@ -1,0 +1,315 @@
+<?php
+
+/**
+ * @file
+ * immoklink image gallery module.
+ * Logic and Controllers for the immoklink Image Gallery Entity.
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function immoklink_imagegallery_entity_info() {
+  $items['immoklink_imagegallery'] = array(
+    'label' => t('Image gallery'),
+    'controller class' => 'immoklinkImagegalleryController',
+    'entity class' => 'immoklinkImagegallery',
+    'base table' => 'immoklink_imagegallery',
+    'revision table' => 'immoklink_imagegallery_revision',
+    'fieldable' => TRUE,
+    'access callback' => 'immoklink_imagegallery_access',
+    'entity keys' => array(
+      'id' => 'imagegallery_id',
+      'label' => 'title',
+      'revision' => 'revision_id',
+    ),
+    'bundles' => array(
+      'immoklink_imagegallery' => array(
+        'label' => t('Image gallery'),
+        'admin' => array(
+          'path' => 'admin/structure/imagegallery',
+          'access arguments' => array('administer imagegallery entity'),
+        ),
+      ),
+    ),
+    'inline entity form' => array(
+      'controller' => 'immoklinkImagegalleryInlineEntityFormController',
+    ),
+    'uri callback' => 'entity_class_uri',
+    'module' => 'immoklink_imagegallery',
+    'views controller class' => 'immoklinkImagegalleryViewsController',
+    'entity cache' => module_exists('entitycache'),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function immoklink_imagegallery_menu() {
+  $items['admin/structure/imagegallery'] = array(
+    'title' => 'Administer imagegallery',
+    'access arguments' => array('administer imagegallery entity'),
+  );
+
+    $items['admin/content/imagegalleries'] = array(
+    'title' => 'Image galleries',
+    'description' => 'Add, edit and delete Image galleries.',
+    'page callback' => 'immoklink_imagegallery_overview',
+    'access arguments' => array('administer imagegallery entity'),
+    'file' => 'immoklink_imagegallery.admin.inc',
+    'weight' => 105,
+  );
+
+  $items['imagegallery/add'] = array(
+    'title' => 'Add Image gallery',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('immoklink_imagegallery_ui_form'),
+    'access arguments' => array('administer imagegallery entity'),
+    'type' => MENU_LOCAL_ACTION,
+    'file' => 'immoklink_imagegallery.admin.inc',
+  );
+
+  $items['imagegallery/%immoklink_imagegallery/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 0,
+  );
+
+  $items['imagegallery/%immoklink_imagegallery/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('immoklink_imagegallery_ui_form', 1),
+    'access arguments' => array('administer imagegallery entity'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+    'file' => 'immoklink_imagegallery.admin.inc',
+  );
+
+  $items['imagegallery/%immoklink_imagegallery/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('immoklink_imagegallery_confirm_delete_form', 1),
+    'access arguments' => array('administer imagegallery entity'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 2,
+    'file' => 'immoklink_imagegallery.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function immoklink_imagegallery_admin_paths() {
+  if (variable_get('node_admin_theme')) {
+    $paths = array(
+      'imagegallery/*/edit' => TRUE,
+      'imagegallery/*/delete' => TRUE,
+      'imagegallery/*/revisions' => TRUE,
+      'imagegallery/add' => TRUE,
+      'imagegallery/add/*' => TRUE,
+    );
+    return $paths;
+  }
+}
+
+/**
+ * Access callback for the immoklink Imagegallery Entity.
+ */
+function immoklink_imagegallery_access($op, $entity, $account = NULL, $entity_type = '') {
+  // TODO: Implement this.
+  return TRUE;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function immoklink_imagegallery_permission() {
+  return array(
+    'administer imagegallery entity' =>  array(
+      'title' => t('Administer Image gallery Entity'),
+      'description' => t('Perform administration tasks on Image gallery Entity.'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function immoklink_imagegallery_views_api() {
+  return array(
+    'api' => '3.0',
+    'path' => drupal_get_path('module', 'immoklink_imagegallery') . '/includes/views',
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function immoklink_imagegallery_ctools_plugin_api($module, $api) {
+  if ($module == 'page_manager' && $api == 'pages_default') {
+    return array('version' => 1);
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory()
+ */
+function immoklink_imagegallery_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'page_manager' || $module == 'panels' || $module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function immoklink_imagegallery_field_formatter_info() {
+  return array (
+    'imagegallery_rendering' => array(
+      'label' => t('Image gallery rendering'),
+      'field types' => array('entityreference'),
+    ),
+    'imagegallery_image' => array(
+      'label' => t('Image gallery image'),
+      'field types' => array('image'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function immoklink_imagegallery_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = '';
+  switch ($display['type']) {
+    case 'imagegallery_rendering':
+      foreach ($items as $delta => $item) {
+        $imagegallery = immoklinkImagegallery::load($item['target_id']);
+        $vars = array();
+        if (isset($imagegallery)) {
+          $vars = $imagegallery->field_imagegallery_image;
+          $vars['title'] = $imagegallery->title;
+          $vars['id'] = $imagegallery->imagegallery_id;
+        }
+
+        $element[$delta] = array(
+          '#markup' => theme('imagegallery_rendering', $vars),
+        );
+      }
+      break;
+    case 'imagegallery_image':
+      foreach ($items as $delta => $item) {
+        $item['delta'] = $delta;
+        $element[$delta] = array(
+          '#markup' => theme('imagegallery_image', $item),
+        );
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function immoklink_imagegallery_theme() {
+  return array(
+    'imagegallery_rendering' => array(
+      'variables' => array('items' => array(), 'type' => array(), 'attributes' => array()),
+    ),
+    'imagegallery_image' => array(
+      'variables' => array('items' => array(), 'type' => array(), 'attributes' => array()),
+    ),
+  );
+}
+
+/**
+ * Theming function for rendering image galleries.
+ */
+function theme_imagegallery_rendering($variables) {
+  $output = '<section class="gallery ui-accordion ui-widget ui-helper-reset imagegallery-' . $variables['id'] . '">';
+  foreach ($variables[LANGUAGE_NONE] as $delta => $image) {
+    $image['delta'] = $delta;
+    $output .= theme('imagegallery_image', $image);
+  }
+  $output .= '</section>';
+
+  return $output;
+}
+
+/**
+ * Theming function for home page images.
+ */
+function theme_imagegallery_image($image) {
+  $output = '';
+  // Get image file uri.
+  $image_file_uri = $image['uri'];
+  // Get path to the different image styles we need.
+  $data_large = image_style_url('gallery_large', $image_file_uri);
+  $data_medium = image_style_url('gallery_medium', $image_file_uri);
+  $data_small = image_style_url('gallery_small', $image_file_uri);
+  $data_alt = isset($image['alt']) ? $image['alt'] : '';
+  $delta = $image['delta'];
+  $title = $image['delta'] + 1 . '. ';
+  $title .= isset($image['field_image_title'][LANGUAGE_NONE][0]['value']) ? $image['field_image_title'][LANGUAGE_NONE][0]['value'] : 'Image gallery image';
+  $output .= '<h2 class="gamma ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all" role="tab" id="ui-accordion-1-header-' . $delta . '" aria-controls="ui-accordion-1-panel-' . $delta . '" aria-selected="true" aria-expanded="true" tabindex="' . $delta . '">';
+
+  $output .= '<span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-s"></span>' . $title . '</h2>';
+
+  $output .= '<figure class="gallery__image-landscape ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" id="ui-accordion-1-panel-' . $delta . '" aria-labelledby="ui-accordion-1-header-' . $delta . '" role="tabpanel" aria-hidden="false" style="display: block; cursor: pointer;">';
+  $output .= '<img src="' . $data_large . '" class="teaser-image adaptive" data-small="' . $data_small . '" data-medium="' . $data_medium . '" data-large="' . $data_large . '" alt="' . $data_alt . '">';
+  $output .= '<noscript><img alt="" src="' . $data_large . '"></noscript>';
+  $strip_html = array('<p>', '</p>');
+  $output .= '<figcaption>';
+  $copyright = 'Credit:';
+  if (!empty($image['field_figcaption'][LANGUAGE_NONE][0]['copyright']) && $image['field_figcaption'][LANGUAGE_NONE][0]['copyright'] !== 'someone_else') {
+    $copyright = l(str_replace('-', ' ', strtoupper($image['field_figcaption'][LANGUAGE_NONE][0]['copyright'])), 'http://creativecommons.org/tag/' . $image['field_figcaption'][LANGUAGE_NONE][0]['copyright']);
+  }
+  if (!empty($image['field_figcaption'][LANGUAGE_NONE][0]['caption'])) {
+    $output .= '<p class="image-caption">' . str_replace($strip_html, '', $image['field_figcaption'][LANGUAGE_NONE][0]['caption']) . '</p>';
+  }
+  if (!empty($image['field_figcaption'][LANGUAGE_NONE][0]['credit'])) {
+    $output .= '<p class="image-credit">' . $copyright . ' ' . str_replace($strip_html,'', $image['field_figcaption'][LANGUAGE_NONE][0]['credit']) . '</p>';
+  }
+	$output .= '</figcaption>';
+	$output .= '</figure>';
+  return $output;
+}
+
+/**
+ * Load function for returning imagegallerys.
+ */
+function immoklink_imagegallery_load($imagegallery_id) {
+  return immoklinkImagegallery::load($imagegallery_id);
+}
+
+/**
+ * Implement hook_views_data_alter().
+ */
+function immoklink_imagegallery_views_data_alter(&$data) {
+  $data['file_usage']['table']['join']['imagegallery'] = array(
+    'field' => 'id',
+    'left_field' => 'imagegallery_id',
+    'extra' => array(array('field' => 'type', 'value' => 'immoklink_imagegallery')),
+  );
+  $data['file_usage']['file_to_imagegallery'] = array(
+    'title' => t('Image gallery'),
+    'help' => t('Image gallery that is associated with this file, usually because this file is in the image gallery.'),
+    // Only provide this field/relationship/etc. when the 'file_managed' base table is present.
+    'skip base' => array('node', 'node_revision', 'users', 'comment', 'taxonomy_term_data', 'taxonomy_vocabulary'),
+    'real field' => 'id',
+    'relationship' => array(
+      'title' => t('Image gallery'),
+      'label' => t('Image gallery'),
+      'base' => 'immoklink_imagegallery',
+      'base field' => 'imagegallery_id',
+      'relationship field' => 'id',
+      'extra' => array(array('table' => 'file_usage', 'field' => 'type', 'operator' => '=', 'value' => 'bp_imagegallery')),
+    ),
+  );
+}

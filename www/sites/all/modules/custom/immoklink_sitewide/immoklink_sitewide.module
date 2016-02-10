@@ -133,3 +133,38 @@ function immoklink_sitewide_views_default_views() {
   }
   return $views;
 }
+
+
+/**
+ * Generates presets of several image styles for a given image.
+ *
+ * @param $file
+ *   The Image file.
+ * @param array $image_styles
+ *   An array containing the names of the image styles that should be used to
+ *   generate the different image presets.
+ */
+function mwt_sitewide_generate_image_styles_per_image($file, $image_styles = array()) {
+  // No file object or image styles -> nothing to do.
+  if (!is_object($file) || empty($image_styles)) {
+    return;
+  }
+  foreach ($image_styles as $style_name) {
+    $style = image_style_load($style_name);
+
+    // Make sure the image style is valid.
+    if (!empty($style)) {
+      // Get the location of the new image.
+      $derivative_uri = image_style_path($style_name, $file->uri);
+      // Create the image and add an entry to watchdog with the result.
+      if (image_style_create_derivative($style, $file->uri, $derivative_uri)) {
+        watchdog('mwt_image_generation', 'A %style image variant was generated from the image %filename',
+          array('%style' => $style_name, '%filename' => $file->filename));
+      }
+      else {
+        watchdog('mwt_image_generation', 'A %style image variant could not be generated from the image %filename',
+          array('%style' => $style_name, '%filename' => $file->filename), WATCHDOG_ERROR);
+      }
+    }
+  }
+}

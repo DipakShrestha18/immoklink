@@ -1,0 +1,4 @@
+​name = Custom Fields video
+description = Contains the video compound field.
+package = Lucius Example Package
+core = 7.x

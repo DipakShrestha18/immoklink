@@ -47,7 +47,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = yes">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
+  <link rel="stylesheet" type="text/css" href="/sites/all/themes/immoklink_base/css/gallery/screen.css">
   <link rel="stylesheet" type="text/css" href="/sites/all/themes/immoklink_base/css/screen_styles.css" />
   <link rel="stylesheet" type="text/css" href="/sites/all/themes/immoklink_base/css/screen_layout_large.css" />
   <link rel="stylesheet" type="text/css" media="only screen and (min-width:50px) and (max-width:500px)" href="/sites/all/themes/immoklink_base/css/screen_layout_small.css" />
@@ -64,8 +64,49 @@
         if(document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {document.getElementsByTagName('html')[0].className += ' svg';}
       })();
     </script>
-  </head>
-<body class="<?php print $classes; ?>">
+
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/farinspace/jquery.imgpreload.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/design.js"></script>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!--peter gallery-->
+  <script src="/sites/all/themes/immoklink_base//js/gallery-peter/modernizr-2.6.2.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
+  </script>
+  <script>
+    window.jQuery || document.write('<script src="/sites/all/themes/immoklink_base/js/gallery-peter/jquery-1.9.1.min.js"><\/script>')
+  </script>
+  <script>
+    var my = {};
+    my.view = "image";
+    my.slidesize = "big";
+    my.cache = "1444337682";
+
+    my.sec_slug = "objects";
+    my.gal_slug = "ace-hotel";
+    my.img_slug = "4073";
+
+    my.homeFlag = false;
+
+
+    my.slide = 0;
+    my.slideCount = 10;
+
+  </script>
+  <script src="/sites/all/themes/immoklink_base/js/gallery-peter/plugins.min.js">
+  </script>
+  <script src="/sites/all/themes/immoklink_base/js/gallery-peter/main.min.js">
+  </script>
+  <!--end peter gallery-->
+
+  <!--video in a gallery
+    <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/venobox.min.js"></script>
+  <!--end of video in a gallery-->
+</head>
+<body>
 
     <div id="skip-link">
       <a href="#main" class="element-invisible element-focusable" role="link"><?php print t('Skip to main content'); ?></a>
