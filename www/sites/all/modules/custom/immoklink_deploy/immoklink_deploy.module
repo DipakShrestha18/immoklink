@@ -125,6 +125,7 @@ function immoklink_deploy_module_enable() {
     'media_ckeditor',
     'immoklink_markup',
     'immoklink_field_formatters',
+    'immoklink_info_field',
   );
 
   foreach ($enable as $module) {
@@ -143,7 +144,8 @@ function immoklink_deploy_features() {
     'fimmoklink_news',
     'fimmoklink_text_formats_and_wysiwyg_profiles',
     'fimmoklink_image_config',
-    'fimmoklink_path'
+    'fimmoklink_path',
+    'fimmoklink_info',
   );
   foreach ($enable as $group) {
     features_install_modules($group);

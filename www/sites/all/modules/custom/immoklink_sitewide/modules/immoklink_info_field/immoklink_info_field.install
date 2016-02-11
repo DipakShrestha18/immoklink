@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * @file
+ * Install functions for the immoklink_info_field module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function immoklink_info_field_field_schema($field) {
+  return array(
+    'columns' => array(
+      'info_title' => array(
+        'description' => 'Info title',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'info_link' => array(
+        'description' => 'Info link',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'info_image_fid' => array(
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
+      'info_desc' => array(
+        'description' => 'Info link',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+//      'foreign keys' => array(
+//        'info_image_fid' => array(
+//          'table' => 'file_managed',
+//          'columns' => array('fid' => 'info_image_fid'),
+//        ),
+//      ),
+    ),
+  );
+}
+//
+//
+//  $columns = array();
+//  switch ($field['type']) {
+//    case 'info_field':
+//      $columns = array(
+//        'info_title' => array(
+//          'type' => 'varchar',
+//          'length' => '255',
+//          'not null' => FALSE,
+//        ),
+//        'info_link' => array(
+//          'type' => 'varchar',
+//          'length' => '255',
+//          'not null' => FALSE,
+//        ),
+//        'info_image_fid' => array(
+//          'type' => 'int',
+//          'not null' => FALSE,
+//          'default' => 0,
+//        ),
+//        'info_desc' => array(
+//          'type' => 'varchar',
+//          'length' => '255',
+//          'not null' => FALSE,
+//        ),
+////        'foreign keys' => array(
+////          'info_image_fid' => array(
+////            'table' => 'file_managed',
+////            'columns' => array('fid' => 'info_image_fid'),
+////          ),
+////        ),
+//      );
+//      break;
+//  }
+//
+//  return array(
+//    'columns' => $columns,
+//  );
+//}

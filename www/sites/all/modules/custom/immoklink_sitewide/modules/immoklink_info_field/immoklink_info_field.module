@@ -1,0 +1,193 @@
+<?php
+
+/**
+ * @file
+ * immoklink_info_field module.
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function immoklink_info_field_field_info() {
+  return array(
+    'immoklink_info_field' => array(
+      'label' => t('Info list'),
+      'description' => t('Holds data about Contact details'),
+      'default_widget' => 'immoklink_info_field_widget_default',
+      'default_formatter' => 'immoklink_info_field_formatter_default',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function immoklink_info_field_field_widget_info() {
+  return array(
+    'immoklink_info_field_widget_default' => array(
+      'label' => t('Default'),
+      'field types' => array('immoklink_info_field'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_DEFAULT,
+        'default value' => FIELD_BEHAVIOR_DEFAULT,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function immoklink_info_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  switch ($instance['widget']['type']) {
+    case 'immoklink_info_field_widget_default':
+      $element['info']['info_title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title'),
+        '#default_value' => isset($items[$delta]['info_title']) ? $items[$delta]['info_title'] : '',
+      );
+      $element['info']['info_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Link'),
+        '#default_value' => isset($items[$delta]['info_link']) ? $items[$delta]['info_link'] : '',
+      );
+      $element['info']['info_image_fid'] = array(
+        '#type' => 'managed_file',
+        '#upload_location' => 'public://info',
+        '#progress_indicator' => "bar",
+        '#title' => 'Image',
+        '#default_value' => isset($items[$delta]['info_image_fid']) ? $items[$delta]['info_image_fid'] : 0,
+      );
+      // Add the validators
+      $supported_extensions = array('png', 'gif', 'jpg', 'jpeg');
+      $element['info']['info_image_fid']['#upload_validators']['file_validate_extensions'][0] = implode(' ', $supported_extensions);
+      $element['info']['info_desc'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Description'),
+        '#size' => 60,
+        '#maxlength' => 60,
+        '#default_value' => isset($items[$delta]['info_desc']) ? $items[$delta]['info_desc'] : '',
+      );
+      // Custom validate function, to validate data and structure it according
+      // to the field type db schema.
+      $element['#element_validate'] = array('_immoklink_info_field_validate');
+
+      if (($delta < sizeof($items))){
+        $fieldset_title = t($element['info']['info_title']['#default_value']);
+      } else {
+        $fieldset_title = t('Add new item');
+      }
+      $element += array('#type' => 'fieldset');
+      $element['#title'] = t('@fieldset_title', array('@fieldset_title' => $fieldset_title));
+      $element += array(
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+  }
+  return $element;
+}
+
+/**
+ * Validation callback.
+ *
+ * @param $element
+ * @param $form_state
+ */
+function _immoklink_info_field_validate($element, &$form_state, $form) {
+  $field = $element['#field_name'];
+
+  // The $form_state['values'][$field][LANGUAGE_NONE] array will be recreated,
+  // so make a copy of it to iterate through.
+  $values = $form_state['input'][$field][LANGUAGE_NONE];
+  $form_state['values'][$field][LANGUAGE_NONE] = array();
+  foreach ($values as $delta => $value) {
+    // To tackle any custom elements that are not values (e.g: 'add_more' button).
+    if (!is_array($value)) {
+      continue;
+    }
+
+    $validated_values = array();
+    $validated_values['info_title'] = $value['info']['info_title'];
+    $validated_values['info_link'] = $value['info']['info_link'];
+    $validated_values['info_image_fid'] = $value['info']['info_image_fid']['fid'];
+    $validated_values['info_desc'] = $value['info']['info_desc'];
+    // Add the validated values to the 'values' array, so they're ready to be
+    // stored in the field table.
+    if (!empty($validated_values)) {
+      $form_state['values'][$field][LANGUAGE_NONE][] = $validated_values;
+    }
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function immoklink_info_field_field_formatter_info() {
+  return array(
+    'immoklink_info_field_formatter_default' => array(
+      'label' => t('Default'),
+      'field types' => array('immoklink_info_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function immoklink_info_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+//
+//  switch ($display['type']) {
+//    case 'immoklink_info_field_formatter_default':
+//      foreach ($items as $delta => $item) {
+//        dpm($item);
+//        $output = '<li class="media">
+//                	<a class="hoover" href="news1.html">
+//                    <div class="media__body">
+//                        <h2>Press</h2>
+//                    </div>';
+//        $file = file_load($item['info_image_fid']);
+//        $image_path = $file->uri;
+//        $output .= theme_image_style(array('style_name' => 'listings_image', 'path' => $image_path, 'height' => '', 'width' => '', 'attributes' => array('class' => array('media__image'))));
+//
+//        $output .= '</a></li>';
+//        $element[$delta] = array('#markup' => $output);
+//      }
+//      if (!empty($element)) {
+//        $element['#prefix'] = '<div id="three-columns" class="grid-container" style="display:block;">
+//			              <ul class="news columns-3">
+//                      <li class="media">
+//                        <p>Studio Immo Klink <br />
+//                        Address Line Here <br />
+//                        Some city in the world <br />
+//                        <a class="tel" itemprop="telephone" href="tel:07595253748">07595 253748</a>
+//                        <a href="mailto:immoklink@immoklink.com" class="email-link">immoklink@immoklink.com</a>
+//                      </li>';
+//
+//        global $base_url;
+//        $path = $base_url . '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/';
+//        $element['#suffix'] = '<li class="media" style="vertical-align:bottom; text-align:right;">
+//        			<a href="http://www.facebook.com" class="sm-icon"><img class="sm-icon" src="' . $path . 'facebook_about.png" /></a>
+//                    <a href="http://www.twitter.com" class="sm-icon"><img  class="sm-icon" src="' . $path . 'twitter_about.png" /></a>
+//                    <a href="http://www.instagram.com" class="sm-icon"><img class="sm-icon" src="' . $path . 'instagram_about.png" /></a>
+//                    <a href="http://knowhowdriving.co.uk/html/news.html" class="sm-icon"><img class="sm-icon" src="' . $path . 'blogicon_about.png" /></a>
+//				</li></ul></div>';
+//      }
+//      break;
+//  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function immoklink_info_field_field_is_empty($item, $field) {
+  if ($field['type'] == 'immoklink_info_field') {
+    if (empty($item['info_title'])) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}

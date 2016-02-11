@@ -1,0 +1,4 @@
+name = Info listing field
+description = Info listings field with image and link.
+package = Immoklink
+core = 7.x
