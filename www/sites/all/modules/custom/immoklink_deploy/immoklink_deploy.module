@@ -126,6 +126,7 @@ function immoklink_deploy_module_enable() {
     'immoklink_markup',
     'immoklink_field_formatters',
     'immoklink_info_field',
+    'paragrahps',
   );
 
   foreach ($enable as $module) {

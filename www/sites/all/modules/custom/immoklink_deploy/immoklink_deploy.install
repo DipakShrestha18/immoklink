@@ -44,6 +44,7 @@ function immoklink_deploy_update_7001() {
     'fimmoklink_image_config',
     'fimmoklink_path',
     'immoklink_info_field',
-    'fimmoklink_info'
+    'fimmoklink_info',
+    'paragraphs',
   ));
 }
