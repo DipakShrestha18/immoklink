@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the immoklink_exhibitions_field module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function immoklink_exhibitions_field_install() {
+}
+
+/**
+ * Implements hook_schema().
+ */
+function immoklink_exhibitions_field_field_schema($field) {
+  $columns = array();
+  switch ($field['type']) {
+    case 'immoklink_exhibitions_field':
+      $columns = array(
+        'year' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'event' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+        'curator' => array(
+          'type' => 'varchar',
+          'length' => '255',
+          'not null' => FALSE,
+        ),
+      );
+      break;
+  }
+
+  return array(
+    'columns' => $columns,
+  );
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function immoklink_exhibitions_field_uninstall() {
+}
+

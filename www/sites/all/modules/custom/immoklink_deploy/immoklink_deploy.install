@@ -46,5 +46,7 @@ function immoklink_deploy_update_7001() {
     'immoklink_info_field',
     'fimmoklink_info',
     'paragraphs',
+    'immoklink_exhibitions_field',
+    'fimmoklink_exhibitions'
   ));
 }

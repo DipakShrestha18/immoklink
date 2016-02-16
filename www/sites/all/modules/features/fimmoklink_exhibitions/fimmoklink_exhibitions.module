@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK exhibitions feature.
+ */
+
+include_once 'fimmoklink_exhibitions.features.inc';

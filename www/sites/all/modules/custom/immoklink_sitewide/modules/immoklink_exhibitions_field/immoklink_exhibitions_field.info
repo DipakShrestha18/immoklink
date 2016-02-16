@@ -1,0 +1,4 @@
+name = Exhibitions listing field
+description = Exhibitions listings field with image and link.
+package = Immoklink
+core = 7.x

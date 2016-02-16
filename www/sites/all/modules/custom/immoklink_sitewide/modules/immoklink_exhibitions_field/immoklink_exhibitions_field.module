@@ -1,0 +1,162 @@
+<?php
+
+/**
+ * @file
+ * immoklink_exhibitions_field module.
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function immoklink_exhibitions_field_field_info() {
+  return array(
+    'immoklink_exhibitions_field' => array(
+      'label' => t('Exhibitions field'),
+      'description' => t('Holds data about Exhibitions'),
+      'default_widget' => 'immoklink_exhibitions_field_widget_default',
+      'default_formatter' => 'immoklink_exhibitions_field_formatter_default',
+    ),
+  );
+}
+
+/**
+ * Implements hook_book_review_info().
+ */
+function immoklink_exhibitions_field_field_widget_info() {
+  return array(
+    'immoklink_exhibitions_field_widget_default' => array(
+      'label' => t('Default'),
+      'field types' => array('immoklink_exhibitions_field'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_DEFAULT,
+        'default value' => FIELD_BEHAVIOR_DEFAULT,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function immoklink_exhibitions_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  switch ($instance['widget']['type']) {
+    case 'immoklink_exhibitions_field_widget_default':
+      $element['exhibition']['year'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Year'),
+        '#default_value' => isset($items[$delta]['year']) ? $items[$delta]['year'] : '',
+      );
+      $element['exhibition']['event'] = array(
+        '#type' => 'textfield',
+        '#title' => t('event'),
+        '#default_value' => isset($items[$delta]['event']) ? $items[$delta]['event'] : '',
+      );
+      $element['exhibition']['curator'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Curator'),
+        '#default_value' => isset($items[$delta]['curator']) ? $items[$delta]['curator'] : '',
+      );
+      // Custom validate function, to validate data and structure it according
+      // to the field type db schema.
+      $element['#element_validate'] = array('_immoklink_exhibitions_field_validate');
+
+      if (($delta < sizeof($items))){
+        $fieldset_title = t($element['exhibition']['year']['#default_value']);
+      } else {
+        $fieldset_title = t('Add new exhibition');
+      }
+      $element += array('#type' => 'fieldset');
+      $element['#title'] = t('@fieldset_title', array('@fieldset_title' => $fieldset_title));
+      $element += array(
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+  }
+  return $element;
+}
+
+/**
+ * Validation callback.
+ *
+ * @param $element
+ * @param $form_state
+ */
+function _immoklink_exhibitions_field_validate($element, &$form_state, $form) {
+  $field = $element['#field_name'];
+
+  // The $form_state['values'][$field][LANGUAGE_NONE] array will be recreated,
+  // so make a copy of it to iterate through.
+  $values = $form_state['input'][$field][LANGUAGE_NONE];
+  $form_state['values'][$field][LANGUAGE_NONE] = array();
+  foreach ($values as $delta => $value) {
+    // To tackle any custom elements that are not values (e.g: 'add_more' button).
+    if (!is_array($value)) {
+      continue;
+    }
+
+    $validated_values = array();
+    $validated_values['year'] = $value['exhibition']['year'];
+    $validated_values['event'] = $value['exhibition']['event'];
+    $validated_values['curator'] = $value['exhibition']['curator'];
+
+    // Add the validated values to the 'values' array, so they're ready to be
+    // stored in the field table.
+    if (!empty($validated_values)) {
+      $form_state['values'][$field][LANGUAGE_NONE][] = $validated_values;
+    }
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function immoklink_exhibitions_field_field_formatter_info() {
+  return array(
+    'immoklink_exhibitions_field_formatter_default' => array(
+      'label' => t('Default'),
+      'field types' => array('immoklink_exhibitions_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function immoklink_exhibitions_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'immoklink_exhibitions_field_formatter_default':
+      foreach ($items as $delta => $item) {
+        $output = '';
+        $output .= '<li>';
+        $output .= '<span class="date">' . $item['year'] . '</span>';
+        $output .= '<span class="event">' . $item['event'] . '</span>';
+        $output .= '<span class="curator">' . $item['curator'] . '</span>';
+        $output .= '</li>';
+
+        if (!empty($output)) {
+          $element[$delta]= array(
+            '#markup' => $output,
+            '#prefix' => '<ul class="exhibitions">',
+            '#suffix' => '</ul>',
+          );
+        }
+      }
+      break;
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function immoklink_exhibitions_field_field_is_empty($item, $field) {
+  if ($field['type'] == 'immoklink_exhibitions_field') {
+    if (empty($item['year'])) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
