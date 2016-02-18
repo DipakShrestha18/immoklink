@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK books feature.
+ */
+
+include_once 'fimmoklink_books.features.inc';

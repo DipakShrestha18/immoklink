@@ -1,0 +1,35 @@
+<?php
+/**
+ * @file
+ * fimmoklink_books.features.inc
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function fimmoklink_books_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "field_group" && $api == "field_group") {
+    return array("version" => "1");
+  }
+  if ($module == "strongarm" && $api == "strongarm") {
+    return array("version" => "1");
+  }
+}
+
+/**
+ * Implements hook_node_info().
+ */
+function fimmoklink_books_node_info() {
+  $items = array(
+    'books' => array(
+      'name' => t('Books'),
+      'base' => 'node_content',
+      'description' => t('Books content type'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+  );
+  drupal_alter('node_info', $items);
+  return $items;
+}

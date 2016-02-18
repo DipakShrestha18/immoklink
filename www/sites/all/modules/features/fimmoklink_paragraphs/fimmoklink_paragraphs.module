@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK paragraphs feature.
+ */
+
+include_once 'fimmoklink_paragraphs.features.inc';

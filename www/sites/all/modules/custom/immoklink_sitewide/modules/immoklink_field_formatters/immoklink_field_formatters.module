@@ -14,7 +14,11 @@ function immoklink_field_formatters_field_formatter_info() {
     'date_format' => array(
       'label' => t('Date format'),
       'field types' => array('date', 'datestamp', 'datetime'),
-    )
+    ),
+    'books_format' => array(
+      'label' => t('Books format'),
+      'field types' => array('paragraphs'),
+  )
   );
 }
 
@@ -46,7 +50,13 @@ function immoklink_field_formatters_field_formatter_view($entity_type, $entity, 
         );
       }
       break;
-
+    case 'books_format':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#markup' => theme('books_format', $item),
+        );
+      }
+      break;
   }
 
   return $element;
