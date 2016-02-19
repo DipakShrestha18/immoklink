@@ -30,6 +30,15 @@ $handler->conf = array(
         'context' => 'node',
         'not' => TRUE,
       ),
+      1 => array(
+        'name' => 'path_visibility',
+        'settings' => array(
+          'visibility_setting' => '0',
+          'paths' => 'gallery-thumbnail/*',
+        ),
+        'context' => 'empty',
+        'not' => FALSE,
+      ),
     ),
     'logic' => 'and',
   ),

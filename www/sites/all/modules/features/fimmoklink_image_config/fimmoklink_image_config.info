@@ -5,4 +5,5 @@ package = Immoklink General Site Configuration
 version = 7.x-1.0
 dependencies[] = image
 features[features_api][] = api:2
+features[image][] = gallery_thumbnail
 features[image][] = listings_image

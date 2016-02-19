@@ -168,3 +168,45 @@ function mwt_sitewide_generate_image_styles_per_image($file, $image_styles = arr
     }
   }
 }
+
+/**
+ * Implements hook_menu().
+ */
+function immoklink_sitewide_menu() {
+  $items = array();
+  $items['gallery-thumbnail/%node'] = array(
+    'title' => 'Gallery thumbnail listings',
+    'description' => 'Thumbnail listings of gallery image.',
+    'page callback' => 'gallery_thumbnail_listings_page',
+    'page arguments' => array(1),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
+
+/**
+ * Callback function.
+ */
+function gallery_thumbnail_listings_page($node) {
+  $output = '';
+
+  $output .= '<div class="page"><article><h1>Projects</h1></article>';
+  $images = $node->field_gallery_images[LANGUAGE_NONE];
+
+  $output .= '<div class="content grid"><div class="wrap">';
+  foreach ($images as $image) {
+    $image = paragraphs_field_get_entity($image);
+
+    $image_path = $image->field_gallery_bundle_image[LANGUAGE_NONE][0]['uri'];
+    $image = theme_image_style(array('style_name' => 'gallery_thumbnail', 'path' => $image_path, 'height' => '', 'width' => '', 'attributes' => array('class' => array('fade-me-in'))));
+    $path = '/' . drupal_get_path_alias('node/' . $node->nid);
+    $output .= '<a href="' . $path . '" class="grid-item">';
+    $output .= $image;
+    $output .= '<div class="overlay"></div></a>';
+  }
+  $output .= '</div></div></div>';
+
+  return $output;
+}
