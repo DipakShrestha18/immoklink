@@ -13,6 +13,5 @@
   </nav>
 
   <div class="clear-left"></div>
-
-  <?php print $content['content']; ?>
 </div>
+  <?php print $content['content']; ?>

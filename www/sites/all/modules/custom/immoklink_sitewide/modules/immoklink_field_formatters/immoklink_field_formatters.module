@@ -18,7 +18,11 @@ function immoklink_field_formatters_field_formatter_info() {
     'books_format' => array(
       'label' => t('Books format'),
       'field types' => array('paragraphs'),
-  )
+    ),
+    'gallery_format' => array(
+      'label' => t('Gallery format'),
+      'field types' => array('paragraphs'),
+    ),
   );
 }
 
@@ -56,6 +60,19 @@ function immoklink_field_formatters_field_formatter_view($entity_type, $entity, 
           '#markup' => theme('books_format', $item),
         );
       }
+      break;
+    case 'gallery_format':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#markup' => theme('gallery_format', array($item, $delta)),
+        );
+      }
+      $element['#prefix'] = '<div class="content slides">';
+      $element['#prefix'] .= '<div class="slide-wrap">';
+      $element['#prefix'] .= '<ul class="slide-list init" id="slide-list">';
+      $element['#suffix'] = '</ul>';
+      $element['#suffix'] .= '</div></div>';
+
       break;
   }
 

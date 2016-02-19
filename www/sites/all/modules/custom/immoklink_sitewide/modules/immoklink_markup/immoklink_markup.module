@@ -20,6 +20,9 @@ function immoklink_markup_theme() {
     'books_format' => array(
       'variables' => array(),
     ),
+    'gallery_format' => array(
+      'variables' => array('items' => array(), 'delta' => array()),
+    ),
   );
 }
 
@@ -98,6 +101,45 @@ function theme_books_format(&$variables) {
     $output .= '</li>';
   }
   $output .= '</ul><hr />';
+
+  return $output;
+}
+
+/**
+ * Theming function for gallery.
+ */
+function theme_gallery_format(&$variables) {
+  $output = '';
+  $paragraph = paragraphs_field_get_entity($variables[0]);
+  $twitter_icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/twitter-bird.png';
+  $facebook_icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/facebook_logo.png';
+
+  global $base_url;
+  $path_alias = drupal_lookup_path('alias', current_path());
+  $url = $base_url . '/' . $path_alias;
+
+  $image_path = $paragraph->field_gallery_bundle_image[LANGUAGE_NONE][0]['uri'];
+  $full_img = file_create_url($image_path);
+
+  $output .= '<li class="slide slide' . $variables[1] . ' init-on-load" data-slide="' . $variables[1] . '">';
+  $output .= '<img class="slide-img" src= "' . $full_img . '">';
+  $output .= '<div class="share-overlay"><div class="icon-wrap">';
+  $output .= '<a class="no-state" href="https://twitter.com/share?text=Immo+Klink&url=' . $url . '" target="_blank">';
+  $output .= '<img src="' . $twitter_icon . '">';
+  $output .= '</a>';
+  $output .= '<a class="no-state" href="http://www.facebook.com/sharer.php?t=Immo+klink&u=' . $url . '" target="_blank">';
+  $output .= '<img src="' . $facebook_icon . '">';
+  $output .= '</a>';
+
+  if (isset($paragraph->field_gallery_bundle_overlay_txt[LANGUAGE_NONE])) {
+    $output .= '<p class="overlay-text">' . $paragraph->field_gallery_bundle_overlay_txt[LANGUAGE_NONE][0]['value'] . '</p>';
+  }
+
+  $output .= '</div></div>';
+  if (isset($paragraph->field_gallery_bundle_caption[LANGUAGE_NONE])) {
+    $output .= '<div class="caption">' . $paragraph->field_gallery_bundle_caption[LANGUAGE_NONE][0]['value'] . '</div>';
+  }
+  $output .= '</li>';
 
   return $output;
 }

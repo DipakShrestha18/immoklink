@@ -93,7 +93,7 @@
 
 
     my.slide = 0;
-    my.slideCount = 10;
+    my.slideCount = 3;
 
   </script>
   <script src="/sites/all/themes/immoklink_base/js/gallery-peter/plugins.min.js">

@@ -50,5 +50,7 @@ function immoklink_deploy_update_7001() {
     'fimmoklink_exhibitions',
     'fimmoklink_books',
     'fimmoklink_paragraphs',
+    'no_field_markup',
+    'fimmoklink_gallery',
   ));
 }

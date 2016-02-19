@@ -6,7 +6,7 @@ var actualSize = 0;
 
 
 $(document).ready(function() {
-	
+
 	//setInterval(function(){cycleImages($('#cycler1'))}, 12000);
 	setInterval(function(){cycleImages($('#cycler2'))}, 8000);
 	setInterval(function(){cycleImages($('#cycler3'))}, 5000);
@@ -19,16 +19,16 @@ $(document).ready(function() {
 	setInterval(function(){cycleImages($('#cycler10'))}, 30000);
 	setInterval(function(){cycleImages($('#cycler11'))}, 7000);
 	setInterval(function(){cycleImages($('#cycler12'))}, 11000);
-	
-	
+
+
     //checkBrowserSize();
 	touchhover();
 	setInterval('checkBrowserSize()', 100);
-	
+
 	$('a.mobile_menu').on('click', function(){
 		var navHeight = $('nav').height();
 		var newNewHeight = $('nav div').height();
-		
+
 		if (navHeight == 0){
 			$('nav').animate({'height': newNewHeight + 'px'}, 500);
 			$(this).addClass('mobile_menu selected');
@@ -37,11 +37,11 @@ $(document).ready(function() {
 			$(this).removeClass('selected');
 		}
 	});
-	
+
 	//video in image gallery
-	$('.venoboxvid').venobox({
-				bgcolor: '#000'
-			});
+	//$('.venoboxvid').venobox({
+	//			bgcolor: '#000'
+	//		});
 });
 
 /**
@@ -58,38 +58,38 @@ function cycleImages(container){
     }
 
 
-function checkBrowserSize(){	
-	windowWidth = window.outerWidth;	
+function checkBrowserSize(){
+	windowWidth = window.outerWidth;
 	var contentWidth = $('body').width();
 	var sizeDiff = windowWidth - contentWidth;
 	actualSize = windowWidth - sizeDiff;
-	
-	if (actualSize > 800){ newWindowSize = 'large'; }	
+
+	if (actualSize > 800){ newWindowSize = 'large'; }
 	if (actualSize <= 800 && actualSize > 500){ newWindowSize = 'medium'; }
 	if (actualSize <= 500){ newWindowSize = 'small'; }
-	
-	
-	
+
+
+
 	if (windowSize != newWindowSize){
 		windowSize = newWindowSize;
-		loadHero();	
+		loadHero();
 	}
 }
 
 function loadHero(){
-	
+
 		if (windowSize == 'large'){
 			$('nav').css('height', '65px');
 			$('li.media div').addClass('media__body');
 		}
-		
+
 		if (windowSize == 'medium'){
 			if (actualSize > 500 ) {
 				$('nav').css('height', '65px');
 				$('div').removeClass('media__body');
 			}
 		}
-		
+
 		if (windowSize == 'small'){
 			if (actualSize <= 500 ) {
 				$('nav').css('height', '0px');
@@ -97,8 +97,8 @@ function loadHero(){
 			}
 		}
 	}
-	
-function touchhover() {	
+
+function touchhover() {
 	/*$('a.media__body').on("touchstart", function (e) {
     "use strict"; //satisfy the code inspectors
     var link = $(this); //preselect the link
@@ -117,7 +117,7 @@ $('a.hoover').on("touchstart", function (e) {
     var link = $(this); //preselect the link
     if (link.hasClass('hover')) {
         return true;
-    } 
+    }
 	else {
         link.addClass("hover");
         $('a.hoover').not(this).removeClass("hover");

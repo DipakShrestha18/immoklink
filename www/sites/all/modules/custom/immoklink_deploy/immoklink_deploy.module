@@ -128,6 +128,7 @@ function immoklink_deploy_module_enable() {
     'immoklink_info_field',
     'paragrahps',
     'immoklink_exhibitions_field',
+    'no_field_markup'
   );
 
   foreach ($enable as $module) {
@@ -151,6 +152,7 @@ function immoklink_deploy_features() {
     'fimmoklink_exhibitions',
     'fimmoklink_books',
     'fimmoklink_paragraphs',
+    'fimmoklink_gallery',
   );
   foreach ($enable as $group) {
     features_install_modules($group);

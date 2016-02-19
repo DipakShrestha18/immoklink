@@ -33,6 +33,16 @@ $handler->conf = array(
         'context' => 'node',
         'not' => TRUE,
       ),
+      1 => array(
+        'name' => 'node_type',
+        'settings' => array(
+          'type' => array(
+            'gallery' => 'gallery',
+          ),
+        ),
+        'context' => 'node',
+        'not' => FALSE,
+      ),
     ),
     'logic' => 'and',
   ),
