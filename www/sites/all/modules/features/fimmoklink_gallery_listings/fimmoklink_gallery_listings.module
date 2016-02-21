@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK gallery listings feature.
+ */
+
+include_once 'fimmoklink_gallery_listings.features.inc';

@@ -23,6 +23,9 @@ function immoklink_markup_theme() {
     'gallery_format' => array(
       'variables' => array('items' => array(), 'delta' => array()),
     ),
+    'immoklink_gallery' => array(
+      'variables' => array(),
+    ),
   );
 }
 
@@ -140,6 +143,35 @@ function theme_gallery_format(&$variables) {
     $output .= '<div class="caption">' . $paragraph->field_gallery_bundle_caption[LANGUAGE_NONE][0]['value'] . '</div>';
   }
   $output .= '</li>';
+
+  return $output;
+}
+
+/**
+ * Theming function for gallery listings.
+ */
+function theme_immoklink_gallery(&$variables) {
+  $nodes = $variables['node'];
+  $output = '';
+
+  $output .= '<div id="three-columns" class="grid-container" style="display:block;"><ul class="news columns-3">';
+  foreach ($nodes as $node) {
+    if (isset($node->field_gallery_listing_image[LANGUAGE_NONE])){
+      $image_path = $node->field_gallery_listing_image[LANGUAGE_NONE][0]['uri'];
+    }
+    $image = theme_image_style(array('style_name' => 'listings_image', 'path' => $image_path, 'width' => '', 'height' => '', 'attributes' => array('class' => array('media__image'))));
+    $path = drupal_get_path_alias('node/' . $node->nid);
+
+    $output .= '<li class="media">';
+    $output .= '<a class="hoover" href="' . $path .  '">' . $image .
+      '<div class="media__body">
+                     <h2>' . $node->title . '</h2>
+                     <p>' . $node->field_gallery_listing_desc[LANGUAGE_NONE][0]['value'] . '</p>
+                   </div>
+                </a>
+                </li>';
+  }
+  $output .= '</ul></div>';
 
   return $output;
 }

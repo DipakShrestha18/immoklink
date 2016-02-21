@@ -153,6 +153,7 @@ function immoklink_deploy_features() {
     'fimmoklink_books',
     'fimmoklink_paragraphs',
     'fimmoklink_gallery',
+    'fimmoklink_gallery_listings',
   );
   foreach ($enable as $group) {
     features_install_modules($group);

@@ -11,7 +11,6 @@
 $plugin = array(
   'single' => TRUE,
   'title' => t('News listings'),
-  // 'icon' => intranet_sitewide_panels_ui_panel_icon_path(),
   'category' => t('Immo Klink'),
   'defaults' => array(),
   'render callback' => 'immoklink_sitewide_news_listings_content_type_render',
