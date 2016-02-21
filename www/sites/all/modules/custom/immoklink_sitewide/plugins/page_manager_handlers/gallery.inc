@@ -234,6 +234,61 @@ $pane->locks = array();
 $pane->uuid = 'c99a41f1-46c1-43cd-b2ac-607c5035b5cb';
 $display->content['new-c99a41f1-46c1-43cd-b2ac-607c5035b5cb'] = $pane;
 $display->panels['content'][2] = 'new-c99a41f1-46c1-43cd-b2ac-607c5035b5cb';
+$pane = new stdClass();
+$pane->pid = 'new-908f4719-e33d-4a50-9f9a-ce3338d07987';
+$pane->panel = 'content';
+$pane->type = 'gallery_js';
+$pane->subtype = 'gallery_js';
+$pane->shown = TRUE;
+$pane->access = array();
+$pane->configuration = array(
+  'return' => 'Finish',
+  'cancel' => 'Cancel',
+  'override_title' => 1,
+  'override_title_heading' => 'h2',
+  'form_build_id' => 'form-dd1mtbZocKbnmfr_eTngb0KreNgaddOu4VngWZxQFkc',
+  'form_token' => 'k7IizsMQm1jtlpbOf7ZP01B10vuKLJaawSx7BaNKpJo',
+  'form_id' => 'immoklink_sitewide_gallery_js_content_type_edit_form',
+  'op' => 'Finish',
+  'override_title_text' => '',
+);
+$pane->cache = array();
+$pane->style = array(
+  'settings' => array(
+    'element_wrapper' => array(
+      'type' => '',
+      'add_default_classes' => 0,
+      'class_enable' => 0,
+      'class' => '',
+      'attributes_enable' => 0,
+      'attributes' => '',
+    ),
+    'element_title' => array(
+      'type' => '',
+      'add_default_classes' => 0,
+      'class_enable' => 0,
+      'class' => '',
+      'attributes_enable' => 0,
+      'attributes' => '',
+    ),
+    'element_content' => array(
+      'type' => '',
+      'add_default_classes' => 0,
+      'class_enable' => 0,
+      'class' => '',
+      'attributes_enable' => 0,
+      'attributes' => '',
+    ),
+  ),
+  'style' => 'planer',
+);
+$pane->css = array();
+$pane->extras = array();
+$pane->position = 3;
+$pane->locks = array();
+$pane->uuid = '908f4719-e33d-4a50-9f9a-ce3338d07987';
+$display->content['new-908f4719-e33d-4a50-9f9a-ce3338d07987'] = $pane;
+$display->panels['content'][3] = 'new-908f4719-e33d-4a50-9f9a-ce3338d07987';
 $display->hide_title = PANELS_TITLE_NONE;
 $display->title_pane = '0';
 $handler->conf['display'] = $display;
