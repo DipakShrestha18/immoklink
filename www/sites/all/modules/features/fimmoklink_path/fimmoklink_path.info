@@ -1,7 +1,7 @@
 name = IMMOKLINK Path
 description = Everything that relates to paths.
 core = 7.x
-package = Immoklink General Site Configuration
+package = General Site Configuration
 version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = strongarm
