@@ -71,12 +71,6 @@
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-
-
-
-  <!--video in a gallery
-    <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/venobox.min.js"></script>
-  <!--end of video in a gallery-->
 </head>
 <body>
     <div id="skip-link">
@@ -85,5 +79,6 @@
   <?php print $page_top; ?>
   <?php print $page; ?>
   <?php print $page_bottom; ?>
+
   </body>
 </html>

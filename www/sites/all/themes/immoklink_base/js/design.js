@@ -39,9 +39,7 @@ $(document).ready(function() {
 	});
 
 	//video in image gallery
-	//$('.venoboxvid').venobox({
-	//			bgcolor: '#000'
-	//		});
+	$('.venoboxvid').venobox({bgcolor: '#000'});
 });
 
 /**
