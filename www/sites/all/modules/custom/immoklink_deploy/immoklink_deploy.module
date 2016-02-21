@@ -226,9 +226,6 @@ function immoklink_deploy_wysiwyg_settings() {
 }
 
 function immoklink_deploy_set_theme() {
-//  theme_enable(array('immoklink_base'));
-//  theme_disable(array('bartik'));
-
   $enable = array(
     'theme_default' => 'immoklink_base',
     'admin_theme' => 'seven',
@@ -252,10 +249,10 @@ function immoklink_deploy_panel_pages_enable() {
   if (module_exists('page_manager')) {
     // Array of the system pages (or page manager tasks) we want to enable.
     $system_pages = array(
-      'site_template',
       'node_view',
       'user_view',
       'term_view',
+      'site_template',
     );
 
     foreach ($system_pages as $page_manager_task) {
