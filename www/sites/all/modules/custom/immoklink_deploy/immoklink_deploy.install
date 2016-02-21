@@ -16,6 +16,7 @@ function immoklink_deploy_install() {
   immoklink_deploy_wysiwyg_settings();
   immoklink_deploy_set_theme();
   immoklink_deploy_features();
+  immoklink_deploy_taxonomies();
   immoklink_deploy_panel_pages_enable();
   secure_permissions_rebuild();
 }

@@ -287,11 +287,45 @@ function immoklink_deploy_page_manager_task_enable_function($page_manager_task) 
     'node_view' => 'page_manager_node_view_enable',
     'user_view' => 'page_manager_user_view_enable',
     'term_view' => 'page_manager_term_view_enable',
-    'myworkbench' => 'page_manager_myworkbench_enable',
   );
 
   if (isset($page_manager_task_functions[$page_manager_task])) {
     return $page_manager_task_functions[$page_manager_task];
   }
   return NULL;
+}
+
+/**
+ * Deploy all taxonomies data.
+ */
+function immoklink_deploy_taxonomies() {
+  // Load helper functions
+  module_load_include('inc', 'immoklink_deploy', 'includes/immoklink_deploy.taxonomy');
+
+  // Deploy all taxonomies in code one by one.
+  $path = drupal_get_path('module', 'immoklink_deploy') . '/includes/taxonomy';
+  foreach (glob("{$path}/*.inc") as $file) {
+    include_once $file;
+    immoklink_deploy_create_taxonomy($vocab, $terms);
+  }
+}
+
+/**
+ * Deploy a given taxonomy.
+ *
+ * @param $machine_name
+ */
+function immoklink_deploy_taxonomy($machine_name) {
+  if (taxonomy_vocabulary_machine_name_load($machine_name)) {
+    return;
+  }
+  // Load helper functions
+  module_load_include('inc', 'immoklink_deploy', 'includes/immoklink_deploy.taxonomy');
+
+  // Load the selected taxonomy file and create it into the database.
+  $filename = drupal_get_path('module', 'immoklink_deploy') . '/includes/taxonomy/' . $machine_name . '.inc';
+  if (file_exists($filename)) {
+    include_once $filename;
+    immoklink_deploy_create_taxonomy($vocab, $terms);
+  }
 }
