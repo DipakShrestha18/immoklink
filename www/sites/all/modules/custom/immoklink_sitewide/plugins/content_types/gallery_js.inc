@@ -34,6 +34,7 @@ function immoklink_sitewide_gallery_js_content_type_render($subtype, $conf, $pan
   $node = $context[0]->data;
   $numofimages = count($node->field_gallery_images[LANGUAGE_NONE]);
 
+
   $output .= '<!--peter gallery-->
     <script src="/sites/all/themes/immoklink_base//js/gallery-peter/modernizr-2.6.2.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
@@ -64,6 +65,10 @@ function immoklink_sitewide_gallery_js_content_type_render($subtype, $conf, $pan
     <script src="/sites/all/themes/immoklink_base/js/gallery-peter/main.min.js">
     </script>
     <!--end peter gallery-->';
+
+  $output .= '<!--video in a gallery-->
+        <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/venobox.min.js"></script>
+        <!--end of video in a gallery-->';
 
   $block = new stdClass();
   $block->title = '';

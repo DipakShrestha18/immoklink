@@ -121,11 +121,28 @@ function theme_gallery_format(&$variables) {
   $path_alias = drupal_lookup_path('alias', current_path());
   $url = $base_url . '/' . $path_alias;
 
+  //gets video link if it exist
+  if (isset($paragraph->field_gallery_bundle_video_url[LANGUAGE_NONE])) {
+    $video_link = $paragraph->field_gallery_bundle_video_url[LANGUAGE_NONE][0]['value'];
+  }
+
   $image_path = $paragraph->field_gallery_bundle_image[LANGUAGE_NONE][0]['uri'];
   $full_img = file_create_url($image_path);
 
   $output .= '<li class="slide slide' . $variables[1] . ' init-on-load" data-slide="' . $variables[1] . '">';
-  $output .= '<img class="slide-img" src= "' . $full_img . '">';
+  if (isset($paragraph->field_gallery_bundle_video_url[LANGUAGE_NONE])) {
+    if (strpos($video_link, 'vimeo')) {
+      $video_type = 'vimeo';
+    } else if (strpos($video_link, 'youtu')) {
+      $video_type = 'youtube';
+    }
+
+    $output .= '<a class="btn btn-info venoboxvid" data-gall="gall2" data-type="' . $video_type . '" href="' . $video_link . '?autoplay=1">';
+    $output .= '<img class="slide-img" src= "' . $full_img . '">';
+    $output .= '</a>';
+  } else {
+    $output .= '<img class="slide-img" src= "' . $full_img . '">';
+  }
   $output .= '<div class="share-overlay"><div class="icon-wrap">';
   $output .= '<a class="no-state" href="https://twitter.com/share?text=Immo+Klink&url=' . $url . '" target="_blank">';
   $output .= '<img src="' . $twitter_icon . '">';
