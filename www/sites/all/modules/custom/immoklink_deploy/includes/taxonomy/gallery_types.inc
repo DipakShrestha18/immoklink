@@ -10,15 +10,15 @@ $vocab = array(
   'machine_name' => 'gallery_types',
 );
 $terms = array(
-  'everyone' => array(
+  'fashion' => array(
     'name' => 'Fashion',
     'description' => '',
   ),
-  'managers' => array(
+  'reportage' => array(
     'name' => 'Reportage',
     'description' => '',
   ),
-  'tenants' => array(
+  'works' => array(
     'name' => 'Works',
     'description' => '',
   ),
