@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK Frontend feature.
+ */
+
+include_once 'fimmoklink_frontend.features.inc';

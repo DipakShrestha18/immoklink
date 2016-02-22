@@ -54,5 +54,6 @@ function immoklink_deploy_update_7001() {
     'no_field_markup',
     'fimmoklink_gallery',
     'fimmoklink_gallery_listings',
+    'fimmoklink_frontend',
   ));
 }

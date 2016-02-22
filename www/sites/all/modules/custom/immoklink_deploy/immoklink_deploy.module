@@ -154,6 +154,7 @@ function immoklink_deploy_features() {
     'fimmoklink_paragraphs',
     'fimmoklink_gallery',
     'fimmoklink_gallery_listings',
+    'fimmoklink_frontend',
   );
   foreach ($enable as $group) {
     features_install_modules($group);
