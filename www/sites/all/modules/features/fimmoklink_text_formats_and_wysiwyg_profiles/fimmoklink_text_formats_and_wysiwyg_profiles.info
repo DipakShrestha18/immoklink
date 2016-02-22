@@ -1,10 +1,13 @@
 name = Text formats and wysiwyg profiles
+description = A feature for capturing text formats and wysiwyg profiles.
 core = 7.x
 package = General Site Configurations
 version = 7.x-1.0
 dependencies[] = features
 dependencies[] = filter
 dependencies[] = media_wysiwyg
+dependencies[] = wysiwyg
 features[features_api][] = api:2
 features[filter][] = html_no_media
 features[filter][] = plain_text
+features[wysiwyg][] = html_no_media
