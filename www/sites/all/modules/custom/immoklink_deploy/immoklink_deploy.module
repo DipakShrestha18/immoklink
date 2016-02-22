@@ -240,6 +240,7 @@ function immoklink_deploy_set_theme() {
 
   // Disable the default Bartik theme
   theme_disable(array('bartik'));
+  variable_set('node_admin_theme', 1);
 }
 
 /**
@@ -254,7 +255,6 @@ function immoklink_deploy_panel_pages_enable() {
       'term_view',
       'site_template',
     );
-
     foreach ($system_pages as $page_manager_task) {
       immoklink_deploy_panel_page_enable($page_manager_task);
     }
