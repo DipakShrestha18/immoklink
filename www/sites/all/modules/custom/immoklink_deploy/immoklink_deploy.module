@@ -269,6 +269,7 @@ function immoklink_deploy_panel_page_enable($page_manager_task) {
   if (module_exists('page_manager')) {
     if ($enable_function = immoklink_deploy_page_manager_task_enable_function($page_manager_task)) {
       page_manager_get_task($page_manager_task);
+     // print_r($page_manager_task);
       // All page manager tasks expects a $cache param that is not used, and then
       // the value (FALSE to enable, TRUE to disable). It's weird but it's like
       // it is. Ask merlinofchaos, not me.
@@ -288,6 +289,7 @@ function immoklink_deploy_page_manager_task_enable_function($page_manager_task) 
     'node_view' => 'page_manager_node_view_enable',
     'user_view' => 'page_manager_user_view_enable',
     'term_view' => 'page_manager_term_view_enable',
+    'site_template' => 'panels_everywhere_site_template_enable',
   );
 
   if (isset($page_manager_task_functions[$page_manager_task])) {
