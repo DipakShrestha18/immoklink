@@ -128,7 +128,9 @@ function immoklink_deploy_module_enable() {
     'immoklink_info_field',
     'paragrahps',
     'immoklink_exhibitions_field',
-    'no_field_markup'
+    'no_field_markup',
+    'workbench',
+    'workbench_moderation',
   );
 
   foreach ($enable as $module) {
