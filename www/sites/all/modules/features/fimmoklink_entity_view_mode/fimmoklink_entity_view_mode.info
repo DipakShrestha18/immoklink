@@ -1,0 +1,10 @@
+name = IMMOKLINK Entity view mode
+description = All media related settings and config.
+core = 7.x
+package = General Site Configurations
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = entity_view_modes

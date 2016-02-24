@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK Entity view mode feature.
+ */
+
+include_once 'fimmoklink_entity_view_mode.features.inc';

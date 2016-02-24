@@ -131,6 +131,7 @@ function immoklink_deploy_module_enable() {
     'no_field_markup',
     'workbench',
     'workbench_moderation',
+    'entity_view_mode',
   );
 
   foreach ($enable as $module) {
@@ -157,6 +158,7 @@ function immoklink_deploy_features() {
     'fimmoklink_gallery',
     'fimmoklink_gallery_listings',
     'fimmoklink_frontend',
+    'fimmoklink_entity_view_mode',
   );
   foreach ($enable as $group) {
     features_install_modules($group);
