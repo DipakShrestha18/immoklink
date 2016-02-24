@@ -59,5 +59,6 @@ function immoklink_deploy_update_7001() {
     'workbench_moderation',
     'entity_view_mode',
     'fimmoklink_entity_view_mode',
+    'fimmoklink_media',
   ));
 }

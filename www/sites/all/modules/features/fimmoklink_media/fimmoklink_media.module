@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK Media feature.
+ */
+
+include_once 'fimmoklink_media.features.inc';

@@ -26,6 +26,38 @@ function fimmoklink_image_config_image_default_styles() {
     ),
   );
 
+  // Exported image style: image_landscale.
+  $styles['image_landscale'] = array(
+    'label' => 'Image landscale',
+    'effects' => array(
+      3 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 800,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: image_portrait.
+  $styles['image_portrait'] = array(
+    'label' => 'Image portrait',
+    'effects' => array(
+      4 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 400,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: listings_image.
   $styles['listings_image'] = array(
     'label' => 'Listings image',
