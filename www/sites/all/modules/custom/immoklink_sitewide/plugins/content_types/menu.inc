@@ -22,6 +22,9 @@ $plugin = array(
  * Outputs a node based on the module and delta supplied in the configuration.
  */
 function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_args, $context) {
+  global $user;
+
+
   $output = '';
   $output .= '<a href="people.html">People</a>
                     <a href="reportage.html">Reportage</a>
@@ -29,6 +32,9 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
                     <a href="fashion.html">Fashion</a>
                     <a href="about.html">Info</a>
                     <a href="news">News</a>';
+  if (in_array('Editor', $user->roles)) {
+    $output .= l('My workbench', 'admin/workbench');
+  }
 
   $block = new stdClass();
   $block->title = '';
