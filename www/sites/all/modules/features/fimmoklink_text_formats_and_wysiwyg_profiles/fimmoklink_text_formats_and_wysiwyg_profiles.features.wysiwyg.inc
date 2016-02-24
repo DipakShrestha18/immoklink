@@ -22,7 +22,21 @@ function fimmoklink_text_formats_and_wysiwyg_profiles_wysiwyg_default_profiles()
       'language' => 'en',
       'buttons' => array(
         'default' => array(
+          'Bold' => 1,
+          'Italic' => 1,
+          'Underline' => 1,
+          'Undo' => 1,
+          'Link' => 1,
+          'Unlink' => 1,
+          'Image' => 1,
           'Source' => 1,
+          'Copy' => 1,
+          'Paste' => 1,
+          'PasteFromWord' => 1,
+          'Font' => 1,
+          'Table' => 1,
+          'Smiley' => 1,
+          'CreateDiv' => 1,
         ),
         'drupal' => array(
           'media' => 1,

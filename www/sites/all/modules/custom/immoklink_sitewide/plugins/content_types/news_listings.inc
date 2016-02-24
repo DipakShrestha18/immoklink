@@ -32,9 +32,10 @@ function immoklink_sitewide_news_listings_content_type_render($subtype, $conf, $
 //    ->propertyOrderBy('field_news_date', 'ASC')
     ->execute();
 
-  $nodes = node_load_multiple(array_keys($results['node']));
-  $output .= theme('immoklink_news', array('node' => $nodes));
-
+  if (!empty($results['node'])) {
+    $nodes = node_load_multiple(array_keys($results['node']));
+    $output .= theme('immoklink_news', array('node' => $nodes));
+  }
 
   $block = new stdClass();
   $block->title = '';
