@@ -36,7 +36,6 @@ function immoklink_sitewide_gallery_js_content_type_render($subtype, $conf, $pan
 
 
   $output .= '<!--peter gallery-->
-  <link rel="stylesheet" type="text/css" href="/sites/all/themes/immoklink_base/css/gallery/screen.css">
     <script src="/sites/all/themes/immoklink_base//js/gallery-peter/modernizr-2.6.2.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
     </script>

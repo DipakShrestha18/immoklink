@@ -605,9 +605,9 @@ nav.sub-nav {
     .page .content .grid-item:hover .gallery-title, .page .content .grid-item:hover .gallery-count {
       visibility: visible; }
 
-.js img.fade-me-in {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0; }
+/*.js img.fade-me-in {
+ filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+ opacity: 0;  }*/
 
 .no-js img.fade-me-in, .lt-ie9 img.fade-me-in {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
