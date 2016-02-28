@@ -46,7 +46,7 @@ function immoklink_sitewide_newsletter_form_ajax_callback($form, &$form_state) {
     $commands[] = ajax_command_replace('#signup-error', $output);
   } else {
     $output = '<div id="webform-ajax-wrapper-3"><div class="webform-confirmation">
-               <p>Thank you for subscribing to our newsletter. Each month we\'ll send you an update on the stories we\'ve published.</p>
+               <p>Thank you for subscribing to our newsletter.</p>
                </div></div>';
     $commands[] = ajax_command_remove('#signup-error');
     $commands[] = ajax_command_replace('#webform-ajax-wrapper-3', $output);

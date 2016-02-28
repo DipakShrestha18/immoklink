@@ -33,14 +33,14 @@ function immoklink_sitewide_newsletter_form() {
   $form['#prefix'] = '<div id="signup-error"></div><div id="webform-ajax-wrapper-3">';
   $form['#suffix'] = '</div>';
   $form['my_markup'] = array(
-    '#markup' => '<p>Sign up for monthly email updates. We won\'t send you anything else. Find out more about the <a href="http://www.wellcome.ac.uk/about-this-site/privacy-statement/index.htm" target="_blank">Wellcome Trust privacy statement</a>.</p>'
+    '#markup' => '<p>Sign up for email updates.</p>'
   );
   $form['signup'] = array(
-    '#title' => t("Sign up for updates when we publish new content. We won't send you anything else."),
+    '#title' => t("Sign up for updates when we publish new content."),
     '#type' => 'textfield',
     '#default_value' => '',
     '#attributes' => array(
-      'placeholder' => t('me@there.com'),
+      'placeholder' => t('email@there.com'),
     ),
   );
   $form['actions']['submit'] = array(
