@@ -28,6 +28,11 @@ function fimmoklink_paragraphs_paragraphs_info() {
       'bundle' => 'gallery_bundle',
       'locked' => '1',
     ),
+    'homepage' => array(
+      'name' => 'Homepage Bundle',
+      'bundle' => 'homepage',
+      'locked' => '1',
+    ),
   );
   return $items;
 }

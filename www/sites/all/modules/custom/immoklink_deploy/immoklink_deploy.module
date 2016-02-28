@@ -132,6 +132,7 @@ function immoklink_deploy_module_enable() {
     'workbench',
     'workbench_moderation',
     'entity_view_mode',
+    'immoklink_email_signup',
   );
 
   foreach ($enable as $module) {
@@ -160,6 +161,7 @@ function immoklink_deploy_features() {
     'fimmoklink_frontend',
     'fimmoklink_entity_view_mode',
     'fimmoklink_media',
+    'fimmoklink_homepage',
   );
   foreach ($enable as $group) {
     features_install_modules($group);

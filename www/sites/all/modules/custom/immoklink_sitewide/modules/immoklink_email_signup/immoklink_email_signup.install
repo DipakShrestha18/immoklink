@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function immoklink_email_signup_schema() {
+
+  $schema['immoklink_email_signup'] = array(
+    'description' => 'Email signup.',
+    'fields' => array(
+      'signup_id' => array(
+        'description' => 'The sign up .',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'email' => array(
+        'description' => 'Email of signups',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('signup_id'),
+  );
+
+  return $schema;
+}

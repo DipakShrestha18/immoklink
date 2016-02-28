@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK Homepage feature.
+ */
+
+include_once 'fimmoklink_homepage.features.inc';

@@ -1,0 +1,4 @@
+name = Immoklink Email signup
+description = Email sign up functionality and admin set up.
+package = Immoklink
+core = 7.x

@@ -22,7 +22,7 @@ nav {
 	padding: 1px 0px 2px 0px;
 	background-color:#999;
 	width:100%;
-	margin-bottom: 13px;	
+	margin-bottom: 13px;
 }
 
 nav a {
@@ -110,7 +110,7 @@ a.mobile_menu.selected { background-position: 4px -26px; }
 		margin: 0 0 20px;
 		padding: 0 10px 0 0;
 	}
-	
+
 	ul.news {
 		margin-left: 0;
 	}
@@ -119,10 +119,10 @@ a.mobile_menu.selected { background-position: 4px -26px; }
 		margin: 0 0 20px;
 		padding: 0 10px 0 0;
 	}
-	
+
 /********homepage**********/
 .all-img-container{padding:10px 0px 10px 0px; width:auto;}
-.container{height:50px;width:90px;float:left;margin-left:3px;display:inline;margin-bottom:15px; }
+.container{height:40px;width:90px;float:left;margin-left:3px;display:inline;margin-bottom:15px; }
 .cycler img {width:100%; height:60px;}
 .container-long{width:70px;}
 .container-short{width:35px;}

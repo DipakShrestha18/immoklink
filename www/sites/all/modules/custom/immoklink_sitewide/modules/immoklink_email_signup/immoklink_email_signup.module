@@ -1,0 +1,169 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function immoklink_email_signup_menu() {
+
+  $items['admin/config/immoklink/signup'] = array(
+    'title' => 'Immoklink email signup',
+    'description' => 'Immoklink signup downloads.',
+    'page callback' => 'immoklink_email_signup_overview',
+    'access arguments' => array('administer content'),
+  );
+
+  return $items;
+}
+
+/**
+ * Validation for newsletter form.
+ */
+function immoklink_sitewide_newsletter_form_validate(&$form, &$form_state) {
+  $url = parse_url($_SERVER['HTTP_REFERER']);
+  if (isset($url['query']) && strstr($url['query'], 'submitted') !== FALSE) {
+    form_error($form);
+  }
+  if (!valid_email_address($form_state['values']['signup'])) {
+    form_error($form);
+  }
+}
+
+/**
+ * Submit function for newsletter form.
+ */
+function immoklink_sitewide_newsletter_form_submit($form, &$form_state) {
+  if (valid_email_address($form_state['values']['signup'])) {
+    immoklink_email_signup_save_email($form_state['values']['signup']);
+  }
+}
+
+/**
+ * Ajax callback for webform.
+ */
+function immoklink_sitewide_newsletter_form_ajax_callback($form, &$form_state) {
+  if (!valid_email_address($form_state['values']['signup'])) {
+    $output = '<div id="signup-error" class="messages error"><h2 class="element-invisible">Error message</h2>You must use a valid email address.</div>';
+    $commands[] = ajax_command_replace('#signup-error', $output);
+  } else {
+    $output = '<div id="webform-ajax-wrapper-3"><div class="webform-confirmation">
+               <p>Thank you for subscribing to our newsletter. Each month we\'ll send you an update on the stories we\'ve published.</p>
+               </div></div>';
+    $commands[] = ajax_command_remove('#signup-error');
+    $commands[] = ajax_command_replace('#webform-ajax-wrapper-3', $output);
+  }
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Function to save email to db.
+ */
+function immoklink_email_signup_save_email($mail) {
+  db_insert('immoklink_email_signup')->fields(array('email' => $mail))->execute();
+}
+
+
+/**
+ * Overview page for seeing and exporting newsletter signups.
+ */
+function immoklink_email_signup_overview() {
+  $content = '';
+  $signups = db_query('select * from {immoklink_email_signup}')->fetchAll();
+  if ($signups) {
+    foreach ($signups as $key => $signup) {
+      $rows[] = array(
+        'data' => array(
+          'number' => $key + 1,
+          'email' => $signup->email,
+        ),
+      );
+    }
+    $content['table'] = array(
+      '#theme' => 'table',
+      '#rows' => $rows,
+      '#header' => array(t('ID'), t('Emails')),
+    );
+    $output = render($content);
+    $form = drupal_get_form('immoklink_email_signup_export');
+    $output .= render($form);
+  }
+  else {
+    $output['message'] = array(
+      '#type' => 'markup',
+      '#markup' => '<p>' . t('There are currently no signups.') . '</p>',
+    );
+  }
+
+  return $output;
+}
+
+/**
+ * Form with submit for exporting signup emails.
+ */
+function immoklink_email_signup_export($form, $form_state) {
+  $form['remove_emails'] = array(
+    '#title' => t('Remove emails from database'),
+    '#type' => 'checkbox',
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Export emails as CSV'),
+  );
+  return $form;
+}
+
+/**
+ * Submit function for export form.
+ */
+function immoklink_email_signup_export_submit($form, &$form_state) {
+  $csv = '';
+  $signups = db_query('select * from {immoklink_email_signup}')->fetchAll();
+  foreach ($signups as $signup) {
+    $csv[]['email'] = $signup->email;
+  }
+  download_send_headers("immoklink_email_signup_" . date("Y-m-d") . ".csv");
+  echo array2csv($csv);
+  if (isset($form_state['values']['remove_emails']) && $form_state['values']['remove_emails'] == 1) {
+    db_truncate('immoklink_email_signup')->execute();
+  }
+  watchdog('immoklink_email_signup', 'Exported all email addresses to CSV.');
+  die();
+}
+
+/**
+ * Array 2 csv helper functions taken from
+ * http://stackoverflow.com/questions/4249432/export-to-csv-via-php
+ */
+function array2csv(array &$array) {
+  if (count($array) == 0) {
+    return null;
+  }
+  ob_start();
+  $df = fopen("php://output", 'w');
+  fputcsv($df, array_keys(reset($array)));
+  foreach ($array as $row) {
+    fputcsv($df, $row);
+  }
+  fclose($df);
+  return ob_get_clean();
+}
+
+/**
+ * Array 2 csv helper functions taken from
+ * http://stackoverflow.com/questions/4249432/export-to-csv-via-php
+ */
+function download_send_headers($filename) {
+  // disable caching
+  $now = gmdate("D, d M Y H:i:s");
+  header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+  header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
+  header("Last-Modified: {$now} GMT");
+
+  // force download
+  header("Content-Type: application/force-download");
+  header("Content-Type: application/octet-stream");
+  header("Content-Type: application/download");
+
+  // disposition / encoding on response body
+  header("Content-Disposition: attachment;filename={$filename}");
+  header("Content-Transfer-Encoding: binary");
+}

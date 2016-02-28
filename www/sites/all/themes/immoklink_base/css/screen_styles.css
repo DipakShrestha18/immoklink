@@ -47,13 +47,13 @@ a.cta {
 	background: url(../images/cta_arrow.png) no-repeat right 0px;
 }
 a.cta:hover { background-position: right -50px; }
-a.email-link { 
+a.email-link {
 	background-image: url('../images/assets/mail_icon.png');
 	background-repeat: no-repeat;
 	display: block;
 	padding: 2px 0px 0px 25px;
 }
-a.tel { 
+a.tel {
 	background-image: url('../images/assets/tel_icon.png');
 	background-repeat: no-repeat;
 	display: block;
@@ -125,7 +125,7 @@ ul.rig li h3 {
 
 ul.rig.columns-2 li {
 	width: 49%; /* this value + 2.5 should = 33% */
-	cursor: pointer; 
+	cursor: pointer;
 	cursor: hand;
 }
 
@@ -170,7 +170,7 @@ ul.news li:nth-child(3n+1) {
 ul.news li img {
 	max-width: 100%;
 	height: auto;
-	margin: 0 0 10px;
+	margin: 0 0;
 }
 ul.news li h3 {
 	margin: 0 0 5px;
@@ -327,17 +327,17 @@ ul.books.columns-3 li {
 
 .wrap img {
     position: absolute;
-    bottom: 0;	
+    bottom: 0;
 }
 
 .share img:nth-of-type(1) {
     right: 0;
-	margin-right: 30px;
+	margin-right: 20%;
 }
 
 .share1 img:nth-of-type(1) {
     left: 0;
-	margin-left: 30px;
+	margin-left: 20%;
 }
 
 .overlay-text {
@@ -355,7 +355,7 @@ body{
 }
 /* ------- overlay: change here background color and opacity ----- */
 .vbox-overlay{
-    background: rgba(0,0,0,0.85); 
+    background: rgba(0,0,0,0.85);
     width: 100%;
     height: auto;
     position: absolute;
@@ -377,12 +377,12 @@ body{
 }
 /* ----- preloader ----- */
 .vbox-preloader{
-    position:fixed; 
-    width:36px; 
+    position:fixed;
+    width:36px;
     height:36px;
-    left:50%; 
-    top:50%; 
-    margin-left:-18px; 
+    left:50%;
+    top:50%;
+    margin-left:-18px;
     margin-top:-18px;
     background: url(../images/assets/preload.gif) center center no-repeat;
     text-indent: -100px;
@@ -486,17 +486,13 @@ body{
   left: 0;
   opacity: 0;
   overflow: hidden;
-  padding: 1em 1em;
+  padding: 5em 1em;
   position: absolute;
   text-align: center;
   top: 0;
   right: 0;
   -webkit-transition: 0.6s;
   transition: 0.6s;
-}
-
-.media__body .inner {
-	margin-top:15px;
 }
 
 div.media__body:hover, div.media__body.hover { opacity: 1; }
