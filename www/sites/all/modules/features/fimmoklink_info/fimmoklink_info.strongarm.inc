@@ -19,13 +19,13 @@ function fimmoklink_info_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '3',
+          'weight' => '9',
         ),
         'title' => array(
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '2',
+          'weight' => '8',
         ),
       ),
       'display' => array(),

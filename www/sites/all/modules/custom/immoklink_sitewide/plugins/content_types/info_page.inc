@@ -33,16 +33,23 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
   }
 
   $node = $context[0]->data;
+  dpm($node);
+  $firstline_add = isset($node->field_info_address_first_line[LANGUAGE_NONE]) ? $node->field_info_address_first_line[LANGUAGE_NONE][0]['value'] . '<br />': '';
+  $secondline_add = isset($node->field_info_address_second_line[LANGUAGE_NONE]) ? $node->field_info_address_second_line[LANGUAGE_NONE][0]['value'] . '<br />' : '';
+  $thirdline_add = isset($node->field_info_address_third_line[LANGUAGE_NONE]) ? $node->field_info_address_third_line[LANGUAGE_NONE][0]['value'] . '<br />' : '';
+  $postcode = isset($node->field_info_postcode[LANGUAGE_NONE]) ? $node->field_info_postcode[LANGUAGE_NONE][0]['value'] . '<br />' : '';
+  if (isset($node->field_info_telephone[LANGUAGE_NONE])) {
+    $tel = '<a class="tel" itemprop="telephone" href="tel:' . $node->field_info_telephone[LANGUAGE_NONE][0]['value'] .'">' . $node->field_info_telephone[LANGUAGE_NONE][0]['value'] . '</a>';
+  }
+
+  if (isset($node->field_info_email[LANGUAGE_NONE])) {
+    $email = '<a href="mailto:' . $node->field_info_email[LANGUAGE_NONE][0]['value'] . ' class="email-link">' . $node->field_info_email[LANGUAGE_NONE][0]['value'] . '</a>';
+  }
+
   $output .= '<div id="three-columns" class="grid-container" style="display:block;">
-			<ul class="news columns-3">
-            	<li class="media">
-                <p>Studio Immo Klink <br />
-                Address Line Here <br />
-                Some city in the world <br />
-                <a class="tel" itemprop="telephone" href="tel:07595253748">07595 253748</a>
-                <a href="mailto:immoklink@immoklink.com" class="email-link">immoklink@immoklink.com</a>
-                </li>';
-  $output .= '';
+			          <ul class="news columns-3">
+            	      <li class="media"><p>' . $firstline_add . $secondline_add . $thirdline_add . $postcode . $tel . $email . '</p></li>';
+
 
   $infos = $node->field_info_info_list[LANGUAGE_NONE];
   global $base_url;
@@ -61,13 +68,24 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
 
   global $base_url;
   $path = $base_url . '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/';
-  $output .= '<li class="media" style="vertical-align:bottom; text-align:right;">
-        			<a href="http://www.facebook.com" class="sm-icon"><img class="sm-icon" src="' . $path . 'facebook_about.png" /></a>
-                    <a href="http://www.twitter.com" class="sm-icon"><img  class="sm-icon" src="' . $path . 'twitter_about.png" /></a>
-                    <a href="http://www.instagram.com" class="sm-icon"><img class="sm-icon" src="' . $path . 'instagram_about.png" /></a>
-                    <a href="http://knowhowdriving.co.uk/html/news.html" class="sm-icon"><img class="sm-icon" src="' . $path . 'blogicon_about.png" /></a>
-				</li>';
-  $output .= '</ul></div>';
+  $output .= '<li class="media" style="vertical-align:bottom; text-align:right;">';
+
+  if (isset($node->field_info_facebook_url[LANGUAGE_NONE])) {
+    $output .= '<a href="' . $node->field_info_facebook_url[LANGUAGE_NONE][0]['value'] . '" class="sm-icon"><img class="sm-icon" src="' . $path . 'facebook_about.png" /></a>';
+  }
+
+  if (isset($node->field_info_twitter_url[LANGUAGE_NONE])) {
+    $output .= '<a href="' . $node->field_info_twitter_url[LANGUAGE_NONE][0]['value'] . '" class="sm-icon"><img  class="sm-icon" src="' . $path . 'twitter_about.png" /></a>';
+  }
+
+  if (isset($node->field_info_instagram_url[LANGUAGE_NONE])) {
+    $output .=  '<a href="' . $node->field_info_instagram_url[LANGUAGE_NONE][0]['value'] . '" class="sm-icon"><img class="sm-icon" src="' . $path . 'instagram_about.png" /></a>';
+  }
+
+  if (isset($node->field_info_blog_url[LANGUAGE_NONE])) {
+    $output .=  '<a href="' . $node->field_info_blog_url[LANGUAGE_NONE][0]['value'] . '" class="sm-icon"><img class="sm-icon" src="' . $path . 'blogicon_about.png" /></a>';
+  }
+  $output .= '</li></ul></div>';
 
   $block = new stdClass();
   $block->title = '';
