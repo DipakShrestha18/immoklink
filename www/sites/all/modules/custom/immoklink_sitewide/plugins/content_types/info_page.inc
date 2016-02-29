@@ -52,7 +52,7 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
 
   $output .= '<div id="three-columns" class="grid-container" style="display:block;">
 			          <ul class="news columns-3">
-            	      <li class="media"><p>' . $firstline_add . $secondline_add . $thirdline_add . $postcode . $tel . $email . '</p></li>';
+            	      <li class="media"><p>' . $node->title . $firstline_add . $secondline_add . $thirdline_add . $postcode . $tel . $email . '</p></li>';
 
 
   $infos = $node->field_info_info_list[LANGUAGE_NONE];
