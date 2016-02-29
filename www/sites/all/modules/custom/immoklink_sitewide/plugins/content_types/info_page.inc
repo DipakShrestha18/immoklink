@@ -68,7 +68,6 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
                     <a href="http://knowhowdriving.co.uk/html/news.html" class="sm-icon"><img class="sm-icon" src="' . $path . 'blogicon_about.png" /></a>
 				</li>';
   $output .= '</ul></div>';
- // dpm($node);
 
   $block = new stdClass();
   $block->title = '';
