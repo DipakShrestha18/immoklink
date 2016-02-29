@@ -45,7 +45,7 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
   }
 
   if (isset($node->field_info_email[LANGUAGE_NONE])) {
-    $email = '<a href="mailto:' . $node->field_info_email[LANGUAGE_NONE][0]['value'] . ' class="email-link">' . $node->field_info_email[LANGUAGE_NONE][0]['value'] . '</a>';
+    $email = '<a href="mailto:' . $node->field_info_email[LANGUAGE_NONE][0]['value'] . '" class="email-link">' . $node->field_info_email[LANGUAGE_NONE][0]['value'] . '</a>';
   } else {
     $email = '';
   }
