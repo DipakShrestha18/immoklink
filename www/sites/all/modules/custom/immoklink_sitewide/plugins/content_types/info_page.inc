@@ -45,11 +45,12 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
   $output .= '';
 
   $infos = $node->field_info_info_list[LANGUAGE_NONE];
+  global $base_url;
   foreach ($infos as $info) {
     $output .= '<li class="media">
-                	<a class="hoover" href="news1.html">
+                	<a class="hoover" href="' . $base_url . $info['info_link'] . '">
                     <div class="media__body">
-                        <h2>Press</h2>
+                        <h2>' . $info['info_title'] . '</h2>
                     </div>';
     $file = file_load($info['info_image_fid']);
     $image_path = $file->uri;
