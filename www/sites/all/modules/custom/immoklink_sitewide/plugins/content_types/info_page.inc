@@ -33,17 +33,21 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
   }
 
   $node = $context[0]->data;
-  dpm($node);
+
   $firstline_add = isset($node->field_info_address_first_line[LANGUAGE_NONE]) ? $node->field_info_address_first_line[LANGUAGE_NONE][0]['value'] . '<br />': '';
   $secondline_add = isset($node->field_info_address_second_line[LANGUAGE_NONE]) ? $node->field_info_address_second_line[LANGUAGE_NONE][0]['value'] . '<br />' : '';
   $thirdline_add = isset($node->field_info_address_third_line[LANGUAGE_NONE]) ? $node->field_info_address_third_line[LANGUAGE_NONE][0]['value'] . '<br />' : '';
   $postcode = isset($node->field_info_postcode[LANGUAGE_NONE]) ? $node->field_info_postcode[LANGUAGE_NONE][0]['value'] . '<br />' : '';
   if (isset($node->field_info_telephone[LANGUAGE_NONE])) {
     $tel = '<a class="tel" itemprop="telephone" href="tel:' . $node->field_info_telephone[LANGUAGE_NONE][0]['value'] .'">' . $node->field_info_telephone[LANGUAGE_NONE][0]['value'] . '</a>';
+  } else {
+    $tel = '';
   }
 
   if (isset($node->field_info_email[LANGUAGE_NONE])) {
     $email = '<a href="mailto:' . $node->field_info_email[LANGUAGE_NONE][0]['value'] . ' class="email-link">' . $node->field_info_email[LANGUAGE_NONE][0]['value'] . '</a>';
+  } else {
+    $email = '';
   }
 
   $output .= '<div id="three-columns" class="grid-container" style="display:block;">
