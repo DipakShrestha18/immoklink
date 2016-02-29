@@ -27,7 +27,8 @@ function fimmoklink_news_field_group_info() {
       1 => 'field_news_image_main',
       2 => 'field_news_listing_text',
       3 => 'field_news_main_text',
-      4 => 'title',
+      4 => 'field_news_tags',
+      5 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

@@ -1,0 +1,156 @@
+<?php
+
+/**
+ * Implements hook_menu()
+ */
+function immoklink_news_json_menu() {
+  $items = array();
+
+  $items['news/json'] = array(
+    'title' => 'News JSON feed',
+    'page callback' => 'news_json',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['news/json/%'] = array(
+    'title' => 'News JSON feed based on tagging',
+    'page callback' => 'news_json_argument',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Callback function to return news json.
+ */
+function news_json() {
+  if (!cache_get('news_json', 'cache')) {
+    $query = new EntityFieldQuery();
+    $results = $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'news')
+      ->propertyCondition('status', 1, '=')
+      ->fieldOrderBy('field_news_date', 'value', 'DESC')
+      ->execute();
+
+    if (!empty($results['node'])) {
+      $nodes = node_load_multiple(array_keys($results['node']));
+    }
+    $json = get_json_form_nodes($nodes);
+    //cache_set('news_json', $json, 'cache', REQUEST_TIME + (3600 * 24 * 30 * 6));
+  } else {
+    $cacheobject = cache_get('news_json', 'cache');
+    $json = $cacheobject->data;
+  }
+  echo $json;
+}
+
+/**
+ * Callback function to get JSON feed with argument.
+ * @param $tid
+ */
+function news_json_argument($tid) {
+  if (!cache_get('news_' . $tid . '_json', 'cache')) {
+    $query = new EntityFieldQuery();
+    $results = $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'news')
+      ->propertyCondition('status', 1, '=')
+      ->fieldCondition('field_news_tags', 'tid', $tid)
+      // ->fieldOrderBy('field_news_date', 'value', 'DESC')
+      ->execute();
+
+    if (!empty($results['node'])) {
+      $nodes = node_load_multiple(array_keys($results['node']));
+    }
+    $json = get_json_form_nodes($nodes);
+    cache_set('news_' . $tid . '_json', $json, 'cache', REQUEST_TIME + (3600 * 24 * 30 * 6));
+  } else {
+    $cacheobject = cache_get('news_' . $tid . '_json', 'cache');
+    $json = $cacheobject->data;
+  }
+  echo $json;
+}
+
+/**
+ * function to parse JSON.
+ * @param $nodes
+ */
+function get_json_form_nodes($nodes) {
+  $feed = new stdClass();
+  $feed->code = 200;
+  $feed->message = 'success';
+  $feed->data = array();
+  $count = 1;
+  foreach ($nodes as $key => $node) {
+    $feeds = new stdClass();
+    $feeds->id = $count;
+    $feeds->title = $node->title;
+    if (isset($node->field_news_listing_text[LANGUAGE_NONE])) {
+      $feeds->description = $node->field_news_listing_text[LANGUAGE_NONE][0]['value'];
+    } else {
+      $feeds->description = '';
+    }
+    $date = format_date($node->field_news_date[LANGUAGE_NONE][0]['value'], 'custom', 'j M Y');
+    $feeds->date = $date;
+
+    if (isset($node->field_news_tags[LANGUAGE_NONE])) {
+      $tags = $node->field_news_tags[LANGUAGE_NONE];
+      $tag_name = array();
+      foreach ($tags as $tag) {
+        $term = taxonomy_term_load($tag['tid']);
+        $tag_name[] = $term->name;
+      }
+      $tags = implode(', ', $tag_name);
+    } else {
+      $tags = '';
+    }
+    $feeds->tags = $tags;
+
+    if (isset($node->field_news_image_main[LANGUAGE_NONE])){
+      $image_path = $node->field_news_image_main[LANGUAGE_NONE][0]['uri'];
+    }
+//    $image = image_style_path('listings_image', $image_path);
+//    $url = parse_url($image);
+//    $path = $url['path'];
+//    $feeds->image->path = '/sites/default/files/styles' . $path;
+
+    $url = file_create_url($image_path);
+    $url = parse_url($url);
+    $path = $url['path'];
+    $feeds->image->path = $path;
+
+    global $base_url;
+    $my_image = array_values(getimagesize($base_url .   $path));
+   // $feeds->image->file = $base_url;
+    //use list on new array
+    list($width, $height, $type, $attr) = $my_image;
+    $feeds->image->width = $width;
+    $feeds->image->height = $height;
+
+    $feed->data[] = $feeds;
+    $count++;
+  }
+  $json = drupal_json_encode($feed);
+  return $json;
+}
+
+
+/**
+ * Implements hook_node_insert().
+ */
+function immoklink_news_json_node_insert($node) {
+  if ($node->type == 'news') {
+    cache_clear_all('*', 'cache', TRUE);
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function immoklink_news_json_node_update($node) {
+  if ($node->type == 'news') {
+    cache_clear_all('*', 'cache', TRUE);
+  }
+}

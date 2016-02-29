@@ -133,6 +133,7 @@ function immoklink_deploy_module_enable() {
     'workbench_moderation',
     'entity_view_mode',
     'immoklink_email_signup',
+    'immoklink_news_json',
   );
 
   foreach ($enable as $module) {

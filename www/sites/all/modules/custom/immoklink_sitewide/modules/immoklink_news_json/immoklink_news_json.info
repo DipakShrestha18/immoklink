@@ -1,0 +1,4 @@
+name = Immoklink News JSON
+description = JSON feed for news listings page.
+package = Immoklink
+core = 7.x

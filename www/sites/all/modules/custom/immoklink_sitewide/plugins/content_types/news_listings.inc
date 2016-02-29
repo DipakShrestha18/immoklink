@@ -24,19 +24,12 @@ $plugin = array(
 function immoklink_sitewide_news_listings_content_type_render($subtype, $conf, $panel_args, $context) {
   $output = '';
   $output .= '<h1>News listings</h1>';
+  $output .= '
+			<section id="gallery-highlight" class="page-cover">
+			</section>
+			<section id="gallery-collection" class="page-grid">
 
-  $query = new EntityFieldQuery();
-  $results = $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'news')
-    ->propertyCondition('status', 1, '=')
-//    ->propertyOrderBy('field_news_date', 'ASC')
-    ->execute();
-
-  if (!empty($results['node'])) {
-    $nodes = node_load_multiple(array_keys($results['node']));
-    $output .= theme('immoklink_news', array('node' => $nodes));
-  }
-
+			</section>';
   $block = new stdClass();
   $block->title = '';
   $block->content = $output;

@@ -53,6 +53,7 @@
   <link rel="stylesheet" type="text/css" href="/sites/all/themes/immoklink_base/css/screen_layout_large.css" />
   <link rel="stylesheet" type="text/css" media="only screen and (min-width:50px) and (max-width:500px)" href="/sites/all/themes/immoklink_base/css/screen_layout_small.css" />
   <link rel="stylesheet" type="text/css" media="only screen and (min-width:501px) and (max-width:800px)" href="/sites/all/themes/immoklink_base/css/screen_layout_medium.css" />
+  <link rel="stylesheet" type="text/css" href="/sites/all/themes/immoklink_base/css/news.css" />
 
   <?php print $styles; ?>
   <?php print $scripts; ?>

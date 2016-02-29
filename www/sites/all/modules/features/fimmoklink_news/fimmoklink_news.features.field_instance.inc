@@ -29,6 +29,18 @@ function fimmoklink_news_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'image_landscale' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'image_portrait' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'preview' => array(
         'label' => 'above',
         'settings' => array(),
@@ -79,6 +91,18 @@ function fimmoklink_news_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'image_landscale' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+      'image_portrait' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
       ),
       'preview' => array(
         'label' => 'above',
@@ -163,7 +187,7 @@ function fimmoklink_news_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -260,6 +284,7 @@ function fimmoklink_news_field_default_field_instances() {
   // Exported field_instance: 'node-news-field_news_main_text'.
   $field_instances['node-news-field_news_main_text'] = array(
     'bundle' => 'news',
+    'clean_markup' => 1,
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -295,7 +320,48 @@ function fimmoklink_news_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 5,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-news-field_news_tags'.
+  $field_instances['node-news-field_news_tags'] = array(
+    'bundle' => 'news',
+    'clean_markup' => 0,
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 4,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_news_tags',
+    'label' => 'Tags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 4,
     ),
   );
 
@@ -307,6 +373,7 @@ function fimmoklink_news_field_default_field_instances() {
   t('Image main');
   t('Listing text');
   t('Main text');
+  t('Tags');
   t('Title Text');
   t('Title text is used in the tool tip when a user hovers their mouse over the image. Adding title text makes it easier to understand the context of an image and improves usability.');
 
