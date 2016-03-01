@@ -23,3 +23,10 @@ function immoklink_deploy_install() {
 
 //Module not to update
 //wysiwyg
+
+/**
+ * Enable fimmoklink_basic_page feature.
+ */
+function immoklink_deploy_update_7001() {
+  module_enable(array('fimmoklink_basic_page'));
+}
