@@ -25,8 +25,10 @@ $handler->conf = array(
         'settings' => array(
           'type' => array(
             'news' => 'news',
+            'basic_page' => 'basic_page',
             'books' => 'books',
             'exhibitions' => 'exhibitions',
+            'home' => 'home',
             'info' => 'info',
           ),
         ),
