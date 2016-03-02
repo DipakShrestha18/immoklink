@@ -26,58 +26,61 @@ function immoklink_sitewide_news_listings_files_content_type_render($subtype, $c
 
   $output .= '<script id="page-cover-tpl" type="text/x-jsrender">
 		<div class="page-cover-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
-			<span class="page-cover-img">
-				<img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}" max-width="400px">
-			</span>
-			<span class="page-cover-wrap">
+			<div class="page-cover-wrap">
+				<span class="page-cover-img">
+					<img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}">
+				</span>
+			</div>
+			<div class="page-cover-wrap">
 				<h2>{{:title}}</h2>
 				<p>{{:description}}</p>
 				<em>{{:date}}</em>
 				<ul class="page-cover-tags">
 					{{for tags}}
 					<li>{{:#data}}</li>
-    {{/for}}
-    </ul>
-			</span>
+					{{/for}}
+				</ul>
+			</div>
 		</div>
 	</script>';
   $output .= '<script id="page-grid-tpl" type="text/x-jsrender">
 		<div class="page-grid-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
-			<span class="page-grid-img">
-				<img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}" >
-			</span>
-			<span class="page-grid-wrap">
+			<div class="page-grid-wrap">
+				<span class="page-grid-img">
+					<img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}" >
+				</span>
+			</div>
+			<div class="page-grid-wrap">
 				<h2>{{:title}}</h2>
 				<p>{{:description}}</p>
 				<em>{{:date}}</em>
 				<ul class="page-grid-tags">
 					{{for tags}}
 					<li>{{:#data}}</li>
-      {{/for}}
-      </ul>
-			</span>
+					{{/for}}
+				</ul>
+			</div>
 		</div>
 	</script>';
 
   $output .= '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.73/jsrender.min.js"></script>';
-
 	$output .= '<script type="text/javascript">
 
-        $.views.helpers({
+    $.views.helpers({
 			imageOrientation: function (val) {
-        if (!val || !val.hasOwnProperty("width") || !val.hasOwnProperty("height")) {
-          return "unknown";
-        }
-        return parseInt(val.width) > parseInt(val.height) ? "landscape" : "portrait";
-      }
+    if (!val || !val.hasOwnProperty("width") || !val.hasOwnProperty("height")) {
+      return "unknown";
+    }
+    return parseInt(val.width) > parseInt(val.height) ? "landscape" : "portrait";
+  }
 		});
 
 
 		var Gallery = function () {};
 
-		Gallery.prototype.endpoint = "/news/json";
+		Gallery.prototype.endpoint = "news/json";
 
 		Gallery.prototype.pageCoverElement = "gallery-highlight";
 		Gallery.prototype.pageGridElement= "gallery-collection";
@@ -95,10 +98,11 @@ function immoklink_sitewide_news_listings_files_content_type_render($subtype, $c
       this.organise = $(this.pageGridClass).masonry({
 				  // options
 				  itemSelector: this.pageGridItemClass,
-				  columnWidth: 80,
-				  percentPosition: true,
-				  gutter: 20,
-				  initLayout: false
+				  columnWidth: 290,
+				  //percentPosition: true,
+				  gutter: 25,
+				  initLayout: false,
+				  fitWidth: true
 				});
 			//}
 		}

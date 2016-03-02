@@ -29,7 +29,7 @@ function immoklink_sitewide_news_listings_content_type_render($subtype, $conf, $
 			</section>
 			<section id="gallery-collection" class="page-grid">
 
-			</section>';
+			</section></article></div>';
   $block = new stdClass();
   $block->title = '';
   $block->content = $output;
