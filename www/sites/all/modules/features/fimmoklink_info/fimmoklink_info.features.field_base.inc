@@ -145,10 +145,10 @@ function fimmoklink_info_field_default_field_bases() {
     'field_name' => 'field_info_info_list',
     'indexes' => array(),
     'locked' => 0,
-    'module' => 'immoklink_info_field',
+    'module' => 'paragraphs',
     'settings' => array(),
     'translatable' => 0,
-    'type' => 'immoklink_info_field',
+    'type' => 'paragraphs',
   );
 
   // Exported field_base: 'field_info_instagram_url'.

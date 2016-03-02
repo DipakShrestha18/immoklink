@@ -58,13 +58,16 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
   $infos = $node->field_info_info_list[LANGUAGE_NONE];
   global $base_url;
   foreach ($infos as $info) {
+    $paragraph = paragraphs_field_get_entity($info);
+    $title = $paragraph->field_info_bundle_title[LANGUAGE_NONE][0]['value'];
+    $link = $base_url . $paragraph->field_info_bundle_link[LANGUAGE_NONE][0]['value'];
+
     $output .= '<li class="media">
-                	<a class="hoover" href="' . $base_url . $info['info_link'] . '">
+                	<a class="hoover" href="' . $link . '">
                     <div class="media__body">
-                        <h2>' . $info['info_title'] . '</h2>
+                        <h2>' . $title . '</h2>
                     </div>';
-    $file = file_load($info['info_image_fid']);
-    $image_path = $file->uri;
+    $image_path = $paragraph->field_info_bundle_image[LANGUAGE_NONE][0]['uri'];
   $output .= theme_image_style(array('style_name' => 'listings_image', 'path' => $image_path, 'height' => '', 'width' => '', 'attributes' => array('class' => array('media__image'))));
 
   $output .= '</a></li>';

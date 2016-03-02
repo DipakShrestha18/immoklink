@@ -259,16 +259,19 @@ function fimmoklink_info_field_default_field_instances() {
   // Exported field_instance: 'node-info-field_info_info_list'.
   $field_instances['node-info-field_info_info_list'] = array(
     'bundle' => 'info',
+    'clean_markup' => 1,
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'immoklink_info_field',
-        'settings' => array(),
-        'type' => 'immoklink_info_field_formatter_default',
-        'weight' => 1,
+        'module' => 'paragraphs',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'paragraphs_view',
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -282,13 +285,29 @@ function fimmoklink_info_field_default_field_instances() {
     'label' => 'Info list',
     'required' => 0,
     'settings' => array(
+      'add_mode' => 'button',
+      'allowed_bundles' => array(
+        'books_bundle' => -1,
+        'gallery_bundle' => -1,
+        'homepage' => -1,
+        'info_bundle' => 'info_bundle',
+      ),
+      'bundle_weights' => array(
+        'books_bundle' => 2,
+        'gallery_bundle' => 3,
+        'homepage' => 4,
+        'info_bundle' => 5,
+      ),
+      'default_edit_mode' => 'open',
+      'title' => 'Paragraph',
+      'title_multiple' => 'Paragraphs',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'immoklink_info_field',
+      'module' => 'paragraphs',
       'settings' => array(),
-      'type' => 'immoklink_info_field_widget_default',
+      'type' => 'paragraphs_embed',
       'weight' => 10,
     ),
   );

@@ -33,6 +33,11 @@ function fimmoklink_paragraphs_paragraphs_info() {
       'bundle' => 'homepage',
       'locked' => '1',
     ),
+    'info_bundle' => array(
+      'name' => 'Info Bundle',
+      'bundle' => 'info_bundle',
+      'locked' => '1',
+    ),
   );
   return $items;
 }
