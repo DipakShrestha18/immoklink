@@ -27,6 +27,7 @@
 .page-grid { display: block; margin: 0 auto 0 auto; }
 .page-grid .page-grid-item { display: inline-block; vertical-align: top; }
 .page-grid .page-grid-item h2 { margin: 5% 0; }
+.page-grid .page-grid-item a { text-decoration: none; }
 .page-grid .page-grid-item.image-portrait .page-grid-wrap, .page-grid .page-grid-item.image-unknown .page-grid-wrap { max-width: 250px; }
 .page-grid .page-grid-item.image-landscape .page-grid-wrap { max-width: 290px; }
 .page-grid .page-grid-item .page-grid-img { float: left; width: 100%; }
@@ -39,6 +40,7 @@
 .page-cover .page-cover-item.image-landscape .page-cover-img { max-width: 500px; max-height: 365px; }
 .page-cover .page-cover-item .page-cover-wrap { display: block; margin: 0 auto; width: 95%; }
 .page-cover .page-cover-item .page-cover-wrap h2 { margin-top: 0; line-height: 1; }
+.page-cover .page-cover-item .page-cover-wrap a { text-decoration: none; }
 
 @media all and (max-width: 480px) { .page-cover .page-cover-item h2 { /*font-size: 1.8rem;*/ } }
 @media all and (min-width: 481px) { html { font-size: 80%; }

@@ -78,6 +78,8 @@ function news_json_argument($tid) {
  * @param $nodes
  */
 function get_json_form_nodes($nodes) {
+  global $base_url;
+
   $feed = new stdClass();
   $feed->code = 200;
   $feed->message = 'success';
@@ -87,6 +89,7 @@ function get_json_form_nodes($nodes) {
     $feeds = new stdClass();
     $feeds->id = $count;
     $feeds->title = $node->title;
+    $feeds->link = $base_url . '/' . drupal_get_path_alias('node/' .$node->nid);
     if (isset($node->field_news_listing_text[LANGUAGE_NONE])) {
       $feeds->description = $node->field_news_listing_text[LANGUAGE_NONE][0]['value'];
     } else {
@@ -110,24 +113,18 @@ function get_json_form_nodes($nodes) {
 
     if (isset($node->field_news_image_main[LANGUAGE_NONE])){
       $image_path = $node->field_news_image_main[LANGUAGE_NONE][0]['uri'];
+      $url = file_create_url($image_path);
+      $url = parse_url($url);
+      $path = $url['path'];
+      $feeds->image->path = $path;
+
+      $my_image = array_values(getimagesize($base_url .   $path));
+      // $feeds->image->file = $base_url;
+      //use list on new array
+      list($width, $height, $type, $attr) = $my_image;
+      $feeds->image->width = $width;
+      $feeds->image->height = $height;
     }
-//    $image = image_style_path('listings_image', $image_path);
-//    $url = parse_url($image);
-//    $path = $url['path'];
-//    $feeds->image->path = '/sites/default/files/styles' . $path;
-
-    $url = file_create_url($image_path);
-    $url = parse_url($url);
-    $path = $url['path'];
-    $feeds->image->path = $path;
-
-    global $base_url;
-    $my_image = array_values(getimagesize($base_url .   $path));
-   // $feeds->image->file = $base_url;
-    //use list on new array
-    list($width, $height, $type, $attr) = $my_image;
-    $feeds->image->width = $width;
-    $feeds->image->height = $height;
 
     $feed->data[] = $feeds;
     $count++;

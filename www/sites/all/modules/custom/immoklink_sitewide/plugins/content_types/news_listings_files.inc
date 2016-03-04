@@ -28,11 +28,11 @@ function immoklink_sitewide_news_listings_files_content_type_render($subtype, $c
 		<div class="page-cover-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
 			<div class="page-cover-wrap">
 				<span class="page-cover-img">
-					<img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}">
+					<a href="{{:link}}"><img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}"></a>
 				</span>
 			</div>
 			<div class="page-cover-wrap">
-				<h2>{{:title}}</h2>
+				<a href="{{:link}}"><h2>{{:title}}</h2></a>
 				<p>{{:description}}</p>
 				<em>{{:date}}</em>
 				<ul class="page-cover-tags">
@@ -47,11 +47,11 @@ function immoklink_sitewide_news_listings_files_content_type_render($subtype, $c
 		<div class="page-grid-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
 			<div class="page-grid-wrap">
 				<span class="page-grid-img">
-					<img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}" >
+					<a href="{{:link}}"><img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}" ></a>
 				</span>
 			</div>
 			<div class="page-grid-wrap">
-				<h2>{{:title}}</h2>
+				<a href="{{:link}}"><h2>{{:title}}</h2></a>
 				<p>{{:description}}</p>
 				<em>{{:date}}</em>
 				<ul class="page-grid-tags">
