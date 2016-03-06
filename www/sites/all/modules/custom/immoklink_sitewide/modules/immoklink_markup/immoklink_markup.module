@@ -176,17 +176,19 @@ function theme_immoklink_gallery(&$variables) {
     if (isset($node->field_gallery_listing_image[LANGUAGE_NONE])){
       $image_path = $node->field_gallery_listing_image[LANGUAGE_NONE][0]['uri'];
     }
+
+
     $image = theme_image_style(array('style_name' => 'listings_image', 'path' => $image_path, 'width' => '', 'height' => '', 'attributes' => array('class' => array('media__image'))));
     $path = '/' . drupal_get_path_alias('node/' . $node->nid);
 
     $output .= '<li class="media">';
     $output .= '<a class="hoover" href="' . $path .  '">' . $image .
       '<div class="media__body">
-                     <h2>' . $node->title . '</h2>
-                     <p>' . $node->field_gallery_listing_desc[LANGUAGE_NONE][0]['value'] . '</p>
-                   </div>
-                </a>
-                </li>';
+                     <h2>' . $node->title . '</h2>';
+    if (isset($node->field_gallery_listing_desc[LANGUAGE_NONE])) {
+      $output .=  '<p>' . $node->field_gallery_listing_desc[LANGUAGE_NONE][0]['value'] . '</p>';
+    }
+    $output .= '</div></a></li>';
   }
   $output .= '</ul></div>';
 
