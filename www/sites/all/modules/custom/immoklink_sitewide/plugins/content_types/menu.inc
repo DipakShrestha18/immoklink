@@ -28,7 +28,7 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
   $output = '';
   $output .= '<a href="/gallery-thumbnail/63">People</a>
                     <a href="/reportage">Reportage</a>
-                    <a href="/work">Works</a>
+                    <a href="/works">Works</a>
                     <a href="/fashion">Fashion</a>
                     <a href="/info">Info</a>
                     <a href="/news">News</a>';
