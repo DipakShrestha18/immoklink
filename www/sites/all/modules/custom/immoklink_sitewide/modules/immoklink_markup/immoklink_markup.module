@@ -177,7 +177,7 @@ function theme_immoklink_gallery(&$variables) {
       $image_path = $node->field_gallery_listing_image[LANGUAGE_NONE][0]['uri'];
     }
     $image = theme_image_style(array('style_name' => 'listings_image', 'path' => $image_path, 'width' => '', 'height' => '', 'attributes' => array('class' => array('media__image'))));
-    $path = drupal_get_path_alias('/node/' . $node->nid);
+    $path = '/' . drupal_get_path_alias('node/' . $node->nid);
 
     $output .= '<li class="media">';
     $output .= '<a class="hoover" href="' . $path .  '">' . $image .
