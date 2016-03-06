@@ -26,7 +26,7 @@ $plugin = array(
  */
 function immoklink_sitewide_logo_content_type_render($subtype, $conf, $panel_args, $context) {
   $output = '';
-  $output .= '<div class="logo"><a class="logo" href="index.html">Immo Klink</a></div><a class="mobile_menu"></a>';
+  $output .= '<div class="logo"><a class="logo" href="/">Immo Klink</a></div><a class="mobile_menu"></a>';
   $block = new stdClass();
   $block->title = '';
   $block->content = $output;
