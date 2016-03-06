@@ -10,6 +10,38 @@
 function fimmoklink_image_config_image_default_styles() {
   $styles = array();
 
+  // Exported image style: fullwidth_landscape_image.
+  $styles['fullwidth_landscape_image'] = array(
+    'label' => 'Fullwidth Landscape Image',
+    'effects' => array(
+      5 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 940,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: fullwidth_potrait_image.
+  $styles['fullwidth_potrait_image'] = array(
+    'label' => 'Fullwidth Potrait Image',
+    'effects' => array(
+      6 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 470,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: gallery_thumbnail.
   $styles['gallery_thumbnail'] = array(
     'label' => 'Gallery thumbnail',
