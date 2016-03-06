@@ -8,6 +8,7 @@ dependencies[] = date
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = image
+dependencies[] = media
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text
