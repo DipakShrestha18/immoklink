@@ -33,18 +33,20 @@ function immoklink_sitewide_news_image_content_content_type_render($subtype, $co
 
   $node = $context[0]->data;
 
-  if (isset($node->field_news_image_main[LANGUAGE_NONE])) {
-    $uri = $node->field_news_image_main[LANGUAGE_NONE][0]['uri'];
-    $alt = isset($node->field_news_image_main[LANGUAGE_NONE][0]['alt']) ? $node->field_news_image_main[LANGUAGE_NONE][0]['alt'] : '';
+  if (!isset($node->field_news_main_image_hide[LANGUAGE_NONE]) || ($node->field_news_main_image_hide[LANGUAGE_NONE][0]['value'] != 1)) {
+    if (isset($node->field_news_image_main[LANGUAGE_NONE])) {
+      $uri = $node->field_news_image_main[LANGUAGE_NONE][0]['uri'];
+      $alt = isset($node->field_news_image_main[LANGUAGE_NONE][0]['alt']) ? $node->field_news_image_main[LANGUAGE_NONE][0]['alt'] : '';
 
-    $height = $node->field_news_image_main[LANGUAGE_NONE][0]['height'];
-    $width = $node->field_news_image_main[LANGUAGE_NONE][0]['width'];
-    if ($height > $width) {
-      $potrait_image = theme_image_style(array('style_name' => 'fullwidth_potrait_image', 'path' => $uri, 'height' => '', 'width' => '', 'alt' => $alt));
-      $output .= $potrait_image;
-    } else if ($height <= $width) {
-      $landscape_image = theme_image_style(array('style_name' => 'fullwidth_landscape_image', 'path' => $uri, 'height' => '', 'width' => '', 'alt' => $alt));
-      $output .= $landscape_image;
+      $height = $node->field_news_image_main[LANGUAGE_NONE][0]['height'];
+      $width = $node->field_news_image_main[LANGUAGE_NONE][0]['width'];
+      if ($height > $width) {
+        $potrait_image = theme_image_style(array('style_name' => 'fullwidth_potrait_image', 'path' => $uri, 'height' => '', 'width' => '', 'alt' => $alt));
+        $output .= $potrait_image;
+      } else if ($height <= $width) {
+        $landscape_image = theme_image_style(array('style_name' => 'fullwidth_landscape_image', 'path' => $uri, 'height' => '', 'width' => '', 'alt' => $alt));
+        $output .= $landscape_image;
+      }
     }
   }
 
