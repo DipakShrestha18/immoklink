@@ -27,41 +27,6 @@ function immoklink_sitewide_newsletter_form_content_type_render($subtype, $conf,
 }
 
 /**
- * Newsletter form.
- */
-function immoklink_sitewide_newsletter_form() {
-  $form['#prefix'] = '<div id="signup-error"></div><div id="webform-ajax-wrapper-3">';
-  $form['#suffix'] = '</div>';
-  $form['my_markup'] = array(
-    '#markup' => '<p>Sign up for email updates.</p>'
-  );
-  $form['signup'] = array(
-    '#title' => t("Sign up for updates when we publish new content."),
-    '#type' => 'textfield',
-    '#default_value' => '',
-    '#attributes' => array(
-      'placeholder' => t('email@there.com'),
-    ),
-  );
-  $form['actions']['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('sign up'),
-  );
-  $form['#validate'] = array('immoklink_sitewide_newsletter_form_validate');
-  $form['#submit'] = array('immoklink_sitewide_newsletter_form_submit');
-  $form['actions']['submit']['#ajax'] = array(
-    'callback' => 'immoklink_sitewide_newsletter_form_ajax_callback',
-    'event' => 'click',
-    'wrapper' => 'newsletter-form',
-    'progress' => array(
-      'message' => '',
-      'type' => 'throbber',
-    ),
-  );
-  return $form;
-}
-
-/**
  * Returns the administrative title for a node.
  */
 function immoklink_sitewide_newsletter_form_content_type_admin_title($subtype, $conf) {

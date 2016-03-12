@@ -73,9 +73,16 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
   $output .= '</a></li>';
   }
 
+  //signup forms
+  $output .= '<li>';
+  $form = drupal_get_form('immoklink_sitewide_newsletter_form');
+  $output .= render($form);
+  $output .= '</li></ul></div>';
+
+  //Social media links
   global $base_url;
   $path = $base_url . '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/';
-  $output .= '<li class="media" style="vertical-align:bottom; text-align:right;">';
+  $output .= '<div class="social-icon"><div class="icons">';
 
   if (isset($node->field_info_facebook_url[LANGUAGE_NONE])) {
     $output .= '<a href="' . $node->field_info_facebook_url[LANGUAGE_NONE][0]['value'] . '" class="sm-icon"><img class="sm-icon" src="' . $path . 'facebook_about.png" /></a>';
@@ -92,7 +99,7 @@ function immoklink_sitewide_info_page_content_type_render($subtype, $conf, $pane
   if (isset($node->field_info_blog_url[LANGUAGE_NONE])) {
     $output .=  '<a href="' . $node->field_info_blog_url[LANGUAGE_NONE][0]['value'] . '" class="sm-icon"><img class="sm-icon" src="' . $path . 'blogicon_about.png" /></a>';
   }
-  $output .= '</li></ul></div>';
+  $output .= '</div></div>';
 
   $block = new stdClass();
   $block->title = '';

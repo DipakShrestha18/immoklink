@@ -148,26 +148,26 @@ function immoklink_sitewide_menu() {
     'access arguments' => array('access content'),
   );
   $items['news'] = array(
-      'title' => 'News listings page',
-      'description' => 'News listings page',
-      'page callback' => 'news_listings_page',
-      'type' => MENU_CALLBACK,
-      'access arguments' => array('access content'),
+    'title' => 'News listings page',
+    'description' => 'News listings page',
+    'page callback' => 'news_listings_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
   );
   $items['news/%'] = array(
-      'title' => 'News listings',
-      'description' => 'News listings page by tags',
-      'page callback' => 'news_listings_page_by_tag',
-      'page arguments' => array(1),
-      'type' => MENU_CALLBACK,
-      'access arguments' => array('access content'),
+    'title' => 'News listings',
+    'description' => 'News listings page by tags',
+    'page callback' => 'news_listings_page_by_tag',
+    'page arguments' => array(1),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
   );
   $items['news-tag-listings'] = array(
-      'title' => 'Tags listings',
-      'description' => 'List of all the tags',
-      'page callback' => 'tags_listings_page',
-      'type' => MENU_CALLBACK,
-      'access arguments' => array('access content'),
+    'title' => 'Tags listings',
+    'description' => 'List of all the tags',
+    'page callback' => 'tags_listings_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
   );
 
   return $items;
@@ -493,4 +493,39 @@ function tags_listings_page() {
   }
   $output .= '</ul>';
   return $output;
+}
+
+/**
+ * Newsletter signup form.
+ */
+function immoklink_sitewide_newsletter_form() {
+  $form['#prefix'] = '<div id="signup-error"></div><div id="webform-ajax-wrapper-3">';
+  $form['#suffix'] = '</div>';
+  $form['my_markup'] = array(
+      '#markup' => '<div class="signup">Sign up for email updates</div>'
+  );
+  $form['signup'] = array(
+      '#title' => t(" "),
+      '#type' => 'textfield',
+      '#default_value' => '',
+      '#attributes' => array(
+          'placeholder' => t('email@there.com'),
+      ),
+  );
+  $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('sign up'),
+  );
+  $form['#validate'] = array('immoklink_sitewide_newsletter_form_validate');
+  $form['#submit'] = array('immoklink_sitewide_newsletter_form_submit');
+  $form['actions']['submit']['#ajax'] = array(
+      'callback' => 'immoklink_sitewide_newsletter_form_ajax_callback',
+      'event' => 'click',
+      'wrapper' => 'newsletter-form',
+      'progress' => array(
+          'message' => '',
+          'type' => 'throbber',
+      ),
+  );
+  return $form;
 }
