@@ -39,7 +39,7 @@ function news_json() {
       $nodes = node_load_multiple(array_keys($results['node']));
     }
     $json = get_json_form_nodes($nodes);
-    //cache_set('news_json', $json, 'cache', REQUEST_TIME + (3600 * 24 * 30 * 6));
+    cache_set('news_json', $json, 'cache', REQUEST_TIME + (3600 * 24 * 30 * 6));
   } else {
     $cacheobject = cache_get('news_json', 'cache');
     $json = $cacheobject->data;
@@ -103,7 +103,7 @@ function get_json_form_nodes($nodes) {
       $tag_name = array();
       foreach ($tags as $tag) {
         $term = taxonomy_term_load($tag['tid']);
-        $tag_name[] = $term->name;
+        $tag_name[] = '<a href="' . $base_url . '/news/' . $tag['tid'] . '">' .$term->name . '</a>';
       }
       $tags = implode(', ', $tag_name);
     } else {

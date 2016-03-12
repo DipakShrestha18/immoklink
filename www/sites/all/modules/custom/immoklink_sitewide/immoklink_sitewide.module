@@ -147,6 +147,28 @@ function immoklink_sitewide_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
+  $items['news'] = array(
+      'title' => 'News listings page',
+      'description' => 'News listings page',
+      'page callback' => 'news_listings_page',
+      'type' => MENU_CALLBACK,
+      'access arguments' => array('access content'),
+  );
+  $items['news/%'] = array(
+      'title' => 'News listings',
+      'description' => 'News listings page by tags',
+      'page callback' => 'news_listings_page_by_tag',
+      'page arguments' => array(1),
+      'type' => MENU_CALLBACK,
+      'access arguments' => array('access content'),
+  );
+  $items['news-tag-listings'] = array(
+      'title' => 'Tags listings',
+      'description' => 'List of all the tags',
+      'page callback' => 'tags_listings_page',
+      'type' => MENU_CALLBACK,
+      'access arguments' => array('access content'),
+  );
 
   return $items;
 }
@@ -173,5 +195,310 @@ function gallery_thumbnail_listings_page($node) {
   }
   $output .= '</div></div></div>';
 
+  return $output;
+}
+
+/**
+ * News listings page.
+ */
+function news_listings_page() {
+  $output = '';
+  global $base_url;
+  $output .= '<h1>News listings</h1>';
+  $output .= '
+			<section id="gallery-highlight" class="page-cover">
+			</section>
+			<section id="gallery-collection" class="page-grid">
+
+			</section></article></div>';
+  $output .= '<script id="page-cover-tpl" type="text/x-jsrender">
+		<div class="page-cover-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
+			<div class="page-cover-wrap">
+				<span class="page-cover-img">
+					<a href="{{:link}}"><img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}"></a>
+				</span>
+			</div>
+			<div class="page-cover-wrap">
+				<a href="{{:link}}"><h2>{{:title}}</h2></a>
+				<p>{{:description}}</p>
+				<em>{{:date}}</em>
+				<ul class="page-cover-tags">
+					{{for tags}}
+					<li>{{:#data}}</a></li>
+					{{/for}}
+				</ul>
+			</div>
+		</div>
+	</script>';
+  $output .= '<script id="page-grid-tpl" type="text/x-jsrender">
+		<div class="page-grid-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
+			<div class="page-grid-wrap">
+				<span class="page-grid-img">
+					<a href="{{:link}}"><img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}" ></a>
+				</span>
+			</div>
+			<div class="page-grid-wrap">
+				<a href="{{:link}}"><h2>{{:title}}</h2></a>
+				<p>{{:description}}</p>
+				<em>{{:date}}</em>
+				<ul class="page-grid-tags">
+					{{for tags}}
+					<li>{{:#data}}</li>
+					{{/for}}
+				</ul>
+			</div>
+		</div>
+	</script>';
+
+  $output .= '<script type="text/javascript" src="/sites/all/themes/immoklink_base//js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/masonry.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/jsrender.min.js"></script>';
+  $output .= '<script type="text/javascript">
+
+    $.views.helpers({
+			imageOrientation: function (val) {
+    if (!val || !val.hasOwnProperty("width") || !val.hasOwnProperty("height")) {
+      return "unknown";
+    }
+    return parseInt(val.width) > parseInt(val.height) ? "landscape" : "portrait";
+  }
+		});
+
+
+		var Gallery = function () {};
+
+		Gallery.prototype.endpoint = "' . $base_url . '/news/json";
+
+		Gallery.prototype.pageCoverElement = "gallery-highlight";
+		Gallery.prototype.pageGridElement= "gallery-collection";
+
+		Gallery.prototype.pageCoverClass = ".page-cover";
+		Gallery.prototype.pageGridClass = ".page-grid";
+
+		Gallery.prototype.pageCoverItemClass = ".page-cover-item";
+		Gallery.prototype.pageGridItemClass = ".page-grid-item";
+
+		Gallery.prototype.organise = {};
+
+		Gallery.prototype.organiseGrid = function () {
+      //if (typeof $.masonry === "function") {
+      this.organise = $(this.pageGridClass).masonry({
+				  // options
+				  itemSelector: this.pageGridItemClass,
+				  columnWidth: 290,
+				  //percentPosition: true,
+				  gutter: 25,
+				  initLayout: false,
+				  fitWidth: true
+				});
+			//}
+		}
+
+		Gallery.prototype.getImages = function () {
+      var pageGridHtml = $.templates("#page-grid-tpl");
+      var pageCoverHtml = $.templates("#page-cover-tpl");
+
+      var self = this;
+
+      return $.getJSON(this.endpoint, function (results) {
+        if (results && results.hasOwnProperty("data") && results.data.length > 0) {
+          $.each(results.data, function(k, v) {
+            //populate first three image as cover
+            //and rest as grid
+            if (v.hasOwnProperty("id") && parseInt(v.id) <= 3) {
+              $("#" + self.pageCoverElement).append(pageCoverHtml.render(v));
+            } else {
+              $("#" + self.pageGridElement).append(pageGridHtml.render(v));
+            }
+          });
+
+          if ($(self.pageGridClass).length > 0) {
+            self.organiseGrid();
+            setTimeout(function () {
+              self.organise.masonry();
+            }, 100);
+          }
+        }
+
+      });
+    }
+
+		var g = new Gallery();
+
+		g.getImages();
+
+	</script>';
+  return $output;
+}
+
+/**
+ * Call back for news listings by taxonomy.
+ */
+function news_listings_page_by_tag($tid) {
+  $output = '';
+
+  global $base_url;
+  $term = taxonomy_term_load($tid);
+  if ($term) {
+    if ($term->vocabulary_machine_name == 'news_tags') {
+      $output .= '<h1>News tagged with ' . $term->name . '</h1>';
+      $output .= '<section id="gallery-highlight" class="page-cover">
+			</section>
+			<section id="gallery-collection" class="page-grid">
+
+			</section></article></div>';
+      $output .= '<script id="page-cover-tpl" type="text/x-jsrender">
+		<div class="page-cover-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
+			<div class="page-cover-wrap">
+				<span class="page-cover-img">
+					<a href="{{:link}}"><img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}"></a>
+				</span>
+			</div>
+			<div class="page-cover-wrap">
+				<a href="{{:link}}"><h2>{{:title}}</h2></a>
+				<p>{{:description}}</p>
+				<em>{{:date}}</em>
+				<ul class="page-cover-tags">
+					{{for tags}}
+					<li>{{:#data}}</li>
+					{{/for}}
+				</ul>
+			</div>
+		</div>
+	</script>';
+      $output .= '<script id="page-grid-tpl" type="text/x-jsrender">
+		<div class="page-grid-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
+			<div class="page-grid-wrap">
+				<span class="page-grid-img">
+					<a href="{{:link}}"><img src="{{:image.path}}" alt="{{:title}}" title="{{:title}}" ></a>
+				</span>
+			</div>
+			<div class="page-grid-wrap">
+				<a href="{{:link}}"><h2>{{:title}}</h2></a>
+				<p>{{:description}}</p>
+				<em>{{:date}}</em>
+				<ul class="page-grid-tags">
+					{{for tags}}
+					<li>{{:#data}}</li>
+					{{/for}}
+				</ul>
+			</div>
+		</div>
+	</script>';
+
+      $output .= '<script type="text/javascript" src="/sites/all/themes/immoklink_base//js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/masonry.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/jsrender.min.js"></script>';
+      $output .= '<script type="text/javascript">
+
+    $.views.helpers({
+			imageOrientation: function (val) {
+    if (!val || !val.hasOwnProperty("width") || !val.hasOwnProperty("height")) {
+      return "unknown";
+    }
+    return parseInt(val.width) > parseInt(val.height) ? "landscape" : "portrait";
+  }
+		});
+
+
+		var Gallery = function () {};';
+
+      $output .= 'Gallery.prototype.endpoint = "' . $base_url . '/news/json/' . $tid . '";
+
+		Gallery.prototype.pageCoverElement = "gallery-highlight";
+		Gallery.prototype.pageGridElement= "gallery-collection";
+
+		Gallery.prototype.pageCoverClass = ".page-cover";
+		Gallery.prototype.pageGridClass = ".page-grid";
+
+		Gallery.prototype.pageCoverItemClass = ".page-cover-item";
+		Gallery.prototype.pageGridItemClass = ".page-grid-item";
+
+		Gallery.prototype.organise = {};
+
+		Gallery.prototype.organiseGrid = function () {
+      //if (typeof $.masonry === "function") {
+      this.organise = $(this.pageGridClass).masonry({
+				  // options
+				  itemSelector: this.pageGridItemClass,
+				  columnWidth: 290,
+				  //percentPosition: true,
+				  gutter: 25,
+				  initLayout: false,
+				  fitWidth: true
+				});
+			//}
+		}
+
+		Gallery.prototype.getImages = function () {
+      var pageGridHtml = $.templates("#page-grid-tpl");
+      var pageCoverHtml = $.templates("#page-cover-tpl");
+
+      var self = this;
+
+      return $.getJSON(this.endpoint, function (results) {
+        if (results && results.hasOwnProperty("data") && results.data.length > 0) {
+          $.each(results.data, function(k, v) {
+            //populate first three image as cover
+            //and rest as grid
+            if (v.hasOwnProperty("id") && parseInt(v.id) <= 3) {
+              $("#" + self.pageCoverElement).append(pageCoverHtml.render(v));
+            } else {
+              $("#" + self.pageGridElement).append(pageGridHtml.render(v));
+            }
+          });
+
+          if ($(self.pageGridClass).length > 0) {
+            self.organiseGrid();
+            setTimeout(function () {
+              self.organise.masonry();
+            }, 100);
+          }
+        }
+
+      });
+    }
+
+		var g = new Gallery();
+
+		g.getImages();
+
+	</script>';
+    }
+    return $output;
+  }
+}
+
+/**
+ * Callback function.
+ */
+function tags_listings_page() {
+  $output = '';
+  global $base_url;
+  $output .= '<h1>Tags</h1>';
+  $output .= '<div class="clear-left"></div>';
+
+  $vocab = taxonomy_vocabulary_machine_name_load('news_tags');
+  $tree = taxonomy_get_tree($vocab->vid);
+  $output .= '<ul class="list-unstyled list-lined">';
+  foreach ($tree as $term) {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'news')
+        ->propertyCondition('status', 1)
+        ->fieldCondition('field_news_tags', 'tid', $term->tid, '=');
+    $result = $query->execute();
+    if (isset($result['node'])) {
+      $num = count($result['node']);
+    }
+
+    $output .= '<li class="br-keyline cf">';
+    $output .= '<a class="istats--tracker" href="' . $base_url . '/news/' . $term->tid . '">';
+    $output .= '<h2 class="delta pull--left no-margin">' . $term->name . '</h2>';
+    $output .= '<p class="pull--right no-margin text--shout deemphasize br-page-text-ontext"> ' . $num . ' posts </p>';
+    $output .= '</a>';
+    $output .= '</li>';
+  }
+  $output .= '</ul>';
   return $output;
 }
