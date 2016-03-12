@@ -482,20 +482,12 @@ function tags_listings_page() {
   $tree = taxonomy_get_tree($vocab->vid);
   $output .= '<ul class="list-unstyled list-lined">';
   foreach ($tree as $term) {
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node')
-        ->entityCondition('bundle', 'news')
-        ->propertyCondition('status', 1)
-        ->fieldCondition('field_news_tags', 'tid', $term->tid, '=');
-    $result = $query->execute();
-    if (isset($result['node'])) {
-      $num = count($result['node']);
-    }
+    $countnode = db_query("SELECT COUNT(field_news_tags_tid) AS count FROM {field_data_field_news_tags} WHERE field_news_tags_tid = :field_news_tags_tid", array(':field_news_tags_tid' => $term->tid))->fetchField();
 
     $output .= '<li class="br-keyline cf">';
     $output .= '<a class="istats--tracker" href="' . $base_url . '/news/' . $term->tid . '">';
     $output .= '<h2 class="delta pull--left no-margin">' . $term->name . '</h2>';
-    $output .= '<p class="pull--right no-margin text--shout deemphasize br-page-text-ontext"> ' . $num . ' posts </p>';
+    $output .= '<p class="pull--right no-margin text--shout deemphasize br-page-text-ontext"> ' . $countnode . ' posts </p>';
     $output .= '</a>';
     $output .= '</li>';
   }
