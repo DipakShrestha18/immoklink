@@ -279,6 +279,13 @@ ul.books.columns-3 li {
 	width: 32%; /* this value + 2.5 should = 33% */
 }
 
+.field-name-field-books-books .field-item {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+}
+
 
 /************Image Gallery************/
 .lg-backdrop {

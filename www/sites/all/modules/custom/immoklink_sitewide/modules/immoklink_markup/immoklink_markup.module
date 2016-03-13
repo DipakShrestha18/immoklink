@@ -84,26 +84,36 @@ function theme_immoklink_news(&$variables) {
 function theme_books_format(&$variables) {
   $output = '';
   $paragraph = paragraphs_field_get_entity($variables);
-  $images = $paragraph->field_books_bundle_image[LANGUAGE_NONE];
+  if (isset($paragraph->field_books_bundle_image[LANGUAGE_NONE])) {
+    $images = $paragraph->field_books_bundle_image[LANGUAGE_NONE];
+  }
+
+
   $icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/mag.png';
 
   $output .= '<h2><p>' . $paragraph->field_books_bundle_title[LANGUAGE_NONE][0]['value'] . '</p></h2>';
   $output .= '<ul class="books columns-3">';
-  foreach ($images as $image) {
-    $output .= '<li class="media">';
+  if (!empty($images)) {
+    foreach ($images as $image) {
+      $output .= '<li class="media">';
 
-    if(isset($image['uri'])) {
-      $image_path = $image['uri'];
-      $image = theme_image_style(array('style_name' => 'listings_image', 'path' => $image_path, 'height' => '', 'width' => '', 'attributes' => array('class' => array('media__image'))));
-      $full_img = file_create_url($image_path);
+      if(isset($image['uri'])) {
+        $image_path = $image['uri'];
+        $image = theme_image_style(array('style_name' => 'listings_image', 'path' => $image_path, 'height' => '', 'width' => '', 'attributes' => array('class' => array('media__image'))));
+        $full_img = file_create_url($image_path);
+      }
+      if (!empty($full_img)) {
+        $output .= '<a class="hoover" href="' . $full_img . '">';
+        $output .= $image;
+        $output .= '<div class="media__body"><div class="inner"><img src="' . $icon . '" /></div></div>';
+        $output .= '</a>';
+      }
+
+      $output .= '</li>';
     }
-    $output .= '<a class="hoover" href="' . $full_img . '">';
-    $output .= $image;
-    $output .= '<div class="media__body"><div class="inner"><img src="' . $icon . '" /></div></div>';
-    $output .= '</a>';
-    $output .= '</li>';
   }
-  $output .= '</ul><hr />';
+
+  $output .= '</ul>';
 
   return $output;
 }
