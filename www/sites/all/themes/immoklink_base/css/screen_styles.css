@@ -775,10 +775,6 @@ form#immoklink-sitewide-newsletter-form-single-line input[type="submit"] {
   display: inline-block;
 }
 
-input[name="signup"],
-input[type="submit"]{
-  display: inline-block;
-}
 /***********social icon*********/
 div.social-icon {
   border-top-style: solid;

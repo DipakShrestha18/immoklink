@@ -131,3 +131,23 @@ a.mobile_menu.selected { background-position: 4px -26px; }
 .media__body .inner {margin-top:60px;}
 
 div.all-tags-link {margin-right: 5px;}
+
+
+form#immoklink-sitewide-newsletter-form-single-line {
+	max-width: 400px;
+	padding: 10px 20px;
+}
+
+form#immoklink-sitewide-newsletter-form-single-line div.signup {
+	width: 100%;
+	padding-top: 0px;
+}
+
+form#immoklink-sitewide-newsletter-form-single-line input[type="submit"] {
+	width: 92%;
+}
+
+form#immoklink-sitewide-newsletter-form-single-line .form-item {
+	display: block;
+	width: 100%;
+}
