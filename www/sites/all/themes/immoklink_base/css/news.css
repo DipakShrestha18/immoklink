@@ -23,6 +23,7 @@
 .page-cover-tags li:last-child:after, .page-grid-tags li:last-child:after { content: ""; }
 
 .image-portrait img, .image-unknown img, .image-landscape img { max-width: 100%; height: auto; width: auto\9; /* ie8 */ }
+.page-cover .image-portrait img { max-width: 60%; }
 
 .page-grid { display: block; margin: 0 auto 0 auto; }
 .page-grid .page-grid-item { display: inline-block; vertical-align: top; }
@@ -52,8 +53,8 @@
   .page-grid .page-grid-item p { font-size: 0.8rem; margin: 1% 0; text-overflow: ellipsis; }
 }
 @media all and (min-width: 481px) { html { font-size: 80%; }
-  .page-cover .page-cover-img { float: right; width: 100%; }
+  .page-cover .page-cover-img { margin: 0 auto; width: 100%; }
   .page-cover .page-cover-wrap { display: inline-block; float: left; vertical-align: top; }
-  .page-cover .page-cover-wrap:first-child { width: 50%; text-align: right; }
-  .page-cover .page-cover-wrap:nth-child(2) { width: 40%; padding-left: 5%; } }
+  .page-cover .page-cover-wrap:first-child { width: 65%; text-align: center; }
+  .page-cover .page-cover-wrap:nth-child(2) { width: 25%; padding-left: 5%; } }
 @media all and (min-width: 768px) { html { font-size: 100%; } }
