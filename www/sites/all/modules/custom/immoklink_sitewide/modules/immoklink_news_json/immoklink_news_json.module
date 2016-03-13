@@ -103,7 +103,7 @@ function get_json_form_nodes($nodes) {
       $tag_name = array();
       foreach ($tags as $tag) {
         $term = taxonomy_term_load($tag['tid']);
-        $tag_name[] = '<a href="' . $base_url . '/news/' . $tag['tid'] . '">' .$term->name . '</a>';
+        $tag_name[] = '<a href="' . $base_url . '/news/' . $tag['tid'] . '" class="tag">' .$term->name . '</a>';
       }
       $tags = implode(', ', $tag_name);
     } else {

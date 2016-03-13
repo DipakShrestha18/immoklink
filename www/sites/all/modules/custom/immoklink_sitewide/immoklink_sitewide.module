@@ -205,12 +205,13 @@ function news_listings_page() {
   $output = '';
   global $base_url;
   $output .= '<h1>News listings</h1>';
-  $output .= '
-			<section id="gallery-highlight" class="page-cover">
-			</section>
-			<section id="gallery-collection" class="page-grid">
 
-			</section></article></div>';
+  $output .= '<div class="all-tags-link"><a href="/news-tag-listings">See all tags</a></div><div class="clear-fix"></div>';
+  $output .= '<section id="gallery-highlight" class="page-cover"></section>';
+  $form = drupal_get_form('immoklink_sitewide_newsletter_form_single_line');
+  $output .= render($form);
+  $output .= '<div class="clear-fix"></div>';
+  $output .= '<section id="gallery-collection" class="page-grid"></section></article></div>';
   $output .= '<script id="page-cover-tpl" type="text/x-jsrender">
 		<div class="page-cover-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
 			<div class="page-cover-wrap">
@@ -342,11 +343,12 @@ function news_listings_page_by_tag($tid) {
   if ($term) {
     if ($term->vocabulary_machine_name == 'news_tags') {
       $output .= '<h1>News tagged with ' . $term->name . '</h1>';
-      $output .= '<section id="gallery-highlight" class="page-cover">
-			</section>
-			<section id="gallery-collection" class="page-grid">
-
-			</section></article></div>';
+      $output .= '<div class="all-tags-link"><a href="/news-tag-listings">See all tags</a></div><div class="clear-fix"></div>';
+      $output .= '<section id="gallery-highlight" class="page-cover"></section>';
+      $form = drupal_get_form('immoklink_sitewide_newsletter_form_single_line');
+      $output .= render($form);
+      $output .= '<div class="clear-fix"></div>';
+      $output .= '<section id="gallery-collection" class="page-grid"></section></article></div>';
       $output .= '<script id="page-cover-tpl" type="text/x-jsrender">
 		<div class="page-cover-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
 			<div class="page-cover-wrap">
@@ -503,6 +505,41 @@ function immoklink_sitewide_newsletter_form() {
   $form['#suffix'] = '</div>';
   $form['my_markup'] = array(
       '#markup' => '<div class="signup">Sign up for email updates</div>'
+  );
+  $form['signup'] = array(
+      '#title' => t(" "),
+      '#type' => 'textfield',
+      '#default_value' => '',
+      '#attributes' => array(
+          'placeholder' => t('email@there.com'),
+      ),
+  );
+  $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('sign up'),
+  );
+  $form['#validate'] = array('immoklink_sitewide_newsletter_form_validate');
+  $form['#submit'] = array('immoklink_sitewide_newsletter_form_submit');
+  $form['actions']['submit']['#ajax'] = array(
+      'callback' => 'immoklink_sitewide_newsletter_form_ajax_callback',
+      'event' => 'click',
+      'wrapper' => 'newsletter-form',
+      'progress' => array(
+          'message' => '',
+          'type' => 'throbber',
+      ),
+  );
+  return $form;
+}
+
+/**
+ * Newsletter signup form.
+ */
+function immoklink_sitewide_newsletter_form_single_line() {
+  $form['#prefix'] = '<div class="update-signup" id="update-signup"><div id="signup-error"></div><div id="webform-ajax-wrapper-3">';
+  $form['#suffix'] = '</div></div>';
+  $form['my_markup'] = array(
+      '#markup' => '<div class="signup">Sign up for email updates of our news</div>'
   );
   $form['signup'] = array(
       '#title' => t(" "),
