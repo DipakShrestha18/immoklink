@@ -19,6 +19,12 @@ function immoklink_news_json_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+    $items['home/feed'] = array(
+    'title' => 'Homepage image feed',
+    'page callback' => 'homepage_json_feed',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 
   return $items;
 }
@@ -133,6 +139,84 @@ function get_json_form_nodes($nodes) {
   return $json;
 }
 
+/**
+ * Callback function homepage json feed.
+ */
+function homepage_json_feed() {
+  if (!cache_get('homepage_json_feed', 'cache')) {
+    $query = new EntityFieldQuery();
+    $results = $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'home')
+        ->propertyCondition('status', 1, '=')
+        ->execute();
+    if (!empty($results['node'])) {
+      $node = node_load_multiple(array_keys($results['node']));
+      $node = array_shift($node);
+      if (isset($node->field_homepage_images[LANGUAGE_NONE])) {
+        $bundles = $node->field_homepage_images[LANGUAGE_NONE];
+      }
+    }
+    $json = get_homepage_json($bundles);
+    cache_set('homepage_json_feed', $json, 'cache', REQUEST_TIME + (3600 * 24 * 30 * 6));
+  } else {
+    $cacheobject = cache_get('homepage_json_feed', 'cache');
+    $json = $cacheobject->data;
+  }
+  echo $json;
+}
+
+/**
+ * Function to parse homepage JSON.
+ */
+function get_homepage_json($bundles) {
+  $feed = new stdClass();
+  $feed->code = 200;
+  $feed->message = 'success';
+  $feed->data = array();
+  $count = 1;
+
+  foreach ($bundles as $bundle) {
+    global $base_url;
+    $paragraph = paragraphs_field_get_entity($bundle);
+
+    $feeds = new stdClass();
+    $feeds->id = $count;
+
+    if (isset($paragraph->field_homepage_bundle_title[LANGUAGE_NONE])) {
+      $feeds->title = $paragraph->field_homepage_bundle_title[LANGUAGE_NONE][0]['value'];
+    }
+
+    if (isset($paragraph->field_homepage_bundle_image[LANGUAGE_NONE])) {
+      $feeds->count = count($paragraph->field_homepage_bundle_image[LANGUAGE_NONE]);
+    }
+
+    if (isset($paragraph->field_homepage_gallery_link[LANGUAGE_NONE])) {
+      $feeds->url = $base_url . '/' . drupal_get_path_alias('node/' . $paragraph->field_homepage_gallery_link[LANGUAGE_NONE][0]['target_id']);
+    }
+
+    if (isset($paragraph->field_homepage_images_type[LANGUAGE_NONE])) {
+      $feeds->orientation = strtolower($paragraph->field_homepage_images_type[LANGUAGE_NONE][0]['value']);
+    }
+
+    if (isset($paragraph->field_homepage_bundle_image[LANGUAGE_NONE])) {
+      $images = $paragraph->field_homepage_bundle_image[LANGUAGE_NONE];
+
+      $image_url = array();
+      foreach ($images as $image) {
+        $image_url[] = '../images/FASHION/Motown/11-Motown-6204.jp';
+      }
+
+      $image_urls = implode(', ', $image_url);
+      $feeds->images = $image_urls;
+    }
+
+    $feed->data[] = $feeds;
+    $count++;
+  }
+  $json = drupal_json_encode($feed);
+  return $json;
+}
+
 
 /**
  * Implements hook_node_insert().
@@ -147,7 +231,7 @@ function immoklink_news_json_node_insert($node) {
  * Implements hook_node_update().
  */
 function immoklink_news_json_node_update($node) {
-  if ($node->type == 'news') {
+  if ($node->type == 'news' || $node->type == 'home') {
     cache_clear_all('*', 'cache', TRUE);
   }
 }

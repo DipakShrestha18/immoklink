@@ -328,7 +328,7 @@ function fimmoklink_paragraphs_field_default_field_instances() {
     'entity_type' => 'paragraphs_item',
     'field_name' => 'field_homepage_bundle_image',
     'label' => 'Image',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
@@ -360,7 +360,7 @@ function fimmoklink_paragraphs_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 1,
+      'weight' => 3,
     ),
   );
 
@@ -403,6 +403,94 @@ function fimmoklink_paragraphs_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'paragraphs_item-homepage-field_homepage_gallery_link'.
+  $field_instances['paragraphs_item-homepage-field_homepage_gallery_link'] = array(
+    'bundle' => 'homepage',
+    'clean_markup' => 1,
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 2,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_homepage_gallery_link',
+    'label' => 'Gallery link',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete_tags',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'paragraphs_item-homepage-field_homepage_images_type'.
+  $field_instances['paragraphs_item-homepage-field_homepage_images_type'] = array(
+    'bundle' => 'homepage',
+    'clean_markup' => 0,
+    'default_value' => array(
+      0 => array(
+        'value' => 'Landscape',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 3,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_homepage_images_type',
+    'label' => 'Images Type',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 2,
     ),
   );
 
@@ -557,7 +645,9 @@ function fimmoklink_paragraphs_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Caption');
+  t('Gallery link');
   t('Image');
+  t('Images Type');
   t('Link');
   t('Overlay Text');
   t('Title');
