@@ -134,6 +134,7 @@ function immoklink_deploy_module_enable() {
     'entity_view_mode',
     'immoklink_email_signup',
     'immoklink_news_json',
+    'scheduler',
   );
 
   foreach ($enable as $module) {
