@@ -1,0 +1,112 @@
+html { font-size: 50%; }
+
+body { font-family: 'Open Sans', Arial, sans-serif; font-size: 1rem; }
+
+h2 { font-weight: 500; }
+
+.container { max-width: 1200px; width: 100%; margin: 0 auto; }
+
+
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.page-gallery {
+  max-width: 470px;
+  margin: 0 auto;
+}
+
+.page-index {
+  float: left;
+  display: inline-block;
+  margin-bottom: 1%;
+  margin-right: 1%;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-index img {
+  height: auto;
+  position: absolute;
+  top: -100%;
+  bottom: -100%;
+  right: 0;
+  left: 0;
+}
+
+.page-index-overlay {
+  z-index: 9998;
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.page-index-overlay:hover,
+.page-index-caption:hover {
+  cursor: pointer;
+}
+
+.page-index-caption {
+  z-index: 9999;
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  width: 100%;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  vertical-align: middle;
+}
+
+.page-index-caption h2 {
+  margin: 0;
+  font-size: 1.4rem
+}
+
+.page-index-caption p {
+  margin: 0;
+}
+
+.page-index,
+.page-index img {
+  height:  80px;
+}
+
+.image-landscape {
+  width: 31%;
+}
+.image-portrait {
+  width: 15%;
+}
+/*#index-7.image-landscape {
+  width: 24%;
+}*/
+
+@media screen and (min-width: 480px) and (max-width: 559px) {
+  html { font-size: 62.5%; }
+  .page-gallery { max-width: 549px; }
+  .page-index,
+  .page-index img { height: 100px; }
+}
+@media screen and (min-width: 560px) and (max-width: 639px) {
+  html { font-size: 80%; }
+  .page-gallery { max-width: 628px; }
+  .page-index,
+  .page-index img { height: 112px; }
+}
+@media screen and (min-width: 640px) and (max-width: 799px) {
+  html { font-size: 90%; }
+  .page-gallery { max-width: 750px; }
+  .page-index,
+  .page-index img { height: 160px; }
+}
+@media screen and (min-width: 800px) {
+  html { font-size: 100%; }
+  .page-gallery { max-width: 980px; }
+  .page-index,
+  .page-index img { height: 200px; }
+}

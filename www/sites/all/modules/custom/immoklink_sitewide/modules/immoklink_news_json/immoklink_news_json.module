@@ -19,11 +19,18 @@ function immoklink_news_json_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-    $items['home/feed'] = array(
+  $items['home/feed'] = array(
     'title' => 'Homepage image feed',
     'page callback' => 'homepage_json_feed',
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
+  );
+  $items['thumbnail-gallery/json/%node'] = array(
+      'title' => 'Thumbnail listing JSON feed based on each gallery',
+      'page callback' => 'thumbnail_gallery_json',
+      'page arguments' => array(2),
+      'access arguments' => array('access content'),
+      'type' => MENU_CALLBACK,
   );
 
   return $items;
@@ -169,11 +176,11 @@ function homepage_json_feed() {
  * Function to parse homepage JSON.
  */
 function get_homepage_json($bundles) {
-  $feed = new stdClass();
-  $feed->code = 200;
-  $feed->message = 'success';
-  $feed->data = array();
-  $count = 1;
+    $feed = new stdClass();
+    $feed->code = 200;
+    $feed->message = 'success';
+    $feed->data = array();
+    $count = 1;
 
   foreach ($bundles as $bundle) {
     global $base_url;
@@ -217,6 +224,55 @@ function get_homepage_json($bundles) {
   return $json;
 }
 
+/**
+ * Callback function to create thumbnail gallery JSON.
+ */
+function thumbnail_gallery_json($node) {
+  global $base_url;
+
+  $feed = new stdClass();
+  $feed->code = 200;
+  $feed->message = 'success';
+  $feed->data = array();
+  $count = 0;
+
+  if (isset($node->field_gallery_images[LANGUAGE_NONE])) {
+    $images = $node->field_gallery_images[LANGUAGE_NONE];
+  }
+
+  foreach ($images as $image) {
+    $feeds = new stdClass();
+    $feeds->id = $count;
+    $feeds->url = $base_url . '/' . drupal_get_path_alias('node/' . $node->nid) . '?sid=' . $count;
+
+    $image = paragraphs_field_get_entity($image);
+    if (isset($image->field_gallery_bundle_image[LANGUAGE_NONE])) {
+
+      if (isset($image->field_homepage_gallery_link[LANGUAGE_NONE])) {
+        $feeds->url = $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      }
+
+      $width = $image->field_gallery_bundle_image[LANGUAGE_NONE][0]['width'];
+      $height = $image->field_gallery_bundle_image[LANGUAGE_NONE][0]['height'];
+
+      if ($height > $width) {
+        $feeds->orientation = 'portrait';
+      } else if ($height <= $width) {
+        $feeds->orientation = 'landscape';
+      }
+
+      $image_path = $image->field_gallery_bundle_image[LANGUAGE_NONE][0]['uri'];
+      $image = theme_image_style(array('style_name' => 'gallery_thumbnail', 'path' => $image_path, 'height' => '', 'width' => ''));
+      preg_match('/<img(.*)src(.*)=(.*)"(.*)"/U', $image, $result);
+      $image = array_pop($result);
+      $feeds->images = $image;
+    }
+    $feed->data[] = $feeds;
+    $count++;
+  }
+  $json = drupal_json_encode($feed);
+  print $json;
+}
 
 /**
  * Implements hook_node_insert().

@@ -35,8 +35,7 @@ function immoklink_sitewide_gallery_js_content_type_render($subtype, $conf, $pan
   $numofimages = count($node->field_gallery_images[LANGUAGE_NONE]);
 
 
-  $output .= '<!--peter gallery-->
-    <script src="/sites/all/themes/immoklink_base//js/gallery-peter/modernizr-2.6.2.min.js"></script>
+  $output .= '<script src="/sites/all/themes/immoklink_base//js/gallery-peter/modernizr-2.6.2.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
     </script>
     <script>
@@ -44,6 +43,22 @@ function immoklink_sitewide_gallery_js_content_type_render($subtype, $conf, $pan
     </script>
 
     <script>
+
+        /* PKS 20032016 */
+	    var _q = function (variable) {
+	       var query = window.location.search.substring(1);
+	       var vars = query.split("&");
+	       for (var i=0;i<vars.length;i++) {
+	               var pair = vars[i].split("=");
+	               if(pair[0] == variable){return pair[1];}
+	       }
+	       return(false);
+		}
+
+		var selected_slide = _q("sid");
+
+	    /* PKS 20032016 */
+
       var my = {};
       my.view = "image";
       my.slidesize = "big";
@@ -56,7 +71,7 @@ function immoklink_sitewide_gallery_js_content_type_render($subtype, $conf, $pan
       my.homeFlag = false;
 
 
-      my.slide = 0;
+      my.slide = parseInt(selected_slide) || 0;
       my.slideCount = ' . $numofimages . ';
 
     </script>
