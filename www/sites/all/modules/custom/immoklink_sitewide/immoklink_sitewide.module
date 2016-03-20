@@ -207,7 +207,7 @@ function gallery_thumbnail_listings_page($node) {
 
   $json = $base_url . '/thumbnail-gallery/json/' .  $node->nid;
 
-  $output .= '<section id="gallery" class="page-gallery clearfix">
+  $output .= '<article><section id="gallery" class="page-gallery clearfix">
 				<div class="grid-sizer"></div>
 			  </section></article><div class="clear-fix"></div></div>';
   $output .= '<script id="page-index-tpl" type="text/x-jsrender">
