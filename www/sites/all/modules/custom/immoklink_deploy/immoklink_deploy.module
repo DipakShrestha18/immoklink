@@ -135,6 +135,7 @@ function immoklink_deploy_module_enable() {
     'immoklink_email_signup',
     'immoklink_news_json',
     'scheduler',
+    'jquery_update',
   );
 
   foreach ($enable as $module) {
