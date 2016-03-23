@@ -59,13 +59,13 @@
   .page-cover .page-cover-wrap:nth-child(2) { width: 25%; padding-left: 5%; } }
 @media all and (min-width: 768px) { html { font-size: 100%; } }
 
-html { font-size: 50%; }
+/*html { font-size: 50%; }
 
 body { font-family: 'Open Sans', Arial, sans-serif; font-size: 1rem; }
 
 h2 { font-weight: 500; }
 
-.container { max-width: 1200px; width: 100%; margin: 0 auto; }
+.container { max-width: 1200px; width: 100%; margin: 0 auto; }*/
 
 
 .clearfix:after {
@@ -117,19 +117,19 @@ h2 { font-weight: 500; }
   left: 0;
   width: 100%;
   color: white;
-  text-transform: uppercase;
   text-align: center;
   display: block;
   vertical-align: middle;
 }
 
 .page-index-caption h2 {
-  margin: 0;
-  font-size: 1.4rem
+  margin: 70px;
+  font-size: 1.2em
 }
 
 .page-index-caption p {
-  margin: 0;
+  margin: 0px;
+  display: none;
 }
 
 .page-index,
@@ -138,7 +138,7 @@ h2 { font-weight: 500; }
 }
 
 #gallery .image-landscape {
-  width: 31%;
+  width: 32%;
 }
 #gallery .image-portrait {
   width: 15%;

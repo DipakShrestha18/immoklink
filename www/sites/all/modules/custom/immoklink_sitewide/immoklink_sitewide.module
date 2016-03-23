@@ -328,9 +328,9 @@ function gallery_thumbnail_listings_page($node) {
 function news_listings_page() {
   $output = '';
   global $base_url;
-  $output .= '<h1>News listings</h1>';
+  $output .= '<h1 style="display: inline">News</h1>';
 
-  $output .= '<div class="all-tags-link"><a href="/news-tag-listings">See all tags</a></div><div class="clear-fix"></div>';
+  $output .= '<div style="display: inline; float: right;"class="all-tags-link"><a href="/news-tag-listings">See all tags</a></div><div class="clear-fix"></div>';
   $output .= '<section id="gallery-highlight" class="page-cover"></section>';
   $form = drupal_get_form('immoklink_sitewide_newsletter_form_single_line');
   $output .= render($form);
