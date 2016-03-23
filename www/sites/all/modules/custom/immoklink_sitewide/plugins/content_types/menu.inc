@@ -26,12 +26,23 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
 
 
   $output = '';
-  $output .= '<a href="/gallery-thumbnail/63">People</a>
-                    <a href="/reportage">Reportage</a>
-                    <a href="/works">Works</a>
-                    <a href="/fashion">Fashion</a>
-                    <a href="/info">Info</a>
-                    <a href="/news">News</a>';
+
+  $navs = array(
+    'People' => '/gallery-thumbnail/63',
+    'Reportage' => '/reportage',
+    'Works' => '/works',
+    'Fashion' => '/fashion',
+    'Info' => '/info',
+    'News' => '/news',
+  );
+  foreach ($navs as $key => $nav) {
+    if ($nav == request_uri()) {
+      $output .= '<a class="selected" href="' . $nav . '" >' . $key .'</a>';
+    } else {
+      $output .= '<a href="' . $nav . '">' . $key . '</a>';
+    }
+  }
+
   if (in_array('Editor', $user->roles)) {
     $output .= l('My workbench', 'admin/workbench');
   }
