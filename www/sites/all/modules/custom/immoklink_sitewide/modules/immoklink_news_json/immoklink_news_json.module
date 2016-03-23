@@ -170,6 +170,7 @@ function homepage_json_feed() {
     $json = $cacheobject->data;
   }
   echo $json;
+  //return '';
 }
 
 /**
@@ -207,20 +208,26 @@ function get_homepage_json($bundles) {
 
     if (isset($paragraph->field_homepage_bundle_image[LANGUAGE_NONE])) {
       $images = $paragraph->field_homepage_bundle_image[LANGUAGE_NONE];
-
       $image_url = array();
       foreach ($images as $image) {
-        $image_url[] = '../images/FASHION/Motown/11-Motown-6204.jp';
+        $image_path = $image['uri'];
+        $image = theme_image_style(array('style_name' => 'gallery_thumbnail', 'path' => $image_path, 'height' => '', 'width' => ''));
+        preg_match('/<img(.*)src(.*)=(.*)"(.*)"/U', $image, $result);
+        $image = array_pop($result);
+        $image_url[] = $image;
       }
 
-      $image_urls = implode(', ', $image_url);
-      $feeds->images = $image_urls;
-    }
+     // $image_urls = implode('", "', $image_url);
+      // $feeds->images = ["http://immoklink.site/sites/default/files/16ViennaOperaBall-9324.jpg", "http://immoklink.site/sites/default/files/18ViennaOperaBall-9662.jpg"];
+
+      $filter = function($tag){ return '' . $tag . ''; };
+      $feeds->images = array_map($filter, $image_url);
+  }
 
     $feed->data[] = $feeds;
     $count++;
   }
-  $json = drupal_json_encode($feed);
+  $json = drupal_json_encode($feed, JSON_HEX_QUOT);
   return $json;
 }
 
