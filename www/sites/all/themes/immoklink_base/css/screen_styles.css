@@ -27,7 +27,7 @@ a.logo {
 	padding:0px 20px 0px 20px;
 }
 
-img { max-width:100% }
+img { max-width:100%; height: auto; }
 
 h1 { color: #000; margin: 0em 0em .7em 0em; font-size: 1.4em; font-weight: bold; }
 h2 { font-size: 1.2em; margin: 0.6em 0em 0em 0em; }

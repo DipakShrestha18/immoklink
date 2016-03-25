@@ -206,7 +206,8 @@ function gallery_thumbnail_listings_page($node) {
   global $base_url;
 
   $json = $base_url . '/thumbnail-gallery/json/' .  $node->nid;
-
+  
+  $output .= '<h1>' . $node->title . '</h1>';
   $output .= '<section id="gallery" class="page-gallery clearfix">
 				<div class="grid-sizer"></div>
 			  </section></article><div class="clear-fix"></div></div>';
@@ -466,7 +467,7 @@ function news_listings_page_by_tag($tid) {
   $term = taxonomy_term_load($tid);
   if ($term) {
     if ($term->vocabulary_machine_name == 'news_tags') {
-      $output .= '<h1>News tagged with ' . $term->name . '</h1>';
+      $output .= '<h1><a href="/news" style="text-decoration: none">News</a> > Tagged with ' . $term->name . '</h1>';
       $output .= '<div class="all-tags-link"><a href="/news-tag-listings">See all tags</a></div><div class="clear-fix"></div>';
       $output .= '<section id="gallery-highlight" class="page-cover"></section>';
       $form = drupal_get_form('immoklink_sitewide_newsletter_form_single_line');
@@ -601,7 +602,8 @@ function news_listings_page_by_tag($tid) {
 function tags_listings_page() {
   $output = '';
   global $base_url;
-  $output .= '<h1>Tags</h1>';
+  $output .= '<h1><a href="/news" style="text-decoration: none">News</a> > All tags</h1>';
+  
   $output .= '<div class="clear-left"></div>';
 
   $vocab = taxonomy_vocabulary_machine_name_load('news_tags');
