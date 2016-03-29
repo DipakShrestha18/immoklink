@@ -4,9 +4,11 @@ var windowSize = '';
 var windowWidth = 0;
 var actualSize = 0;
 
-$(window).resize(function(){location.reload();});
+
 
 $(document).ready(function() {
+	// screen refresh on resize.
+	// screenrefresh();
 
 	//setInterval(function(){cycleImages($('#cycler1'))}, 12000);
 	setInterval(function(){cycleImages($('#cycler2'))}, 8000);
@@ -126,4 +128,16 @@ $('a.hoover').on("touchstart", function (e) {
 });
 
 
+}
+
+function screenrefresh() {
+	var isDesktop = (function() {
+		return !('ontouchstart' in window) // works on most browsers
+			|| !('onmsgesturechange' in window); // works on ie10
+	})();
+	//edit, if you want to use this variable outside of this closure, or later use this:
+	window.isDesktop = isDesktop;
+	if( isDesktop ){
+		//$(window).resize(function(){location.reload();});
+	}
 }

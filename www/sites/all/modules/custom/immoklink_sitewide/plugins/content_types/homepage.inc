@@ -68,7 +68,7 @@ function immoklink_sitewide_homepage_content_type_render($subtype, $conf, $panel
                     GalleryIndex.prototype.organise = {};
                     GalleryIndex.prototype.lastIndex = -1;
                     GalleryIndex.prototype.currentIndex = -1;
-                    GalleryIndex.prototype.slideDelayInMs = 5 * 1000;
+                    GalleryIndex.prototype.slideDelayInMs = 3 * 1000;
 
                     GalleryIndex.prototype.overlayCaption = function () {
                       var imageHeight, imageWidth, parent;
@@ -139,7 +139,8 @@ function immoklink_sitewide_homepage_content_type_render($subtype, $conf, $panel
 
                         $(this.pageIndexSlideshowClass).cycle({
                           "speed": 1000,
-                          "log": false
+                          "log": false,
+                          "timeout": 1
                         });
 
                         $(this.pageIndexSlideshowClass).cycle("pause");
@@ -148,8 +149,9 @@ function immoklink_sitewide_homepage_content_type_render($subtype, $conf, $panel
                       delay = (parseInt(delay) > 0) ? delay : 5 * 1000;
 
                       if ( $(this.pageIndexSlideshowClass).length > 0) {
-
-                        self.triggerSlideshowByIndex();
+                        window.timeoutId = setTimeout(function () {
+                            self.triggerSlideshowByIndex();
+                        }, 5 * 1000);
 
                         $(self.pageIndexSlideshowClass).on("cycle-after", function (ev) {
                           ev.preventDefault();
