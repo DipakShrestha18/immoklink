@@ -66,79 +66,136 @@ function immoklink_sitewide_homepage_content_type_render($subtype, $conf, $panel
                     GalleryIndex.prototype.pageIndexCaptionClass = ".page-index-caption";
                     GalleryIndex.prototype.pageIndexSlideshowClass = ".page-index-slideshow";
                     GalleryIndex.prototype.organise = {};
-                    GalleryIndex.prototype.slideshow = {};
-                    GalleryIndex.prototype.organiseGrid = function () {};
+                    GalleryIndex.prototype.lastIndex = -1;
+                    GalleryIndex.prototype.currentIndex = -1;
+                    GalleryIndex.prototype.slideDelayInMs = 5 * 1000;
 
                     GalleryIndex.prototype.overlayCaption = function () {
-                        var imageHeight, imageWidth, parent;
-                        var self = this;
+                      var imageHeight, imageWidth, parent;
+                      var self = this;
 
-                        $(self.pageIndexItemClass).hover(function (ev) {
+                      $(self.pageIndexItemClass).hover(function (ev) {
 
-                            ev.preventDefault();
+                        ev.preventDefault();
 
-                            imageWidth = $(this).find("img").width();
-                            imageHeight = $(this).find("img").height();
+                        imageWidth = $(this).find("img").width();
+                        imageHeight = $(this).find("img").height();
 
-                            parent = $(this);
-                            parent.find(self.pageIndexOverlayClass).width(imageWidth).height(imageHeight).show();
-                            parent.find(self.pageIndexCaptionClass).show();
-                        }, function (ev) {
+                        parent = $(this);
+                        parent.find(self.pageIndexOverlayClass).width(imageWidth).height(imageHeight).show();
+                        parent.find(self.pageIndexCaptionClass).show();
+                      }, function (ev) {
 
-                            ev.preventDefault();
+                        ev.preventDefault();
 
-                            parent = $(this);
-                            parent.find(self.pageIndexOverlayClass).hide();
-                            parent.find(self.pageIndexCaptionClass).hide();
+                        parent = $(this);
+                        parent.find(self.pageIndexOverlayClass).hide();
+                        parent.find(self.pageIndexCaptionClass).hide();
+                      });
+
+                      $(self.pageIndexOverlayClass).click(function (ev) {
+                        ev.preventDefault();
+                        window.location.href = $(this).parent().data("href");
+                      });
+                    };
+
+                    GalleryIndex.prototype.triggerSlideshowByIndex = function () {
+
+                      var self = this;
+
+                      var randomIndexSlideshow = function () {
+                        return Math.floor(Math.random() * $(self.pageIndexSlideshowClass).length);
+                      };
+
+                      this.currentIndex = randomIndexSlideshow();
+
+                      //Fix to run cycle plugin if there is only one imagee in the set which breaks the cycle otherwise
+                      while ($(self.pageIndexSlideshowClass).eq(this.currentIndex).find("img").length <= 1) {
+                        this.currentIndex = randomIndexSlideshow();
+                      }
+
+                      if ($(this.pageIndexSlideshowClass).eq(this.currentIndex).is( ".cycle-paused" )) {
+                        $(this.pageIndexSlideshowClass).eq(this.currentIndex).cycle("resume");
+                      }
+
+                      this.lastIndex = this.currentIndex;
+
+                      return this.currentIndex;
+
+                    };
+
+                    GalleryIndex.prototype.initSlideshow = function () {
+
+                      var timeoutId = window.timeoutId;
+                      var self = this;
+                      var delay = this.slideDelayInMs;
+
+                      window.clearTimeout(timeoutId);
+
+                      if ($(this.pageIndexSlideshowClass).length <= 0) {
+                        return;
+                      }
+                      if (this.lastIndex < 0) {
+
+                        $(this.pageIndexSlideshowClass).cycle({
+                          "speed": 1000,
+                          "log": false
                         });
 
-                        $(self.pageIndexOverlayClass).click(function (ev) {
-                            ev.preventDefault();
-                            window.location.href = $(this).parent().data("href");
+                        $(this.pageIndexSlideshowClass).cycle("pause");
+                      }
+
+                      delay = (parseInt(delay) > 0) ? delay : 5 * 1000;
+
+                      if ( $(this.pageIndexSlideshowClass).length > 0) {
+
+                        self.triggerSlideshowByIndex();
+
+                        $(self.pageIndexSlideshowClass).on("cycle-after", function (ev) {
+                          ev.preventDefault();
+                          $(this).cycle("pause");
                         });
+
+                        $(self.pageIndexSlideshowClass).on("cycle-paused", function (ev) {
+                          ev.preventDefault();
+                          window.timeoutId = setTimeout(function () {
+                            return self.triggerSlideshowByIndex();
+                          }, delay);
+                        });
+                      }
                     };
 
                     GalleryIndex.prototype.run = function () {
-                        var pageIndexHtml = $.templates("#page-index-tpl");
 
-                        var self = this;
-                        var count = 0;
+                      var pageIndexHtml = $.templates("#page-index-tpl");
 
-                        return $.getJSON(this.endpoint, function (results) {
+                      var self = this;
+                      var count = 0;
 
-                            if (results && results.hasOwnProperty("data") && results.data.length > 0) {
+                      return $.getJSON(this.endpoint, function (results) {
 
-                                $.each(results.data, function(k, v) {
+                        if (results && results.hasOwnProperty("data") && results.data.length > 0) {
 
-                                    v.delay = Math.floor(Math.random() * 5000 + 1000);
-                                    v.timeout = Math.floor(Math.random() * 30000 + 10000);
-                                    v.count = ++count;
-                                    $("#" + self.pageIndexElement).append(pageIndexHtml.render(v));
+                          $.each(results.data, function(k, v) {
+                            v.count = ++count;
+                            $("#" + self.pageIndexElement).append(pageIndexHtml.render(v));
+                          });
 
-                                });
+                          if ($(self.pageIndexClass).length > 0) {
 
-                                if ($(self.pageIndexClass).length > 0) {
-                                    self.organiseGrid();
+                            self.initSlideshow();
 
-                                    self.slideshow = $(self.pageIndexSlideshowClass).cycle({
-                                        "random": true
-                                    });
-
-                                    self.overlayCaption();
-
-                                }
-                            }
-                        });
+                            self.overlayCaption();
+                          }
+                        }
+                      });
                     }
 
                     $(function () {
-                        var g = new GalleryIndex();
-
-                        g.run();
-
-
+                      var g = new GalleryIndex();
+                      g.run();
                     });
-                </script>';
+                  </script>';
 
 
     $block = new stdClass();

@@ -4,6 +4,7 @@ var windowSize = '';
 var windowWidth = 0;
 var actualSize = 0;
 
+$(window).resize(function(){location.reload();});
 
 $(document).ready(function() {
 
