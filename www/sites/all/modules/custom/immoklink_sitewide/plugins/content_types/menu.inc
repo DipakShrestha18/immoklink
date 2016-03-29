@@ -14,6 +14,9 @@ $plugin = array(
   'category' => t('Immo Klink'),
   'defaults' => array(),
   'render callback' => 'immoklink_sitewide_menu_content_type_render',
+  'required context' => array(
+    new ctools_context_required(t('Node'), 'node'),
+  ),
 );
 
 /**
@@ -23,9 +26,12 @@ $plugin = array(
  */
 function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_args, $context) {
   global $user;
-
-
   $output = '';
+  if (!isset($context[0]->data)) {
+    return;
+  }
+
+  $node = $context[0]->data;
 
   $navs = array(
     'People' => '/gallery-thumbnail/63',
@@ -35,9 +41,10 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
     'Info' => '/info',
     'News' => '/news',
   );
+
   foreach ($navs as $key => $nav) {
     if ($nav == request_uri()) {
-      $output .= '<a class="selected" href="' . $nav . '" >' . $key .'</a>';
+      $output .= '<a class="selected" href="' . $nav . '" >' . $key . '</a>';
     } else {
       $output .= '<a href="' . $nav . '">' . $key . '</a>';
     }
@@ -46,6 +53,30 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
   if (in_array('Editor', $user->roles)) {
     $output .= l('My workbench', 'admin/workbench');
   }
+
+  if (isset($node->type) && $node->type = 'gallery') {
+    if ($node->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'] = 1) {
+      $output .= '<script type="text/javascript">$("nav a:nth-child(2)").addClass("selected");</script>';
+    } elseif ($node->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'] = 2) {
+      $output .= '<script type="text/javascript">$("nav a:nth-child(3)").addClass("selected");</script>';
+    } elseif ($node->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'] = 3) {
+      $output .= '<script type="text/javascript">$("nav a:nth-child(4)").addClass("selected");</script>';
+    }
+  }
+
+  $node_thumbnail = node_load(arg(1));
+
+  if (strpos(request_uri(), 'gallery-thumbnail/') !== false) {
+    if ($node_thumbnail->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'] = 1) {
+      $output .= '<script type="text/javascript">$("nav a:nth-child(2)").addClass("selected");</script>';
+    } elseif ($node_thumbnail->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'] = 2) {
+      $output .= '<script type="text/javascript">$("nav a:nth-child(3)").addClass("selected");</script>';
+    } elseif ($node_thumbnail->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'] = 3) {
+      $output .= '<script type="text/javascript">$("nav a:nth-child(4)").addClass("selected");</script>';
+    }
+  }
+
+
 
   $block = new stdClass();
   $block->title = '';
