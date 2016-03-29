@@ -46,7 +46,7 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
     if ($nav == request_uri()) {
       $output .= '<a class="selected" href="' . $nav . '" id="' . strtolower($key) . '" >' . $key . '</a>';
     } else {
-      $output .= '<a href="' . $nav . '"  id="' . $key . '">' . strtolower($key) . '</a>';
+      $output .= '<a href="' . $nav . '"  id="' . $key . '">' . $key . '</a>';
     }
   }
 
@@ -87,7 +87,16 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
     }
   }
 
+  $info_url = array(
+    "/info/about",
+    "/info/exhibitions",
+    "/info/books",
+    "/info/press",
+  );
 
+  if (in_array(request_uri(), $info_url)) {
+    $output .= '<script type="text/javascript">$("nav a#Info").addClass("selected");</script>';
+  }
 
   $block = new stdClass();
   $block->title = '';
