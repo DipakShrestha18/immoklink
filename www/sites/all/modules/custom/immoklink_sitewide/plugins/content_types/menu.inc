@@ -54,10 +54,10 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
     $output .= l('My workbench', 'admin/workbench');
   }
 
-  $term_id = $node->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'];
-  $term = taxonomy_term_load($term_id);
-
   if (isset($node->type) && $node->type = 'gallery') {
+    $term_id = $node->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'];
+    $term = taxonomy_term_load($term_id);
+
     if ($term->name = 'Reportage') {
       $output .= '<script type="text/javascript">$("nav a:nth-child(2)").addClass("selected");</script>';
     } elseif ($term->name = 'Fashion') {
@@ -67,11 +67,10 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
     }
   }
 
-  $node_thumbnail = node_load(arg(1));
-  $tid = $node_thumbnail->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'];
-  $term = taxonomy_term_load($tid);
-
   if (strpos(request_uri(), 'gallery-thumbnail/') !== false) {
+    $node_thumbnail = node_load(arg(1));
+    $tid = $node_thumbnail->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'];
+    $term = taxonomy_term_load($tid);
     if ($term->name = 'Reportage') {
       $output .= '<script type="text/javascript">$("nav a:nth-child(2)").addClass("selected");</script>';
     } elseif ($term->name = 'Fashion') {
