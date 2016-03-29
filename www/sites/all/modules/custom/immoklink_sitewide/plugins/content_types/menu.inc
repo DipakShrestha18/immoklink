@@ -44,9 +44,9 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
 
   foreach ($navs as $key => $nav) {
     if ($nav == request_uri()) {
-      $output .= '<a class="selected" href="' . $nav . '" >' . $key . '</a>';
+      $output .= '<a class="selected" href="' . $nav . '" id="' . strtolower($key) . '" >' . $key . '</a>';
     } else {
-      $output .= '<a href="' . $nav . '">' . $key . '</a>';
+      $output .= '<a href="' . $nav . '"  id="' . $key . '">' . strtolower($key) . '</a>';
     }
   }
 
@@ -58,25 +58,32 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
     $term_id = $node->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'];
     $term = taxonomy_term_load($term_id);
 
-    if ($term->name = 'Reportage') {
-      $output .= '<script type="text/javascript">$("nav a:nth-child(2)").addClass("selected");</script>';
-    } elseif ($term->name = 'Fashion') {
-      $output .= '<script type="text/javascript">$("nav a:nth-child(3)").addClass("selected");</script>';
-    } elseif ($term->name = 'Works') {
-      $output .= '<script type="text/javascript">$("nav a:nth-child(4)").addClass("selected");</script>';
+    $output .= '<script type="text/javascript">$("nav a").removeClass();</script>';
+    if ($term->name == 'Reportage') {
+      $output .= '<script type="text/javascript">$("nav a#Reportage").addClass("selected");</script>';
+    } elseif ($term->name == 'Fashion') {
+      $output .= '<script type="text/javascript">$("nav a#Fashion").addClass("selected");</script>';
+    } elseif ($term->name == 'Works') {
+      $output .= '<script type="text/javascript">$("nav a#Works").addClass("selected");</script>';
     }
   }
 
   if (strpos(request_uri(), 'gallery-thumbnail/') !== false) {
     $node_thumbnail = node_load(arg(1));
-    $tid = $node_thumbnail->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'];
-    $term = taxonomy_term_load($tid);
-    if ($term->name = 'Reportage') {
-      $output .= '<script type="text/javascript">$("nav a:nth-child(2)").addClass("selected");</script>';
-    } elseif ($term->name = 'Fashion') {
-      $output .= '<script type="text/javascript">$("nav a:nth-child(3)").addClass("selected");</script>';
-    } elseif ($term->name = 'Works') {
-      $output .= '<script type="text/javascript">$("nav a:nth-child(4)").addClass("selected");</script>';
+    if (!$node_thumbnail) {
+      $output .= '<script type="text/javascript">$("nav a#People").addClass("selected");</script>';
+    } else if ($node_thumbnail) {
+      if (isset($node_thumbnail->field_gallery_gallery_type[LANGUAGE_NONE])) {
+        $tid = $node_thumbnail->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'];
+        $term = taxonomy_term_load($tid);
+        if ($term->name == 'Reportage') {
+          $output .= '<script type="text/javascript">$("nav a#Reportage").addClass("selected");</script>';
+        } elseif ($term->name == 'Fashion') {
+          $output .= '<script type="text/javascript">$("nav a#Fashion").addClass("selected");</script>';
+        } elseif ($term->name == 'Works') {
+          $output .= '<script type="text/javascript">$("nav a#Works").addClass("selected");</script>';
+        }
+      }
     }
   }
 
