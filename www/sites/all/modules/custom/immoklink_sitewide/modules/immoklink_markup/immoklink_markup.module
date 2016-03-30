@@ -92,7 +92,7 @@ function theme_books_format(&$variables) {
   $icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/mag.png';
 
   $output .= '<h2><p>' . $paragraph->field_books_bundle_title[LANGUAGE_NONE][0]['value'] . '</p></h2>';
-  $output .= '<ul class="books columns-3">';
+  $output .= '<ul class="news columns-3">';
   if (!empty($images)) {
     foreach ($images as $image) {
       $output .= '<li class="media">';
