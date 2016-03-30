@@ -55,8 +55,13 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
   }
 
   if (isset($node->type) && $node->type = 'gallery') {
-    $term_id = $node->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'];
-    $term = taxonomy_term_load($term_id);
+    if (isset($node->field_gallery_gallery_type[LANGUAGE_NONE])) {
+      $term_id = $node->field_gallery_gallery_type[LANGUAGE_NONE][0]['target_id'];
+      $term = taxonomy_term_load($term_id);
+    } else {
+      $term = new stdClass();
+      $term->name = 'People';
+    }
 
     $output .= '<script type="text/javascript">$("nav a").removeClass();</script>';
     if ($term->name == 'Reportage') {
@@ -65,6 +70,8 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
       $output .= '<script type="text/javascript">$("nav a#Fashion").addClass("selected");</script>';
     } elseif ($term->name == 'Works') {
       $output .= '<script type="text/javascript">$("nav a#Works").addClass("selected");</script>';
+    } elseif ($term->name == 'People') {
+      $output .= '<script type="text/javascript">$("nav a#People").addClass("selected");</script>';
     }
   }
 
