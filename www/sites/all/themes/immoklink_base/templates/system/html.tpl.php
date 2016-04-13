@@ -73,6 +73,8 @@
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <link rel='stylesheet' type="text/css" href="/sites/all/themes/immoklink_base/css/justifiedgallery.css" />
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/justifiedGallery.js"></script>
 </head>
 <body>
     <div id="skip-link">

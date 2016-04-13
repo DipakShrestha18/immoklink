@@ -173,6 +173,8 @@ function immoklink_sitewide_menu() {
   return $items;
 }
 
+
+
 ///**
 // * Callback function.
 // */
@@ -198,130 +200,155 @@ function immoklink_sitewide_menu() {
 //  return $output;
 //}
 
+
+///**
+// * Gallery thumbnail listing page callback.
+// */
+//function gallery_thumbnail_listings_page($node) {
+//  $output = '';
+//  global $base_url;
+//
+//  $json = $base_url . '/thumbnail-gallery/json/' .  $node->nid;
+//
+//  $output .= '<h1>' . $node->title . '</h1>';
+//  $output .= '<section id="gallery" class="page-gallery clearfix">
+//				<div class="grid-sizer"></div>
+//			  </section></article><div class="clear-fix"></div></div>';
+//  $output .= '<script id="page-index-tpl" type="text/x-jsrender">
+//		        <div class="page-index image-{{:orientation}}" id="index-{{:count}}" data-id="{{:id}}" data-href="{{:url}}">
+//			        <div class="page-index-slideshow" data-cycle-delay={{:delay}} data-cycle-timeout="{{:timeout}}" data-cycle-auto-height="4:3">
+//			        {{for images}}
+//			            <img src="{{>#data}}" alt="{{:title}}" title="{{:title}}" data-index-id="{{>#index}}"/>
+//			        {{/for}}
+//			        </div>
+//			    <div class="page-index-overlay" style="display: none;"></div>
+//			    </div>
+//	        </script>';
+//  $output .= '<script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jquery-1.8.3.min.js"></script>
+//  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/masonry.min.js"></script>
+//  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jsrender.min.js"></script>
+//  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jquery.cycle2.min.js"></script>';
+//
+//  $output .= '<script type="text/javascript">
+//                var GalleryIndex = function () {};
+//
+//		GalleryIndex.prototype.endpoint = "' . $json . '";
+//
+//		GalleryIndex.prototype.pageIndexElement = "gallery";
+//
+//		GalleryIndex.prototype.pageIndexClass = ".page-gallery";
+//
+//		GalleryIndex.prototype.pageIndexItemClass = ".page-index";
+//
+//		GalleryIndex.prototype.pageIndexOverlayClass = ".page-index-overlay";
+//
+//		GalleryIndex.prototype.pageIndexCaptionClass = ".page-index-caption";
+//
+//		GalleryIndex.prototype.pageIndexSlideshowClass = ".page-index-slideshow";
+//
+//		GalleryIndex.prototype.organise = {};
+//
+//		GalleryIndex.prototype.slideshow = {};
+//
+//		GalleryIndex.prototype.organiseGrid = function () {};
+//
+//		GalleryIndex.prototype.overlayCaption = function () {
+//          var imageHeight, imageWidth, parent;
+//			var self = this;
+//
+//			$(self.pageIndexItemClass).hover(function (ev) {
+//
+//              ev.preventDefault();
+//
+//              imageWidth = $(this).find("img").width();
+//              imageHeight = $(this).find("img").height();
+//
+//              parent = $(this);
+//              parent.find(self.pageIndexOverlayClass).width(imageWidth).height(imageHeight).show();
+//              parent.find(self.pageIndexCaptionClass).show();
+//            }, function (ev) {
+//
+//              ev.preventDefault();
+//
+//              parent = $(this);
+//              parent.find(self.pageIndexOverlayClass).hide();
+//              parent.find(self.pageIndexCaptionClass).hide();
+//            });
+//
+//			$(self.pageIndexOverlayClass).click(function (ev) {
+//              ev.preventDefault();
+//              window.location.href = $(this).parent().data("href");
+//            });
+//		};
+//
+//		GalleryIndex.prototype.run = function () {
+//          var pageIndexHtml = $.templates("#page-index-tpl");
+//
+//          var self = this;
+//          var count = 0;
+//
+//          return $.getJSON(this.endpoint, function (results) {
+//
+//            if (results && results.hasOwnProperty("data") && results.data.length > 0) {
+//
+//              $.each(results.data, function(k, v) {
+//
+//                v.delay = Math.floor(Math.random() * 30000 + 1000);
+//                v.timeout = Math.floor(Math.random() * 30000 + 10000);
+//                v.count = ++count;
+//                $("#" + self.pageIndexElement).append(pageIndexHtml.render(v));
+//
+//              });
+//
+//              if ($(self.pageIndexClass).length > 0) {
+//                self.organiseGrid();
+//
+//                self.slideshow = $(self.pageIndexSlideshowClass).cycle({
+//							"random": true
+//						});
+//
+//						self.overlayCaption();
+//
+//					}
+//            }
+//          });
+//        }
+//
+//		$(function () {
+//          var g = new GalleryIndex();
+//
+//          g.run();
+//
+//
+//        });
+//	</script>';
+//
+//  return $output;
+//}
+
 /**
  * Gallery thumbnail listing page callback.
  */
 function gallery_thumbnail_listings_page($node) {
   $output = '';
-  global $base_url;
-
-  $json = $base_url . '/thumbnail-gallery/json/' .  $node->nid;
-  
+  $output .= '<div class="page">';
   $output .= '<h1>' . $node->title . '</h1>';
-  $output .= '<section id="gallery" class="page-gallery clearfix">
-				<div class="grid-sizer"></div>
-			  </section></article><div class="clear-fix"></div></div>';
-  $output .= '<script id="page-index-tpl" type="text/x-jsrender">
-		        <div class="page-index image-{{:orientation}}" id="index-{{:count}}" data-id="{{:id}}" data-href="{{:url}}">
-			        <div class="page-index-slideshow" data-cycle-delay={{:delay}} data-cycle-timeout="{{:timeout}}" data-cycle-auto-height="4:3">
-			        {{for images}}
-			            <img src="{{>#data}}" alt="{{:title}}" title="{{:title}}" data-index-id="{{>#index}}"/>
-			        {{/for}}
-			        </div>
-			    <div class="page-index-overlay" style="display: none;"></div>
-			    </div>
-	        </script>';
-  $output .= '<script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jquery-1.8.3.min.js"></script>
-  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/masonry.min.js"></script>
-  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jsrender.min.js"></script>
-  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jquery.cycle2.min.js"></script>';
 
-  $output .= '<script type="text/javascript">
-                var GalleryIndex = function () {};
+  $output .= '<div id="bigimages">';
+  $images = $node->field_gallery_images[LANGUAGE_NONE];
+  foreach ($images as $image) {
+    $image = paragraphs_field_get_entity($image);
+    $image_path = $image->field_gallery_bundle_image[LANGUAGE_NONE][0]['uri'];
+    $image = theme_image_style(array('style_name' => 'gallery_thumbnail', 'path' => $image_path, 'height' => '', 'width' => ''));
+    $path = '/' . drupal_get_path_alias('node/' . $node->nid);
 
-		GalleryIndex.prototype.endpoint = "' . $json . '";
-
-		GalleryIndex.prototype.pageIndexElement = "gallery";
-
-		GalleryIndex.prototype.pageIndexClass = ".page-gallery";
-
-		GalleryIndex.prototype.pageIndexItemClass = ".page-index";
-
-		GalleryIndex.prototype.pageIndexOverlayClass = ".page-index-overlay";
-
-		GalleryIndex.prototype.pageIndexCaptionClass = ".page-index-caption";
-
-		GalleryIndex.prototype.pageIndexSlideshowClass = ".page-index-slideshow";
-
-		GalleryIndex.prototype.organise = {};
-
-		GalleryIndex.prototype.slideshow = {};
-
-		GalleryIndex.prototype.organiseGrid = function () {};
-
-		GalleryIndex.prototype.overlayCaption = function () {
-          var imageHeight, imageWidth, parent;
-			var self = this;
-
-			$(self.pageIndexItemClass).hover(function (ev) {
-
-              ev.preventDefault();
-
-              imageWidth = $(this).find("img").width();
-              imageHeight = $(this).find("img").height();
-
-              parent = $(this);
-              parent.find(self.pageIndexOverlayClass).width(imageWidth).height(imageHeight).show();
-              parent.find(self.pageIndexCaptionClass).show();
-            }, function (ev) {
-
-              ev.preventDefault();
-
-              parent = $(this);
-              parent.find(self.pageIndexOverlayClass).hide();
-              parent.find(self.pageIndexCaptionClass).hide();
-            });
-
-			$(self.pageIndexOverlayClass).click(function (ev) {
-              ev.preventDefault();
-              window.location.href = $(this).parent().data("href");
-            });
-		};
-
-		GalleryIndex.prototype.run = function () {
-          var pageIndexHtml = $.templates("#page-index-tpl");
-
-          var self = this;
-          var count = 0;
-
-          return $.getJSON(this.endpoint, function (results) {
-
-            if (results && results.hasOwnProperty("data") && results.data.length > 0) {
-
-              $.each(results.data, function(k, v) {
-
-                v.delay = Math.floor(Math.random() * 30000 + 1000);
-                v.timeout = Math.floor(Math.random() * 30000 + 10000);
-                v.count = ++count;
-                $("#" + self.pageIndexElement).append(pageIndexHtml.render(v));
-
-              });
-
-              if ($(self.pageIndexClass).length > 0) {
-                self.organiseGrid();
-
-                self.slideshow = $(self.pageIndexSlideshowClass).cycle({
-							"random": true
-						});
-
-						self.overlayCaption();
-
-					}
-            }
-          });
-        }
-
-		$(function () {
-          var g = new GalleryIndex();
-
-          g.run();
-
-
-        });
-	</script>';
+    $output .= '<a href="' . $path . '?sid=' . '" title="What your destination?">';
+    $output .= $image;
+  }
 
   return $output;
 }
+
 
 /**
  * News listings page.
@@ -603,7 +630,7 @@ function tags_listings_page() {
   $output = '';
   global $base_url;
   $output .= '<h1><a href="/news" style="text-decoration: none">News</a> > All tags</h1>';
-  
+
   $output .= '<div class="clear-left"></div>';
 
   $vocab = taxonomy_vocabulary_machine_name_load('news_tags');

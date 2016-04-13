@@ -10,6 +10,11 @@ $(document).ready(function() {
 	// screen refresh on resize.
 	// screenrefresh();
 
+	$("#bigimages").justifiedGallery({
+		rowHeight: 200,
+		fixedHeight: false
+	});
+
 	//setInterval(function(){cycleImages($('#cycler1'))}, 12000);
 	setInterval(function(){cycleImages($('#cycler2'))}, 8000);
 	setInterval(function(){cycleImages($('#cycler3'))}, 5000);
