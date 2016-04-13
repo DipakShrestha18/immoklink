@@ -336,14 +336,16 @@ function gallery_thumbnail_listings_page($node) {
 
   $output .= '<div id="bigimages">';
   $images = $node->field_gallery_images[LANGUAGE_NONE];
+  $sid = 0;
   foreach ($images as $image) {
     $image = paragraphs_field_get_entity($image);
     $image_path = $image->field_gallery_bundle_image[LANGUAGE_NONE][0]['uri'];
     $image = theme_image_style(array('style_name' => 'gallery_thumbnail', 'path' => $image_path, 'height' => '', 'width' => ''));
     $path = '/' . drupal_get_path_alias('node/' . $node->nid);
 
-    $output .= '<a href="' . $path . '?sid=' . '" title="What your destination?">';
+    $output .= '<a href="' . $path . '?sid=' . $sid . '" title="What your destination?">';
     $output .= $image;
+    $sid = $sid++;
   }
 
   return $output;
