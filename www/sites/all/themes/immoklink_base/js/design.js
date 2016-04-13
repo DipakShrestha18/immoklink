@@ -12,7 +12,8 @@ $(document).ready(function() {
 
 	$("#bigimages").justifiedGallery({
 		rowHeight: 200,
-		fixedHeight: false
+		fixedHeight: false,
+		margins : 5,
 	});
 
 	//setInterval(function(){cycleImages($('#cycler1'))}, 12000);
