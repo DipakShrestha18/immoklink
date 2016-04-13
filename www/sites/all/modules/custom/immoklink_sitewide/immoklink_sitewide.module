@@ -345,7 +345,7 @@ function gallery_thumbnail_listings_page($node) {
 
     $output .= '<a href="' . $path . '?sid=' . $sid . '" title="What your destination?">';
     $output .= $image;
-    $sid = $sid++;
+    $sid++;
   }
 
   return $output;
