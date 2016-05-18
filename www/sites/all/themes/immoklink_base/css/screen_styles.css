@@ -1,13 +1,15 @@
-@charset "UTF-8";
+	@charset "UTF-8";
 
 /* Global Styles */
 
 body {
 	color: #575c7a;
 	line-height: 1.5em;
-	/*font-family: Arial;replace*/
-	font-family:Verdana, Geneva, sans-serif;
 	font-size: 12px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-family: nimbus-sans;
+	font-style: normal;
+	font-weight: 400;
 }
 .page {
 	max-width: 980px;
@@ -28,6 +30,10 @@ a.logo {
 }
 
 img { max-width:100%; height: auto; }
+@-moz-document url-prefix() {
+    /* Firefox doesn't respect max-width in certain situations */
+    img { width: 100%; max-width: -moz-max-content; }
+}
 
 h1 { color: #000; margin: 0em 0em .7em 0em; font-size: 1.4em; font-weight: bold; }
 h2 { font-size: 1.2em; margin: 0.6em 0em 0em 0em; }
