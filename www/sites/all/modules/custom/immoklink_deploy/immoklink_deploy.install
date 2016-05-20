@@ -65,3 +65,10 @@ function immoklink_deploy_update_7005() {
 function immoklink_deploy_update_7006() {
   module_enable(array('immoklink_ordering'));
 }
+
+/**
+ * One off function run in update.
+ */
+function immoklink_deploy_update_7007() {
+  immoklink_ordering_populate_value();
+}

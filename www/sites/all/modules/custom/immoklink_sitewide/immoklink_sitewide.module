@@ -721,3 +721,12 @@ function immoklink_sitewide_newsletter_form_single_line() {
   );
   return $form;
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function immoklink_sitewide_form_alter($form, &$form_state, $form_id) {
+  if ($form_id == 'gallery_node_form') {
+    $form['field_gallery_lading_ordering']['#access'] = FALSE;
+  }
+}

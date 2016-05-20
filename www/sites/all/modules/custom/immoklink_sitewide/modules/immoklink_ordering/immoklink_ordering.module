@@ -169,3 +169,20 @@ function theme_ordering_overview_form($variables) {
   $output .= drupal_render_children($form);
   return $output;
 }
+
+/*
+ * One off function to populate order value if empty.
+ */
+function immoklink_ordering_populate_value() {
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'gallery')
+    ->execute();
+  $galleries = node_load_multiple(array_keys($result['node']));
+  foreach ($galleries as $node){
+    if (empty($node->field_display_order[LANGUAGE_NONE][0]['value'])) {
+      $node->field_gallery_lading_ordering[LANGUAGE_NONE][0]['value'] = -10;
+      node_save($node);
+    }
+  }
+}
