@@ -1,0 +1,4 @@
+name = Ordering
+description = Ordering of landing page thumbnail
+package = Immoklink
+core = 7.x

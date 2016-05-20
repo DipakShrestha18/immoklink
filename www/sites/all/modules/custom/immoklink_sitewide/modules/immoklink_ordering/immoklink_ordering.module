@@ -1,0 +1,171 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function immoklink_ordering_menu() {
+  $items = array();
+
+  $items['admin/workbench/ordering'] = array(
+    'title' => 'Ordering',
+    'description' => 'Administer ordering.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ordering_overview_form'),
+    'access arguments' => array('administer nodes'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['admin/workbench/ordering/%'] = array(
+    'title' => 'Ordering',
+    'description' => 'Administer Ordering.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ordering_overview_form',3),
+    'access arguments' => array('administer nodes'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function immoklink_ordering_theme() {
+  return array(
+    'ordering_overview_form' => array(
+      'render element' => 'form',
+    ),
+  );
+}
+
+function immoklink_ordering_preprocess_ordering_overview_form(&$variables) {
+  //adding extra variable
+  $variables['description'] = 'Drag and drop for ordering and save to reflect changes';
+}
+
+/**
+ * Shortcuts overview form.
+ */
+function ordering_overview_form($form, &$form_state, $gallery_type = NULL) {
+  $gallery_type = !empty($gallery_type) ? $gallery_type : 'Works';
+  $term = taxonomy_get_term_by_name($gallery_type, 'gallery_types');
+  $term = reset($term);
+  $tid = $term->tid;
+  $form = array();
+
+  $gallery_types = immoklink_ordering_load($tid);
+  $form['#prefix'] = '<h1>' . $gallery_type . '</h1>';
+
+  // Form elements for existing states .
+  $form['gallery']['#tree'] = TRUE;
+  if (!empty($gallery_types)) {
+    foreach ($gallery_types as $label => $gallery_type) {
+      $gallery_type = node_load($gallery_type->nid);
+      $form['gallery'][$label]['label'] = array(
+        '#type' => 'hidden',
+        '#default_value' => $label,
+      );
+      $form['gallery'][$label]['title'] = array(
+        '#type' => 'markup',
+        '#markup' => $gallery_type->title,
+      );
+      $form['gallery'][$label]['weight'] = array(
+        '#title' => t('Weight'),
+        '#type' => 'weight',
+        '#default_value' => $gallery_type->field_gallery_lading_ordering[LANGUAGE_NONE][0]['value'],
+        '#attributes' => array('class' => array('gallery-ordering-weight')),
+      );
+    }
+  }
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save Ordering'),
+  );
+
+  return $form;
+}
+
+/**
+ * Load judges.
+ */
+function immoklink_ordering_load($tid) {
+  //get the list of galleries.
+  $query = new EntityFieldQuery();
+  $items = $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'gallery')
+    ->fieldCondition('field_gallery_gallery_type', 'target_id', $tid, '=')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldOrderBy('field_gallery_lading_ordering', 'value', 'ASC')
+    ->execute();
+  $items = $items['node'];
+
+  return $items;
+}
+
+/**
+ * Form submit callback.
+ */
+function ordering_overview_form_submit ($form, &$form_state) {
+  $galleries = $form_state['values']['gallery'];
+
+  foreach ($galleries as $key => $gallery) {
+    $node = node_load($key);
+    $node->field_gallery_lading_ordering[LANGUAGE_NONE][0]['value'] = $gallery['weight'];
+    node_save($node);
+  }
+}
+
+/**
+ * Theming function for the ordering overview form.
+ */
+function theme_ordering_overview_form($variables) {
+  $form = $variables['form'];
+
+  drupal_add_tabledrag('ordering-reorder-table', 'order', 'self', 'gallery-ordering-weight');
+  $header = array(
+    array('data' => t('Gallery')),
+    array('data' => t('Weight')),
+  );
+
+  foreach (element_children($form['gallery'], TRUE) as $key) {
+    $row = array();
+    foreach (array(
+               'title',
+               'weight',
+             ) as $element) {
+      // Since we're rendering these in a table, remove any #title attributes.
+      if (!empty($form['gallery'][$key][$element]['#title'])) {
+        unset($form['gallery'][$key][$element]['#title']);
+      }
+      $row[] = drupal_render($form['gallery'][$key][$element]);
+    }
+    $rows[] = array(
+      'class' => array('draggable'),
+      'data' => $row,
+    );
+  }
+
+  $output = '';
+
+  $output .= $variables['description'];
+
+  //add header year navigation link
+  $vocabulary = taxonomy_vocabulary_machine_name_load('gallery_types');
+  $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  ksort($terms);
+  $output .= '<div class="tabs-secondary clearfix"><ul class="tabs secondary">';
+  foreach ($terms as $key => $term) {
+    $output .= '<li><a href="/admin/workbench/ordering/'. strtolower($term->name) . '">' . $term->name . '</a><li>';
+  }
+  $output .= '</ul></div>';
+
+  //table output
+  $output .= theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array('id' => 'ordering-reorder-table')
+  ));
+
+  $output .= drupal_render_children($form);
+  return $output;
+}

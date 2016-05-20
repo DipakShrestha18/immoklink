@@ -41,6 +41,7 @@ function immoklink_sitewide_gallery_listings_content_type_render($subtype, $conf
       ->entityCondition('bundle', 'gallery')
       ->propertyCondition('status', 1, '=')
       ->fieldCondition('field_gallery_gallery_type', 'target_id', $gallery_id, '=')
+      ->fieldOrderBy('field_gallery_lading_ordering', 'value', 'ASC')
       ->execute();
 
     $nodes = node_load_multiple(array_keys($results['node']));

@@ -58,3 +58,10 @@ function immoklink_deploy_update_7004() {
 function immoklink_deploy_update_7005() {
   module_enable(array('fimmoklink_exhibitions_new'));
 }
+
+/**
+ * Enable immoklink_ordering module.
+ */
+function immoklink_deploy_update_7006() {
+  module_enable(array('immoklink_ordering'));
+}

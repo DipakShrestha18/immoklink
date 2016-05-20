@@ -128,6 +128,7 @@ function immoklink_deploy_module_enable() {
     'immoklink_info_field',
     'paragrahps',
     'immoklink_exhibitions_field',
+    'immoklink_ordering',
     'no_field_markup',
     'workbench',
     'workbench_moderation',
