@@ -15,7 +15,7 @@ function immoklink_ordering_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['admin/workbench/ordering/%'] = array(
+  $items['admin/workbench/ordering/%taxonomy'] = array(
     'title' => 'Ordering',
     'description' => 'Administer Ordering.',
     'page callback' => 'drupal_get_form',
