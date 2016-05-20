@@ -49,7 +49,9 @@ function fimmoklink_gallery_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
       'type' => 'options_select',
       'weight' => 3,
     ),
@@ -104,6 +106,57 @@ function fimmoklink_gallery_field_default_field_instances() {
       'settings' => array(),
       'type' => 'paragraphs_embed',
       'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-gallery-field_gallery_lading_ordering'.
+  $field_instances['node-gallery-field_gallery_lading_ordering'] = array(
+    'bundle' => 'gallery',
+    'clean_markup' => 0,
+    'default_value' => array(
+      0 => array(
+        'value' => 9,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 4,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_gallery_lading_ordering',
+    'label' => 'Landing ordering',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 7,
     ),
   );
 
@@ -215,6 +268,7 @@ function fimmoklink_gallery_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Gallery type');
   t('Images');
+  t('Landing ordering');
   t('Listing Image');
   t('Listing description');
 

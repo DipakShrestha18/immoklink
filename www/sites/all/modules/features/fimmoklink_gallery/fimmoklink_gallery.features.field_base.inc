@@ -60,6 +60,21 @@ function fimmoklink_gallery_field_default_field_bases() {
     'type' => 'paragraphs',
   );
 
+  // Exported field_base: 'field_gallery_lading_ordering'.
+  $field_bases['field_gallery_lading_ordering'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_gallery_lading_ordering',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_gallery_listing_desc'.
   $field_bases['field_gallery_listing_desc'] = array(
     'active' => 1,
