@@ -332,7 +332,9 @@ function immoklink_sitewide_menu() {
 function gallery_thumbnail_listings_page($node) {
   $output = '';
   $output .= '<div class="page">';
-  $output .= '<h1>' . $node->title . '</h1>';
+  if ($node->title != 'People') {
+    $output .= '<h1>' . $node->title . '</h1>';
+  }
 
   $output .= '<div id="bigimages">';
   $images = $node->field_gallery_images[LANGUAGE_NONE];
