@@ -341,19 +341,20 @@ ul.books.columns-3 li {
     margin-top: 20px;
 }
 
-.wrap img {
-    position: absolute;
-    bottom: 0;
+.wrap {
+  width: 100%;
+  text-align: center;
+  margin-top: -5%;
 }
 
-.share img:nth-of-type(1) {
-    right: 0;
-	margin-right: 20%;
+.share, .share1 {
+  margin: 0px 10px;
 }
 
-.share1 img:nth-of-type(1) {
-    left: 0;
-	margin-left: 20%;
+.share img,
+.share1 img {
+  max-height: 20px;
+  max-width: 20px;
 }
 
 .overlay-text {
