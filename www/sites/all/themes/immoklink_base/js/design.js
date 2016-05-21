@@ -10,12 +10,6 @@ $(document).ready(function() {
 	// screen refresh on resize.
 	// screenrefresh();
 
-	$("#bigimages").justifiedGallery({
-		rowHeight: 200,
-		fixedHeight: false,
-		margins : 5,
-	});
-
 	//setInterval(function(){cycleImages($('#cycler1'))}, 12000);
 	setInterval(function(){cycleImages($('#cycler2'))}, 8000);
 	setInterval(function(){cycleImages($('#cycler3'))}, 5000);
@@ -49,6 +43,12 @@ $(document).ready(function() {
 
 	//video in image gallery
 	$('.venoboxvid').venobox({bgcolor: '#000'});
+
+	$("#bigimages").justifiedGallery({
+		rowHeight: 200,
+		fixedHeight: false,
+		margins : 5,
+	});
 });
 
 /**

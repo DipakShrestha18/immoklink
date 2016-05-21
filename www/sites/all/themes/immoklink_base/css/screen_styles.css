@@ -14,7 +14,8 @@ body {
 .page {
 	max-width: 980px;
 	margin: 0px auto;
-	position: relative; background-color: #fff;
+	position: relative;
+  /*background-color: #fff;*/
 }
 
 header {
@@ -72,8 +73,6 @@ a.tel {
 	padding: 3px 0px 0px 25px;
 }
 a.sm-icon img.sm-icon { padding: 15px 0px 0px 5px; }
-
-
 
 .promo h3 { font-size: 1.1em; margin: 0;}
 .promo p { line-height: 1.2em; font-size: .9em; margin-bottom: .5em; }
@@ -341,19 +340,20 @@ ul.books.columns-3 li {
     margin-top: 20px;
 }
 
-.wrap img {
-    position: absolute;
-    bottom: 0;
+.wrap {
+  width: 100%;
+  text-align: center;
+  margin-top: -5%;
 }
 
-.share img:nth-of-type(1) {
-    right: 0;
-	margin-right: 20%;
+.share, .share1 {
+  margin: 0px 10px;
 }
 
-.share1 img:nth-of-type(1) {
-    left: 0;
-	margin-left: 20%;
+.share img,
+.share1 img {
+  max-height: 20px;
+  max-width: 20px;
 }
 
 .overlay-text {

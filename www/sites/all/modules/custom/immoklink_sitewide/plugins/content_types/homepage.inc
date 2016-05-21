@@ -93,9 +93,9 @@ function immoklink_sitewide_homepage_content_type_render($subtype, $conf, $panel
                         parent.find(self.pageIndexCaptionClass).hide();
                       });
 
-                      $(self.pageIndexOverlayClass).click(function (ev) {
+                      $(self.pageIndexItemClass).click(function (ev) {
                         ev.preventDefault();
-                        window.location.href = $(this).parent().data("href");
+                        window.location.href = $(this).data("href");
                       });
                     };
 
