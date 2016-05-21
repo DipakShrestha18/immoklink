@@ -33,39 +33,40 @@ function immoklink_sitewide_publications_content_type_render($subtype, $conf, $p
   global $base_url;
 
   $node = $context[0]->data;
+  if (isset($node->field_publications[LANGUAGE_NONE])) {
+    $publications = $node->field_publications[LANGUAGE_NONE];
 
-  $publications = $node->field_publications[LANGUAGE_NONE];
+    foreach ($publications as $publication) {
+      $publication = paragraphs_field_get_entity($publication);
+      $uri = $publication->field_publications_image[LANGUAGE_NONE][0]['uri'];
+      $imagename = $publication->field_publications_image[LANGUAGE_NONE][0]['filename'];
+      if (isset($publication->field_publications_pdf_file[LANGUAGE_NONE])) {
+        $filename = $publication->field_publications_pdf_file[LANGUAGE_NONE][0]['filename'];
+      }
+      $image = theme_image_style(array('style_name' => 'fullwidth_potrait_image', 'path' => $uri, 'height' => '', 'width' => '', 'alt' => ''));
 
-  foreach ($publications as $publication) {
-    $publication = paragraphs_field_get_entity($publication);
-    $uri = $publication->field_publications_image[LANGUAGE_NONE][0]['uri'];
-    $imagename = $publication->field_publications_image[LANGUAGE_NONE][0]['filename'];
-    if (isset($publication->field_publications_pdf_file[LANGUAGE_NONE])) {
-      $filename = $publication->field_publications_pdf_file[LANGUAGE_NONE][0]['filename'];
-    }
-    $image = theme_image_style(array('style_name' => 'fullwidth_potrait_image', 'path' => $uri, 'height' => '', 'width' => '', 'alt' => ''));
-
-    $output .= '<section id="gallery-highlight" class="page-cover">';
-    $output .= '<div class="page-cover-item clearfix image-landscape">';
-    $output .= '<div class="page-cover-wrap">';
-    $output .= '<span class="page-cover-img">';
-    if (isset($publication->field_publications_pdf_file[LANGUAGE_NONE])) {
-      $output .= '<a href="' . $base_url . '/sites/default/files/' . $filename . '" target="_blank">';
-      $output .= $image;
-      $output .= '</a>';
-    } else {
-      $output .= '<a class="btn btn-info venoboxvid vbox-item" href="' . $base_url . '/sites/default/files/' . $imagename . '">';
-      $output .= $image;
-      $output .= '</a>';
-    }
-    $output .= '</span></div>';
-
-    if (isset($publication->field_publications_description[LANGUAGE_NONE])) {
+      $output .= '<section id="gallery-highlight" class="page-cover">';
+      $output .= '<div class="page-cover-item clearfix image-landscape">';
       $output .= '<div class="page-cover-wrap">';
-      $output .= $publication->field_publications_description[LANGUAGE_NONE][0]['value'];
-      $output .= '</div>';
+      $output .= '<span class="page-cover-img">';
+      if (isset($publication->field_publications_pdf_file[LANGUAGE_NONE])) {
+        $output .= '<a href="' . $base_url . '/sites/default/files/' . $filename . '" target="_blank">';
+        $output .= $image;
+        $output .= '</a>';
+      } else {
+        $output .= '<a class="btn btn-info venoboxvid vbox-item" href="' . $base_url . '/sites/default/files/' . $imagename . '">';
+        $output .= $image;
+        $output .= '</a>';
+      }
+      $output .= '</span></div>';
+
+      if (isset($publication->field_publications_description[LANGUAGE_NONE])) {
+        $output .= '<div class="page-cover-wrap">';
+        $output .= $publication->field_publications_description[LANGUAGE_NONE][0]['value'];
+        $output .= '</div>';
+      }
+      $output .= '</div></section>';
     }
-    $output .= '</div></section>';
   }
 
   $block = new stdClass();
