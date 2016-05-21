@@ -29,6 +29,10 @@ a.logo {
 	padding:0px 20px 0px 20px;
 }
 
+a.logo:hover {
+  color: #000;
+}
+
 img { max-width:100%; height: auto; }
 @-moz-document url-prefix() {
     /* Firefox doesn't respect max-width in certain situations */
