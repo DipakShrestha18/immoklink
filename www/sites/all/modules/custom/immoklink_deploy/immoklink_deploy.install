@@ -72,3 +72,10 @@ function immoklink_deploy_update_7006() {
 function immoklink_deploy_update_7007() {
   immoklink_ordering_populate_value();
 }
+
+/**
+ * Enable fimmoklink_publications feature.
+ */
+function immoklink_deploy_update_7008() {
+  module_enable(array('fimmoklink_publications'));
+}

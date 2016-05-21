@@ -2,14 +2,14 @@
 $handler = new stdClass();
 $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
 $handler->api_version = 1;
-$handler->name = 'node_view__panel_context_fb75b10d-f421-43cc-99ee-f0a6cda87ac4';
+$handler->name = 'node_view__panel_context_48a76801-9fdf-47d1-a91e-ed5c662e83c9';
 $handler->task = 'node_view';
 $handler->subtask = '';
 $handler->handler = 'panel_context';
-$handler->weight = 7;
+$handler->weight = 9;
 $handler->conf = array(
-  'title' => 'Basic page',
-  'no_blocks' => 1,
+  'title' => 'Publications',
+  'no_blocks' => 0,
   'pipeline' => 'standard',
   'body_classes_to_remove' => '',
   'body_classes_to_add' => '',
@@ -19,19 +19,19 @@ $handler->conf = array(
   'relationships' => array(),
   'name' => '',
   'access' => array(
+    'logic' => 'and',
     'plugins' => array(
       0 => array(
         'name' => 'node_type',
         'settings' => array(
           'type' => array(
-            'basic_page' => 'basic_page',
+            'publications' => 'publications',
           ),
         ),
         'context' => 'argument_entity_id:node_1',
         'not' => FALSE,
       ),
     ),
-    'logic' => 'and',
   ),
 );
 $display = new panels_display();
@@ -39,6 +39,7 @@ $display->layout = 'planer_one_column';
 $display->layout_settings = array();
 $display->panel_settings = array(
   'style_settings' => array(
+    'default' => NULL,
     'content' => array(
       'region_wrapper' => array(
         'type' => '',
@@ -55,7 +56,6 @@ $display->panel_settings = array(
         'element_class' => '',
       ),
     ),
-    'default' => NULL,
   ),
   'content' => array(
     'style' => 'planer',
@@ -63,31 +63,35 @@ $display->panel_settings = array(
 );
 $display->cache = array();
 $display->title = '';
-$display->uuid = '8c3c738f-b2bc-480b-9d77-bc93f824a761';
+$display->uuid = '16d87dee-f6c3-4689-95a4-efc26605253d';
 $display->content = array();
 $display->panels = array();
 $pane = new stdClass();
-$pane->pid = 'new-01f7bfe8-4643-4c60-a168-32df686d5144';
+$pane->pid = 'new-063ed212-2039-45bb-a3e5-01cf2821355b';
 $pane->panel = 'content';
-$pane->type = 'node_title';
-$pane->subtype = 'node_title';
-$pane->shown = FALSE;
+$pane->type = 'publications';
+$pane->subtype = 'publications';
+$pane->shown = TRUE;
 $pane->access = array();
 $pane->configuration = array(
-  'link' => 0,
-  'markup' => 'none',
-  'id' => '',
-  'class' => '',
-  'context' => 'argument_entity_id:node_1',
+  'return' => 'Finish',
+  'cancel' => 'Cancel',
+  'context' => array(
+    0 => 'argument_entity_id:node_1',
+  ),
   'override_title' => 1,
-  'override_title_text' => '',
   'override_title_heading' => 'h2',
+  'form_build_id' => 'form-oZnU6peQNgOnxaiIFwiMnIj2kLMArqnQS-MhCm_1KNM',
+  'form_token' => '90XsHhM0_z5_NYfoe67hsLgiy8wUpaLuKHwB2zVEemU',
+  'form_id' => 'immoklink_sitewide_publications_content_type_edit_form',
+  'op' => 'Finish',
+  'override_title_text' => '',
 );
 $pane->cache = array();
 $pane->style = array(
   'settings' => array(
     'element_wrapper' => array(
-      'type' => 'h1',
+      'type' => '',
       'add_default_classes' => 0,
       'class_enable' => 0,
       'class' => '',
@@ -117,65 +121,9 @@ $pane->css = array();
 $pane->extras = array();
 $pane->position = 0;
 $pane->locks = array();
-$pane->uuid = '01f7bfe8-4643-4c60-a168-32df686d5144';
-$display->content['new-01f7bfe8-4643-4c60-a168-32df686d5144'] = $pane;
-$display->panels['content'][0] = 'new-01f7bfe8-4643-4c60-a168-32df686d5144';
-$pane = new stdClass();
-$pane->pid = 'new-2af8c40b-d07e-4bb7-967e-f3a6279a3dc6';
-$pane->panel = 'content';
-$pane->type = 'entity_field';
-$pane->subtype = 'node:body';
-$pane->shown = TRUE;
-$pane->access = array();
-$pane->configuration = array(
-  'label' => 'hidden',
-  'formatter' => 'text_default',
-  'delta_limit' => 0,
-  'delta_offset' => '0',
-  'delta_reversed' => FALSE,
-  'formatter_settings' => array(),
-  'context' => 'argument_entity_id:node_1',
-  'override_title' => 1,
-  'override_title_text' => '',
-  'override_title_heading' => 'h2',
-);
-$pane->cache = array();
-$pane->style = array(
-  'settings' => array(
-    'element_wrapper' => array(
-      'type' => '',
-      'add_default_classes' => 0,
-      'class_enable' => 0,
-      'class' => '',
-      'attributes_enable' => 0,
-      'attributes' => '',
-    ),
-    'element_title' => array(
-      'type' => '',
-      'add_default_classes' => 0,
-      'class_enable' => 0,
-      'class' => '',
-      'attributes_enable' => 0,
-      'attributes' => '',
-    ),
-    'element_content' => array(
-      'type' => '',
-      'add_default_classes' => 0,
-      'class_enable' => 0,
-      'class' => '',
-      'attributes_enable' => 0,
-      'attributes' => '',
-    ),
-  ),
-  'style' => 'planer',
-);
-$pane->css = array();
-$pane->extras = array();
-$pane->position = 1;
-$pane->locks = array();
-$pane->uuid = '2af8c40b-d07e-4bb7-967e-f3a6279a3dc6';
-$display->content['new-2af8c40b-d07e-4bb7-967e-f3a6279a3dc6'] = $pane;
-$display->panels['content'][1] = 'new-2af8c40b-d07e-4bb7-967e-f3a6279a3dc6';
+$pane->uuid = '063ed212-2039-45bb-a3e5-01cf2821355b';
+$display->content['new-063ed212-2039-45bb-a3e5-01cf2821355b'] = $pane;
+$display->panels['content'][0] = 'new-063ed212-2039-45bb-a3e5-01cf2821355b';
 $display->hide_title = PANELS_TITLE_NONE;
 $display->title_pane = '0';
 $handler->conf['display'] = $display;
