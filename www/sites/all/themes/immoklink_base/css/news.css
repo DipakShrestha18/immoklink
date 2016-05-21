@@ -26,7 +26,7 @@
 .page-cover .image-portrait img { max-width: 60%; }
 
 .page-grid { display: block; margin: 0 auto 0 auto; }
-.page-grid .page-grid-item { display: inline-block; vertical-align: top; }
+.page-grid .page-grid-item { display: inline-block; vertical-align: top; overflow: hidden; }
 .page-grid .page-grid-item h2 { margin: 5% 0; }
 .page-grid .page-grid-item a { text-decoration: none; }
 .page-grid .page-grid-item.image-portrait .page-grid-wrap, .page-grid .page-grid-item.image-unknown .page-grid-wrap { max-width: 250px; }
