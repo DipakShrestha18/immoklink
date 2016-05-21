@@ -10,7 +10,7 @@
 
 .clearfix { overflow: auto; zoom: 1; }
 
-.page-grid .page-grid-item { margin-bottom: 2%; }
+.page-grid .page-grid-item { margin-bottom: 5%; }
 .page-grid .page-grid-item h2 { font-size: 1.4rem; margin: 2% 0; line-height: 1.8rem;}
 .page-grid .page-grid-item p { font-size: 0.8rem; margin: 1% 0; text-overflow: ellipsis; }
 
