@@ -138,6 +138,10 @@ h2 { font-weight: 500; }
   height:  80px;
 }
 
+#gallery {
+  overflow: hidden;
+}
+
 #gallery .image-landscape {
   width: 32%;
 }
