@@ -5,7 +5,7 @@
 body {
 	color: #575c7a;
 	line-height: 1.5em;
-	font-size: 12px;
+	font-size: 16px;
 	font-family: Verdana, Geneva, sans-serif;
 	font-family: nimbus-sans;
 	font-style: normal;
@@ -22,9 +22,9 @@ header {
 }
 
 a.logo {
-	color: #999;
-	font-family: "Helvetica Neue", Helvetica, Arial;
-	font-weight: 100;
+	color: #000;
+	font-family: "nimbus-sans", Helvetica, Arial;
+  font-weight: bold;
 	font-size: 30px;
 	padding:0px 20px 0px 20px;
 }
@@ -35,7 +35,7 @@ img { max-width:100%; height: auto; }
     img { width: 100%; max-width: -moz-max-content; }
 }
 
-h1 { color: #000; margin: 0em 0em .7em 0em; font-size: 1.4em; font-weight: bold; }
+h1 { color: #000; margin: 0em 0em .7em 0em; font-size: 1em; font-weight: bold; }
 h2 { font-size: 1.2em; margin: 0.6em 0em 0em 0em; }
 h3 { font-size: 1.3em; margin: 0em 0em 0.4em 0em; }
 .grid-container h3 { text-align: left; }
@@ -80,10 +80,7 @@ nav a {
 	color:#333;
 	text-decoration: none;
 	display: inline-block;
-	/*font-weight: bold;*/
-	/*font-size: 1.2em; replace*/
-	font-size: 1.3em;
-	font-size: 14px;
+	font-size: 16px;
 }
 nav a:hover { color: #999; }
 nav a.selected { font-weight:bold; }
@@ -164,7 +161,7 @@ ul.news li {
 	display: inline-block;
 	margin: 0 0 10px 10px;
 	background: #fff;
-	font-size: 12px;
+	font-size: 16px;
 	vertical-align: top;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -661,16 +658,16 @@ div.all-tags-link a {
 form#immoklink-sitewide-newsletter-form {
   max-width: 400px;
   padding: 10px 20px;
-  background: #e5e2e1;
- /* border-radius: 8px;*/
 }
 
 form#immoklink-sitewide-newsletter-form div.signup {
   margin: 0 0 10px 0;
   padding-top: 20px;
   text-align: center;
-  font-size: 1.4em;
+  font-size: 1em;
   font-weight: bold;
+  color: black;
+
 }
 
 form#immoklink-sitewide-newsletter-form input[name="signup"] {
@@ -690,15 +687,15 @@ form#immoklink-sitewide-newsletter-form input[name="signup"] {
 form#immoklink-sitewide-newsletter-form input[type="submit"] {
   padding: 19px 39px 18px 39px;
   color: #FFF;
-  background-color: #cbc6c3;
+  background-color: black;
   font-size: 18px;
   text-align: center;
   font-style: normal;
-  border-radius: 5px;
   width: 92%;
+  /*border-radius: 5px;
   border-width: 1px 1px 3px;
   box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-  margin-bottom: 20px;
+  margin-bottom: 20px;*/
 }
 
 form#immoklink-sitewide-newsletter-form legend {
