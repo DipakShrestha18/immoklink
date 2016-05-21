@@ -38,7 +38,8 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
     'Reportage' => '/reportage',
     'Works' => '/works',
     'Fashion' => '/fashion',
-    'Info' => '/info',
+    'Publications' => '/publications',
+    'About' => '/about',
     'News' => '/news',
   );
 
