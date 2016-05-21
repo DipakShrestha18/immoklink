@@ -168,6 +168,7 @@ function immoklink_deploy_features() {
     'fimmoklink_homepage',
     'fimmoklink_basic_page',
     'fimmoklink_exhibitions_new',
+    'fimmoklink_publications',
   );
   foreach ($enable as $group) {
     features_install_modules($group);

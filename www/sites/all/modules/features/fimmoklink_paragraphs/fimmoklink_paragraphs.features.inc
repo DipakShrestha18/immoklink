@@ -38,6 +38,11 @@ function fimmoklink_paragraphs_paragraphs_info() {
       'bundle' => 'info_bundle',
       'locked' => '1',
     ),
+    'publications' => array(
+      'name' => 'Publications',
+      'bundle' => 'publications',
+      'locked' => '1',
+    ),
   );
   return $items;
 }

@@ -81,10 +81,6 @@ function immoklink_sitewide_gallery_js_content_type_render($subtype, $conf, $pan
     </script>
     <!--end peter gallery-->';
 
-  $output .= '<!--video in a gallery-->
-        <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/venobox.min.js"></script>
-        <!--end of video in a gallery-->';
-
   $block = new stdClass();
   $block->title = '';
   $block->content = $output;

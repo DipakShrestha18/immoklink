@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IMMOKLINK Publications feature.
+ */
+
+include_once 'fimmoklink_publications.features.inc';
