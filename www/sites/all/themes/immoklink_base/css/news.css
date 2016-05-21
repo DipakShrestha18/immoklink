@@ -185,3 +185,7 @@ a.logo { padding: 15px 0 15px 10px !important; }
   .page-index img { height: 200px; }
 }
 
+/* Only need to apply for news article*/
+table td img {
+  max-width: inherit !important;
+}
