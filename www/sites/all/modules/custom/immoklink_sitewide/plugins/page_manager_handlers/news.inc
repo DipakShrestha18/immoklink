@@ -112,6 +112,62 @@ $pane->uuid = 'a97b3ba0-3ec0-4f49-86a2-506d0ecfc512';
 $display->content['new-a97b3ba0-3ec0-4f49-86a2-506d0ecfc512'] = $pane;
 $display->panels['content'][0] = 'new-a97b3ba0-3ec0-4f49-86a2-506d0ecfc512';
 $pane = new stdClass();
+$pane->pid = 'new-661495d5-310d-47c3-890b-e46940f9ff10';
+$pane->panel = 'content';
+$pane->type = 'entity_field';
+$pane->subtype = 'node:field_news_date';
+$pane->shown = TRUE;
+$pane->access = array();
+$pane->configuration = array(
+  'label' => 'hidden',
+  'formatter' => 'date_format',
+  'delta_limit' => 0,
+  'delta_offset' => '0',
+  'delta_reversed' => FALSE,
+  'formatter_settings' => array(),
+  'context' => 'argument_entity_id:node_1',
+  'override_title' => 1,
+  'override_title_text' => '',
+  'override_title_heading' => 'h2',
+);
+$pane->cache = array();
+$pane->style = array(
+  'settings' => array(
+    'element_wrapper' => array(
+      'type' => 'p',
+      'add_default_classes' => 0,
+      'class_enable' => 1,
+      'class' => 'pubdate',
+      'attributes_enable' => 0,
+      'attributes' => '',
+    ),
+    'element_title' => array(
+      'type' => '',
+      'add_default_classes' => 0,
+      'class_enable' => 0,
+      'class' => '',
+      'attributes_enable' => 0,
+      'attributes' => '',
+    ),
+    'element_content' => array(
+      'type' => '',
+      'add_default_classes' => 0,
+      'class_enable' => 0,
+      'class' => '',
+      'attributes_enable' => 0,
+      'attributes' => '',
+    ),
+  ),
+  'style' => 'planer',
+);
+$pane->css = array();
+$pane->extras = array();
+$pane->position = 1;
+$pane->locks = array();
+$pane->uuid = '661495d5-310d-47c3-890b-e46940f9ff10';
+$display->content['new-661495d5-310d-47c3-890b-e46940f9ff10'] = $pane;
+$display->panels['content'][1] = 'new-661495d5-310d-47c3-890b-e46940f9ff10';
+$pane = new stdClass();
 $pane->pid = 'new-2fd6d083-95cb-42d1-b4be-ed88b261292d';
 $pane->panel = 'content';
 $pane->type = 'news_image_content';
@@ -151,11 +207,11 @@ $pane->style = array(
 );
 $pane->css = array();
 $pane->extras = array();
-$pane->position = 1;
+$pane->position = 2;
 $pane->locks = array();
 $pane->uuid = '2fd6d083-95cb-42d1-b4be-ed88b261292d';
 $display->content['new-2fd6d083-95cb-42d1-b4be-ed88b261292d'] = $pane;
-$display->panels['content'][1] = 'new-2fd6d083-95cb-42d1-b4be-ed88b261292d';
+$display->panels['content'][2] = 'new-2fd6d083-95cb-42d1-b4be-ed88b261292d';
 $pane = new stdClass();
 $pane->pid = 'new-c7fc3cbd-136a-4ee8-93b0-b5e7d2c6187d';
 $pane->panel = 'content';
@@ -207,67 +263,11 @@ $pane->style = array(
 );
 $pane->css = array();
 $pane->extras = array();
-$pane->position = 2;
+$pane->position = 3;
 $pane->locks = array();
 $pane->uuid = 'c7fc3cbd-136a-4ee8-93b0-b5e7d2c6187d';
 $display->content['new-c7fc3cbd-136a-4ee8-93b0-b5e7d2c6187d'] = $pane;
-$display->panels['content'][2] = 'new-c7fc3cbd-136a-4ee8-93b0-b5e7d2c6187d';
-$pane = new stdClass();
-$pane->pid = 'new-661495d5-310d-47c3-890b-e46940f9ff10';
-$pane->panel = 'content';
-$pane->type = 'entity_field';
-$pane->subtype = 'node:field_news_date';
-$pane->shown = TRUE;
-$pane->access = array();
-$pane->configuration = array(
-  'label' => 'hidden',
-  'formatter' => 'date_format',
-  'delta_limit' => 0,
-  'delta_offset' => '0',
-  'delta_reversed' => FALSE,
-  'formatter_settings' => array(),
-  'context' => 'argument_entity_id:node_1',
-  'override_title' => 1,
-  'override_title_text' => '',
-  'override_title_heading' => 'h2',
-);
-$pane->cache = array();
-$pane->style = array(
-  'settings' => array(
-    'element_wrapper' => array(
-      'type' => 'p',
-      'add_default_classes' => 0,
-      'class_enable' => 1,
-      'class' => 'pubdate',
-      'attributes_enable' => 0,
-      'attributes' => '',
-    ),
-    'element_title' => array(
-      'type' => '',
-      'add_default_classes' => 0,
-      'class_enable' => 0,
-      'class' => '',
-      'attributes_enable' => 0,
-      'attributes' => '',
-    ),
-    'element_content' => array(
-      'type' => '',
-      'add_default_classes' => 0,
-      'class_enable' => 0,
-      'class' => '',
-      'attributes_enable' => 0,
-      'attributes' => '',
-    ),
-  ),
-  'style' => 'planer',
-);
-$pane->css = array();
-$pane->extras = array();
-$pane->position = 3;
-$pane->locks = array();
-$pane->uuid = '661495d5-310d-47c3-890b-e46940f9ff10';
-$display->content['new-661495d5-310d-47c3-890b-e46940f9ff10'] = $pane;
-$display->panels['content'][3] = 'new-661495d5-310d-47c3-890b-e46940f9ff10';
+$display->panels['content'][3] = 'new-c7fc3cbd-136a-4ee8-93b0-b5e7d2c6187d';
 $pane = new stdClass();
 $pane->pid = 'new-c4053a3d-f953-441a-b737-917a20fea211';
 $pane->panel = 'content';
