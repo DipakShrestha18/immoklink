@@ -57,7 +57,14 @@
   .page-cover .page-cover-wrap { display: inline-block; float: left; vertical-align: top; }
   .page-cover .page-cover-wrap:first-child { width: 65%; text-align: center; }
   .page-cover .page-cover-wrap:nth-child(2) { width: 25%; padding-left: 5%; } }
+
+  .page-cover .page-cover-publications-img { margin: 0 auto; width: 100%; }
+  .page-cover .page-cover-publications-wrap { display: inline-block; float: left; vertical-align: top; }
+  .page-cover .page-cover-publications-wrap { width: 50%; }
+  .page-cover .page-cover-publications-wrap:nth-child(2) { width: 40%; padding-left: 5%; }
 @media all and (min-width: 768px) { html { font-size: 100%; } }
+
+
 
 /*html { font-size: 50%; }
 
