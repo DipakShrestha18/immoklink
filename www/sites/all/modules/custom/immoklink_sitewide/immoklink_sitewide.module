@@ -693,7 +693,7 @@ function immoklink_sitewide_newsletter_form() {
  * Newsletter signup form.
  */
 function immoklink_sitewide_newsletter_form_single_line() {
-  $form['#prefix'] = '<div class="update-signup" id="update-signup"><div id="signup-error"></div><div id="webform-ajax-wrapper-3">';
+  $form['#prefix'] = '<div class="update-signup" id="update-signup"><div id="signup-error"></div><div id="webform-ajax-wrapper-4">';
   $form['#suffix'] = '</div></div>';
   $form['my_markup'] = array(
       '#markup' => '<div class="signup">Sign up for email updates of our news</div>'

@@ -753,16 +753,15 @@ form#immoklink-sitewide-newsletter-form label {
 
 form#immoklink-sitewide-newsletter-form-single-line {
   max-width: 900px;
-  padding: 0px 20px;
+  padding: 0px 0px;
   background: #e5e2e1;
   /* border-radius: 8px;*/
 }
 form#immoklink-sitewide-newsletter-form-single-line div.signup {
-  margin: 0 0 10px 0;
-  padding-top: 20px;
+  margin: 0 0 20px 0;
+  padding-top: 30px;
   text-align: center;
-  font-size: 1.4em;
-  font-weight: bold;
+  font-size: 1.0em;
 }
 
 form#immoklink-sitewide-newsletter-form-single-line .signup {
@@ -776,7 +775,7 @@ form#immoklink-sitewide-newsletter-form-single-line .signup {
 
 form#immoklink-sitewide-newsletter-form-single-line .form-item {
   max-width: 290px;
-  width: 40%;
+  width: 60%;
   display: inline-block;
 }
 
@@ -795,15 +794,12 @@ form#immoklink-sitewide-newsletter-form-single-line input[name="signup"] {
 }
 
 form#immoklink-sitewide-newsletter-form-single-line input[type="submit"] {
-  padding: 19px 39px 18px 39px;
+  padding: 15px 38px 15px 38px;
   color: #FFF;
-  background-color: #cbc6c3;
-  font-size: 18px;
+  background-color: #000;
+  font-size: 16px;
   text-align: center;
   font-style: normal;
-  border-radius: 5px;
-  border-width: 1px 1px 3px;
-  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
   max-width: 290px;
   width: 25%;
   display: inline-block;
