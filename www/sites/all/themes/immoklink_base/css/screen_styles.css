@@ -10,6 +10,7 @@ body {
 	font-family: nimbus-sans;
 	font-style: normal;
 	font-weight: 400;
+  min-width: 320px;
 }
 .page {
 	max-width: 980px;
