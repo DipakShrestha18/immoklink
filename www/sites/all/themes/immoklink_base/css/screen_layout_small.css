@@ -28,8 +28,6 @@ nav {
 nav a {
 	color:#FFF;
 	display: block;
-	/*margin: 7px;
-	margin: 12px 7px;*/
 	margin: 10px 15px;
 	padding:10px;
 	border:1px solid #a6abc5;
@@ -49,7 +47,6 @@ nav a:hover {
 }
 
 article {
-	/*padding: 25px 10px 10px 20px;*/
 	padding: 25px 10px 10px 10px;
 }
 
@@ -150,4 +147,31 @@ form#immoklink-sitewide-newsletter-form-single-line input[type="submit"] {
 form#immoklink-sitewide-newsletter-form-single-line .form-item {
 	display: block;
 	width: 100%;
+}
+
+div.address {
+	float: none;
+	margin-right: 0;
+	width: auto;
+	border: 0;
+	clear: both;
+}
+
+div#webform-ajax-wrapper-3 {
+	float: left;
+	width: 90%;
+	clear: both;
+	margin-bottom: 20px;
+}
+
+form#immoklink-sitewide-newsletter-form input[type="submit"] {
+	font-size: 12px;
+}
+
+form#immoklink-sitewide-newsletter-form input[name="signup"] {
+	font-size: 13px;
+}
+
+form#immoklink-sitewide-newsletter-form div.signup {
+	font-size: 0.9em;
 }

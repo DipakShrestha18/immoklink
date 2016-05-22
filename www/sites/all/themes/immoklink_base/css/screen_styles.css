@@ -659,43 +659,61 @@ div.all-tags-link a {
 /***************** Tags listing page end ************************/
 
 /***************** Sign up form form ************/
+
+div.address {
+  float: left;
+  width:45%;
+  margin-bottom: 60px;
+}
+
+div#webform-ajax-wrapper-3 {
+  float: right;
+  width: 43%;
+}
+
+form.signup {
+  width: 50%;
+  float: left;
+  margin-right: 0px;
+}
+
 form#immoklink-sitewide-newsletter-form {
-  max-width: 400px;
-  padding: 10px 20px;
+  max-width: 600px;
 }
 
 form#immoklink-sitewide-newsletter-form div.signup {
-  margin: 0 0 10px 0;
-  padding-top: 20px;
-  text-align: center;
+  padding-bottom: 10px;
+  text-align: left;
   font-size: 1em;
-  font-weight: bold;
   color: black;
-
+  float: left;
 }
 
 form#immoklink-sitewide-newsletter-form input[name="signup"] {
   background: rgba(255,255,255,0.1);
   border: 3px solid #cbc6c3;
-  font-size: 16px;
+  font-size: 13px;
   height: auto;
   margin: 0;
   outline: 0;
-  padding: 15px;
-  width: 80%;
+  padding: 10px;
+  width: 70%;
   background-color: #fff;
   color: #8a97a0;
   box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  float: left;
 }
 
 form#immoklink-sitewide-newsletter-form input[type="submit"] {
-  padding: 19px 39px 18px 39px;
+  padding: 11px 10px 11px 10px;
   color: #FFF;
   background-color: black;
-  font-size: 18px;
+  font-size: 11px;
   text-align: center;
   font-style: normal;
-  width: 92%;
+  width: 20%;
+  margin-right: 0px;
+  float: right;
   /*border-radius: 5px;
   border-width: 1px 1px 3px;
   box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
@@ -714,7 +732,7 @@ form#immoklink-sitewide-newsletter-form label {
 
 @media screen and (min-width: 480px) {
   form#immoklink-sitewide-newsletter-form {
-    max-width: 880px;
+    max-width: 400px;
   }
 }
 
@@ -803,5 +821,6 @@ div.social-icon {
 }
 
 div.icons {
-  float: right;
+  float: left;
 }
+

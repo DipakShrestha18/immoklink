@@ -658,8 +658,8 @@ function tags_listings_page() {
  * Newsletter signup form.
  */
 function immoklink_sitewide_newsletter_form() {
-  $form['#prefix'] = '<div id="signup-error"></div><div id="webform-ajax-wrapper-3">';
-  $form['#suffix'] = '</div>';
+  $form['#prefix'] = '<div id="webform-ajax-wrapper-3"><div id="signup-error"></div>';
+  $form['#suffix'] = '</div><div class="clear-left"></div>';
   $form['my_markup'] = array(
       '#markup' => '<div class="signup">Sign up for email updates</div>'
   );
@@ -673,7 +673,7 @@ function immoklink_sitewide_newsletter_form() {
   );
   $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => t('sign up'),
+      '#value' => t('Signup'),
   );
   $form['#validate'] = array('immoklink_sitewide_newsletter_form_validate');
   $form['#submit'] = array('immoklink_sitewide_newsletter_form_submit');

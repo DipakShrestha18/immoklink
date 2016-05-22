@@ -32,7 +32,18 @@ div.all-tags-link {margin-right: 10px;}
 
 
 
+form#immoklink-sitewide-newsletter-form input[type="submit"] {
+	font-size: 12px;
+}
 
+form#immoklink-sitewide-newsletter-form input[name="signup"] {
+	font-size: 13px;
+	width: 68%;
+}
+
+form#immoklink-sitewide-newsletter-form div.signup {
+	font-size: 0.9em;
+}
 
 
 
