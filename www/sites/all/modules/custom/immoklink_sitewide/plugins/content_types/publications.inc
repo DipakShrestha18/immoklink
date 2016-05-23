@@ -38,8 +38,12 @@ function immoklink_sitewide_publications_content_type_render($subtype, $conf, $p
 
     foreach ($publications as $publication) {
       $publication = paragraphs_field_get_entity($publication);
+      if (isset($publication->field_publications_image_overlay[LANGUAGE_NONE])) {
+        $overlay_uri = $publication->field_publications_image_overlay[LANGUAGE_NONE][0]['uri'];
+        $overlay_imagename = str_replace('public://', '', $overlay_uri);
+      }
+
       $uri = $publication->field_publications_image[LANGUAGE_NONE][0]['uri'];
-      $imagename = $publication->field_publications_image[LANGUAGE_NONE][0]['filename'];
       if (isset($publication->field_publications_pdf_file[LANGUAGE_NONE])) {
         $filename = $publication->field_publications_pdf_file[LANGUAGE_NONE][0]['filename'];
       }
@@ -54,7 +58,7 @@ function immoklink_sitewide_publications_content_type_render($subtype, $conf, $p
         $output .= $image;
         $output .= '</a>';
       } else {
-        $output .= '<a class="btn btn-info venoboxvid vbox-item" href="' . $base_url . '/sites/default/files/' . $imagename . '">';
+        $output .= '<a class="btn btn-info venoboxvid vbox-item" href="' . $base_url . '/sites/default/files/' . $overlay_imagename . '">';
         $output .= $image;
         $output .= '</a>';
       }
