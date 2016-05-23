@@ -18,6 +18,7 @@ $plugin = array(
  * Outputs a node based on the module and delta supplied in the configuration.
  */
 function immoklink_sitewide_contact_content_type_render($subtype, $conf, $panel_args, $context) {
+  global $base_url;
 
   $output = '';
   $output .= '<div class="address">';
@@ -26,9 +27,9 @@ function immoklink_sitewide_contact_content_type_render($subtype, $conf, $panel_
               +44(0)2072516976<br />
               studio@immoklink.com</p>';
   $output .= '<div class="icons">';
-  $output .= '<a href="https://www.facebook.com/immo.klink" class="sm-icon"><img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/facebook_about1.png"></a>';
-  $output .= '<a href="https://twitter.com/ImmoKlink" class="sm-icon"><img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>';
-  $output .= '<a href="https://www.instagram.com/immoklink/" class="sm-icon"><img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/instagram_about1.png"></a>';
+  $output .= '<a href="https://www.facebook.com/immo.klink" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/facebook_about1.png"></a>';
+  $output .= '<a href="https://twitter.com/ImmoKlink" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>';
+  $output .= '<a href="https://www.instagram.com/immoklink/" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/instagram_about1.png"></a>';
   //$output .= '<a href="http://www.bbc.co.uk" class="sm-icon"><img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/blogicon_about.png"></a>';
   $output .= '</div>';
   $output .= '</div>';
