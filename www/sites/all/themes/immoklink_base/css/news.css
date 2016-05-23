@@ -159,9 +159,31 @@ h2 { font-weight: 500; }
   width: 24%;
 }*/
 
+
+@media screen and (min-width: 500px) {
+  .fixed-header-sm {
+    margin-top: 70px !important;
+    position: relative !important;
+  }
+
+  .fixed-header-sm .wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    width: 100%;
+    background: rgba(255,255,255,0.9);
+  }
+
+  .fixed-header-sm .wrapper .header {
+      max-width: 980px;
+      margin: 0 auto;
+  }
+}
+
 a.logo { padding: 15px 0 15px 10px !important; }
 
-@media screen and (min-width: 480px) and (max-width: 559px) {
+@media screen and (min-width: 500px) and (max-width: 559px) {
   html { font-size: 62.5%; }
   a.logo { font-size: 20px !important; }
   nav a { font-size: 45% !important; }
@@ -196,3 +218,4 @@ a.logo { padding: 15px 0 15px 10px !important; }
 table td img {
   max-width: inherit !important;
 }
+
