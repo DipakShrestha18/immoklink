@@ -386,9 +386,9 @@ function news_listings_page() {
 
   <div class="icons">
   <a href="http://www.facebook.com/share.php?u={{:link}}&title={{:title}} target="_blank">
-  <img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/facebook_about1.png">
+  <img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/facebook_about1.png">
    </a>
-  <a class="icon twitter-link" href="https://twitter.com/intent/tweet?original_referer=' . $base_url . '&amp;url={{:link}}&amp;text={{:description}}&amp;via=Immoklink" target="_blank"><img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
+  <a class="icon twitter-link" href="https://twitter.com/intent/tweet?original_referer=' . $base_url . '&amp;url={{:link}}&amp;text={{:description}}&amp;via=Immoklink" target="_blank"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
   </div>
 
 			</div>
@@ -413,9 +413,9 @@ function news_listings_page() {
 
 				 <div class="icons">
   <a href="http://www.facebook.com/share.php?u={{:link}}&title={{:title}} target="_blank">
-  <img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/facebook_about1.png">
+  <img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/facebook_about1.png">
    </a>
-  <a class="icon twitter-link" href="https://twitter.com/intent/tweet?original_referer=' . $base_url . '&amp;url={{:link}}&amp;text={{:description}}&amp;via=Immoklink" target="_blank"><img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
+  <a class="icon twitter-link" href="https://twitter.com/intent/tweet?original_referer=' . $base_url . '&amp;url={{:link}}&amp;text={{:description}}&amp;via=Immoklink" target="_blank"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
   </div>
 			</div>
 		</div>
@@ -537,9 +537,9 @@ function news_listings_page_by_tag($tid) {
 				</ul>
 				 <div class="icons">
   <a href="http://www.facebook.com/share.php?u={{:link}}&title={{:title}} target="_blank">
-  <img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/facebook_about1.png">
+  <img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/facebook_about1.png">
    </a>
-  <a class="icon twitter-link" href="https://twitter.com/intent/tweet?original_referer=' . $base_url . '&amp;url={{:link}}&amp;text={{:description}}&amp;via=Immoklink" target="_blank"><img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
+  <a class="icon twitter-link" href="https://twitter.com/intent/tweet?original_referer=' . $base_url . '&amp;url={{:link}}&amp;text={{:description}}&amp;via=Immoklink" target="_blank"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
   </div>
 			</div>
 		</div>
@@ -562,9 +562,9 @@ function news_listings_page_by_tag($tid) {
 				</ul>
 				 <div class="icons">
   <a href="http://www.facebook.com/share.php?u={{:link}}&title={{:title}} target="_blank">
-  <img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/facebook_about1.png">
+  <img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/facebook_about1.png">
    </a>
-  <a class="icon twitter-link" href="https://twitter.com/intent/tweet?original_referer=' . $base_url . '&amp;url={{:link}}&amp;text={{:description}}&amp;via=Immoklink" target="_blank"><img class="sm-icon" src="http://immoklink.site/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
+  <a class="icon twitter-link" href="https://twitter.com/intent/tweet?original_referer=' . $base_url . '&amp;url={{:link}}&amp;text={{:description}}&amp;via=Immoklink" target="_blank"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
   </div>
 			</div>
 		</div>
