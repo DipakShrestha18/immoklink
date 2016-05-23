@@ -433,7 +433,7 @@ function fimmoklink_paragraphs_field_default_field_instances() {
     ),
     'entity_type' => 'paragraphs_item',
     'field_name' => 'field_homepage_gallery_link',
-    'label' => 'Gallery link',
+    'label' => 'Gallery and News link',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -877,7 +877,7 @@ function fimmoklink_paragraphs_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Caption');
   t('Description');
-  t('Gallery link');
+  t('Gallery and News link');
   t('Image');
   t('Image overlay large');
   t('Images Type');

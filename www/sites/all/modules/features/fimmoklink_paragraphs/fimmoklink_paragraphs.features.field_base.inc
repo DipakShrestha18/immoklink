@@ -208,6 +208,7 @@ function fimmoklink_paragraphs_field_default_field_bases() {
         ),
         'target_bundles' => array(
           'gallery' => 'gallery',
+          'news' => 'news',
         ),
       ),
       'target_type' => 'node',
