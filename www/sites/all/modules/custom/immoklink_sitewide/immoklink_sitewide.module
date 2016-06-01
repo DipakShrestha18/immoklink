@@ -345,8 +345,9 @@ function gallery_thumbnail_listings_page($node) {
     $image = theme_image_style(array('style_name' => 'gallery_thumbnail', 'path' => $image_path, 'height' => '', 'width' => ''));
     $path = '/' . drupal_get_path_alias('node/' . $node->nid);
 
-    $output .= '<a href="' . $path . '?sid=' . $sid . '" title="What your destination?">';
+    $output .= '<a href="' . $path . '?sid=' . $sid . '">';
     $output .= $image;
+    $output .= '</a>';
     $sid++;
   }
 
