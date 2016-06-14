@@ -3,25 +3,20 @@
 var windowSize = '';
 var windowWidth = 0;
 var actualSize = 0;
-
-
-
+$(window).resize(function(){location.reload();});
 $(document).ready(function() {
-	// screen refresh on resize.
-	// screenrefresh();
-
-	//setInterval(function(){cycleImages($('#cycler1'))}, 12000);
-	setInterval(function(){cycleImages($('#cycler2'))}, 8000);
-	setInterval(function(){cycleImages($('#cycler3'))}, 5000);
-	setInterval(function(){cycleImages($('#cycler4'))}, 15000);
-	setInterval(function(){cycleImages($('#cycler5'))}, 16000);
-	setInterval(function(){cycleImages($('#cycler6'))}, 20000);
-	setInterval(function(){cycleImages($('#cycler7'))}, 8000);
-	setInterval(function(){cycleImages($('#cycler8'))}, 21000);
-	setInterval(function(){cycleImages($('#cycler9'))}, 51000);
-	setInterval(function(){cycleImages($('#cycler10'))}, 30000);
-	setInterval(function(){cycleImages($('#cycler11'))}, 7000);
-	setInterval(function(){cycleImages($('#cycler12'))}, 11000);
+	////setInterval(function(){cycleImages($('#cycler1'))}, 12000);
+	//setInterval(function(){cycleImages($('#cycler2'))}, 8000);
+	//setInterval(function(){cycleImages($('#cycler3'))}, 5000);
+	//setInterval(function(){cycleImages($('#cycler4'))}, 15000);
+	//setInterval(function(){cycleImages($('#cycler5'))}, 16000);
+	//setInterval(function(){cycleImages($('#cycler6'))}, 20000);
+	//setInterval(function(){cycleImages($('#cycler7'))}, 8000);
+	//setInterval(function(){cycleImages($('#cycler8'))}, 21000);
+	//setInterval(function(){cycleImages($('#cycler9'))}, 51000);
+	//setInterval(function(){cycleImages($('#cycler10'))}, 30000);
+	//setInterval(function(){cycleImages($('#cycler11'))}, 7000);
+	//setInterval(function(){cycleImages($('#cycler12'))}, 11000);
 
 
     //checkBrowserSize();
@@ -132,18 +127,4 @@ $('a.hoover').on("touchstart", function (e) {
         return false; //extra, and to make sure the function has consistent return points
     }
 });
-
-
-}
-
-function screenrefresh() {
-	var isDesktop = (function() {
-		return !('ontouchstart' in window) // works on most browsers
-			|| !('onmsgesturechange' in window); // works on ie10
-	})();
-	//edit, if you want to use this variable outside of this closure, or later use this:
-	window.isDesktop = isDesktop;
-	if( isDesktop ){
-		//$(window).resize(function(){location.reload();});
-	}
 }

@@ -79,6 +79,7 @@ function immoklink_sitewide_gallery_js_content_type_render($subtype, $conf, $pan
     </script>
     <script src="/sites/all/themes/immoklink_base/js/gallery-peter/main.min.js">
     </script>
+    <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/venobox.min.js"></script>
     <!--end peter gallery-->';
 
   $block = new stdClass();

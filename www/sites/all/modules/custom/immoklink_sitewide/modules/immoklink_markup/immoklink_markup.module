@@ -147,7 +147,7 @@ function theme_gallery_format(&$variables) {
       $video_type = 'youtube';
     }
 
-    $output .= '<a class="btn btn-info venoboxvid" data-gall="gall2" data-type="' . $video_type . '" href="' . $video_link . '?autoplay=1">';
+    $output .= '<a class="btn btn-info venoboxvid vbox-item" data-gall="gall2" data-type="' . $video_type . '" href="' . $video_link . '?autoplay=1">';
     $output .= '<img class="slide-img" src= "' . $full_img . '">';
     $output .= '</a>';
   } else {
