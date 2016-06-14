@@ -759,3 +759,14 @@ function immoklink_sitewide_form_alter($form, &$form_state, $form_id) {
     $form['field_gallery_lading_ordering']['#access'] = FALSE;
   }
 }
+
+/*
+* Implementation of hook_form_FORM_ID_alter
+*
+* Hiding taxonomy term description field
+*/
+
+function immoklink_sitewide_form_taxonomy_form_term_alter(&$form, &$form_state) {
+  $form['description']['#access'] = FALSE;
+  $form['relations']['#access'] = FALSE;
+}
