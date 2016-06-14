@@ -219,3 +219,8 @@ table td img {
   max-width: inherit !important;
 }
 
+img.sm-icon {
+  max-height: 20px;
+  max-width: 20px;
+}
+
