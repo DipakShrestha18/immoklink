@@ -3,23 +3,8 @@
 var windowSize = '';
 var windowWidth = 0;
 var actualSize = 0;
-$(window).resize(function(){location.reload();});
+//$(window).resize(function(){location.reload();});
 $(document).ready(function() {
-	////setInterval(function(){cycleImages($('#cycler1'))}, 12000);
-	//setInterval(function(){cycleImages($('#cycler2'))}, 8000);
-	//setInterval(function(){cycleImages($('#cycler3'))}, 5000);
-	//setInterval(function(){cycleImages($('#cycler4'))}, 15000);
-	//setInterval(function(){cycleImages($('#cycler5'))}, 16000);
-	//setInterval(function(){cycleImages($('#cycler6'))}, 20000);
-	//setInterval(function(){cycleImages($('#cycler7'))}, 8000);
-	//setInterval(function(){cycleImages($('#cycler8'))}, 21000);
-	//setInterval(function(){cycleImages($('#cycler9'))}, 51000);
-	//setInterval(function(){cycleImages($('#cycler10'))}, 30000);
-	//setInterval(function(){cycleImages($('#cycler11'))}, 7000);
-	//setInterval(function(){cycleImages($('#cycler12'))}, 11000);
-
-
-    //checkBrowserSize();
 	touchhover();
 	setInterval('checkBrowserSize()', 100);
 
@@ -101,19 +86,6 @@ function loadHero(){
 	}
 
 function touchhover() {
-	/*$('a.media__body').on("touchstart", function (e) {
-    "use strict"; //satisfy the code inspectors
-    var link = $(this); //preselect the link
-    if (link.hasClass('hover')) {
-        return true;
-    } else {
-        link.addClass("hover");
-        $('a.media__body').not(this).removeClass("hover");
-        e.preventDefault();
-        return false; //extra, and to make sure the function has consistent return points
-    }
-});*/
-
 $('a.hoover').on("touchstart", function (e) {
     "use strict"; //satisfy the code inspectors
     var link = $(this); //preselect the link
