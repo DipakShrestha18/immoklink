@@ -38,7 +38,7 @@ function immoklink_sitewide_news_video_wysiwyg_content_type_render($subtype, $co
     foreach ($paragraphs as $paragraph) {
       $content = paragraphs_field_get_entity($paragraph);
       if ($content->bundle == 'wysiwyg_field') {
-        $output .= $content->field_paragraph_wysiwyg_field[LANGUAGE_NONE][0]['value'];
+        $output .= $content->field_paragraph_wysiwyg_field[LANGUAGE_NONE][0]['safe_value'];
       } elseif ($content->bundle == 'news_video') {
         $video = $content->field_vimeo_url[LANGUAGE_NONE][0]['value'];
         $img_name = $content->field_paragraph_news_image[LANGUAGE_NONE][0]['filename'];
