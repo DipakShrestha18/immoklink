@@ -610,7 +610,7 @@ a.taphover:hover, a.taphover.hover {
 }
 
 a.istats--tracker {
-  color: #425695;
+  /*color: #425695;*/
 }
 
 .pull--left {
@@ -649,12 +649,17 @@ a.istats--tracker {
 div.all-tags-link {
   float: right;
   margin-right: 8px;
-  text-transform: uppercase;
 }
 
 div.all-tags-link a {
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
+  font-weight: bold;
+  color: #FB7A8E;
+}
+
+div.all-tags-link a:hover {
+  text-decoration: #ff2e00;
 }
 /***************** Tags listing page end ************************/
 
