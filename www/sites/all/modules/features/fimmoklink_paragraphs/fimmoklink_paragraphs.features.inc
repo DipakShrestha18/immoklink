@@ -38,9 +38,19 @@ function fimmoklink_paragraphs_paragraphs_info() {
       'bundle' => 'info_bundle',
       'locked' => '1',
     ),
+    'news_video' => array(
+      'name' => 'News video',
+      'bundle' => 'news_video',
+      'locked' => '1',
+    ),
     'publications' => array(
       'name' => 'Publications',
       'bundle' => 'publications',
+      'locked' => '1',
+    ),
+    'wysiwyg_field' => array(
+      'name' => 'WYSIWYG field',
+      'bundle' => 'wysiwyg_field',
       'locked' => '1',
     ),
   );

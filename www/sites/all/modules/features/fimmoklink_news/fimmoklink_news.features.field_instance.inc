@@ -377,7 +377,7 @@ function fimmoklink_news_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -422,6 +422,68 @@ function fimmoklink_news_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-news-field_news_vimeo_url'.
+  $field_instances['node-news-field_news_vimeo_url'] = array(
+    'bundle' => 'news',
+    'clean_markup' => 0,
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'paragraphs',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'paragraphs_view',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_news_vimeo_url',
+    'label' => 'Vimeo URL',
+    'required' => 0,
+    'settings' => array(
+      'add_mode' => 'button',
+      'allowed_bundles' => array(
+        'books_bundle' => -1,
+        'gallery_bundle' => -1,
+        'homepage' => -1,
+        'info_bundle' => -1,
+        'news_video' => 'news_video',
+        'publications' => -1,
+        'wysiwyg_field' => 'wysiwyg_field',
+      ),
+      'bundle_weights' => array(
+        'books_bundle' => 2,
+        'gallery_bundle' => 3,
+        'homepage' => 4,
+        'info_bundle' => 5,
+        'news_video' => 6,
+        'publications' => 7,
+        'wysiwyg_field' => 8,
+      ),
+      'default_edit_mode' => 'open',
+      'title' => 'Paragraph',
+      'title_multiple' => 'Paragraphs',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'paragraphs',
+      'settings' => array(),
+      'type' => 'paragraphs_embed',
+      'weight' => 7,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Alt Text');
@@ -435,6 +497,7 @@ function fimmoklink_news_field_default_field_instances() {
   t('Tags');
   t('Title Text');
   t('Title text is used in the tool tip when a user hovers their mouse over the image. Adding title text makes it easier to understand the context of an image and improves usability.');
+  t('Vimeo URL');
 
   return $field_instances;
 }
