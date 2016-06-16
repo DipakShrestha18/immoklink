@@ -105,8 +105,8 @@ $pane->style = array(
     'element_content' => array(
       'type' => 'h1',
       'add_default_classes' => 0,
-      'class_enable' => 0,
-      'class' => '',
+      'class_enable' => 1,
+      'class' => 'gallery-title',
       'attributes_enable' => 0,
       'attributes' => '',
     ),
