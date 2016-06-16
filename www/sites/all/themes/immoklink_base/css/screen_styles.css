@@ -42,6 +42,11 @@ img { max-width:100%; height: auto; }
 
 h1 { color: #000; margin: 0em 0em .7em 0em; font-size: 1em; font-weight: bold; }
 h2 { font-size: 1.2em; margin: 0.6em 0em 0em 0em; }
+h2.page-index-caption {
+  margin: 0px 0px .75em 0px;
+  color: #000;
+  font-size: 1em;
+}
 h3 { font-size: 1.3em; margin: 0em 0em 0.4em 0em; }
 .grid-container h3 { text-align: left; }
 
@@ -356,10 +361,18 @@ ul.books.columns-3 li {
   max-width: 20px;
 }
 
-.overlay-text {
-	font-size: 1.4em;
-	color:#FFF;
+.overlay-text-container {
+  position: absolute;
 }
+
+.overlay-text {
+  position: absolute;
+	font-size: 80%;
+	color:#FFF;
+  padding: 30px 10px 10px 10px;
+}
+
+
 
 /******************* Video overlay in image gallery***************************/
 /* ------ venobox.css --------*/
@@ -823,5 +836,12 @@ div.social-icon {
 
 div.icons {
   float: left;
+}
+
+.caption a.share1 {
+  margin-right: 20px;
+}
+.caption a.share {
+  margin-left: 20px;
 }
 

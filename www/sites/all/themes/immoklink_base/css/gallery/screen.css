@@ -1092,9 +1092,9 @@ nav.sub-nav {
           display: inline-block; }
           .js ul.slide-list li .share-overlay .icon-wrap a img {
             margin-top: -50%;
-            padding: 3em;
-            width: 3.33333em;
-            height: 3.33333em; }
+            padding: 1em;
+            width: 1.5em;
+            height: 1.5em; }
     .js ul.slide-list li.current.share-panel .share-overlay {
       visibility: visible; }
 

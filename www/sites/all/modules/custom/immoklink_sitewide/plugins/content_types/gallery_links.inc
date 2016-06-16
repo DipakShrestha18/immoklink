@@ -33,14 +33,14 @@ function immoklink_sitewide_gallery_links_content_type_render($subtype, $conf, $
   }
 
   $node = $context[0]->data;
-  $link = '/gallery-thumbnail/' . $node->nid;
-  $thumbnail_icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/thumbnail.png';
-  $share_icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/share.png';
-
-  $output .= '<div class="page"><div class="wrap">';
-  $output .= '<a href="' . $link . '" class="share1"><img src="' . $thumbnail_icon . '" width="20" height="20"></a>';
-  $output .= '<a class="share no-state sub-nav-item" href="#"><img src="' . $share_icon . '" width="20" height="20"></a>';
-  $output .= '</div></div>';
+//  $link = '/gallery-thumbnail/' . $node->nid;
+//  $thumbnail_icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/thumbnail.png';
+//  $share_icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/share.png';
+//
+//  $output .= '<div class="page"><div class="wrap">';
+//  $output .= '<a href="' . $link . '" class="share1"><img src="' . $thumbnail_icon . '" width="16" height="16"></a>';
+//  $output .= '<a class="share no-state sub-nav-item" href="#"><img src="' . $share_icon . '" width="16" height="16"></a>';
+//  $output .= '</div></div>';
 
   $block = new stdClass();
   $block->title = '';
