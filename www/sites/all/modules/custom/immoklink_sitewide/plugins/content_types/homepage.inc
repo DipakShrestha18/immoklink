@@ -47,8 +47,7 @@ function immoklink_sitewide_homepage_content_type_render($subtype, $conf, $panel
                         </div>
                         <div class="page-index-overlay" style="display: none;"></div>
                         <div class="page-index-caption" style="display: none;">
-                            <h2>{{:title}}</h2>
-                            <p>{{:count}}</p>
+                            <p class="home-overlay-text">{{:title}}</p>
                         </div>
                     </div>
                 </script>';

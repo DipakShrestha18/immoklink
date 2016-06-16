@@ -21,6 +21,7 @@ nav {
 	float: center;
 	padding: 1px 0px 2px 0px;
 	background-color:#999;
+	background-color:#FFF;
 	width:100%;
 	margin-bottom: 13px;
 }
@@ -28,13 +29,14 @@ nav {
 nav a {
 	color:#FFF;
 	display: block;
-	margin: 10px 15px;
+	background: #000;
+	margin: 10px 10px;
 	padding:10px;
 	border:1px solid #a6abc5;
-	background:url(../images/assets/mobile_link_arrow.png) no-repeat right center;
+	/*background:url(../images/assets/mobile_link_arrow.png) no-repeat right center;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
-	border-radius: 12px;
+	border-radius: 12px;*/
 }
 
 nav div {
@@ -43,7 +45,9 @@ nav div {
 
 nav a:hover {
 	color:#FFF;
+
 	background: rgba(255,255,255,.15);
+	background: #000;
 }
 
 article {
@@ -85,12 +89,12 @@ a.mobile_menu {
 	display:block;
 	width:40px;
 	height:34px;
-	border-top: 2px solid #999;
+	/*border-top: 2px solid #999;
 	border-left: 2px solid #999;
 	border-right: 2px solid #999;
 	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
-	background: #999 url(../images/assets/mobile_link_menu.png) no-repeat 4px 4px;
+	border-top-right-radius: 6px;*/
+	background: #000 url(../images/assets/mobile_link_menu.png) no-repeat 4px 4px;
 	position: absolute;
 	top: 14px;
 	right: 20px;
@@ -174,4 +178,11 @@ form#immoklink-sitewide-newsletter-form input[name="signup"] {
 
 form#immoklink-sitewide-newsletter-form div.signup {
 	font-size: 0.9em;
+}
+
+.page-index-caption p {
+	font-size: 0.6em;
+	line-height: 1.0em;
+	margin-bottom: 18px;
+	padding-right: 5px;
 }

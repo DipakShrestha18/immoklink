@@ -132,12 +132,14 @@ h2 { font-weight: 500; }
 
 .page-index-caption h2 {
   margin-bottom: 70px;
-  font-size: 1.2em
+  font-size: 1.2em;
 }
 
 .page-index-caption p {
   margin: 0px;
-  display: none;
+  line-height: 1.2em;
+  margin-bottom: 70px;
+  padding-right: 10px;
 }
 
 .page-index,
