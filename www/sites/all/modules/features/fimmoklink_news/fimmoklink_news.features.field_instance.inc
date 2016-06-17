@@ -257,6 +257,7 @@ function fimmoklink_news_field_default_field_instances() {
   // Exported field_instance: 'node-news-field_news_listing_text'.
   $field_instances['node-news-field_news_listing_text'] = array(
     'bundle' => 'news',
+    'clean_markup' => 1,
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
