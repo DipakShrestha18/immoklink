@@ -80,7 +80,7 @@ a.tel {
 	display: block;
 	padding: 3px 0px 0px 25px;
 }
-a.sm-icon img.sm-icon { padding: 15px 0px 0px 5px; }
+a.sm-icon img.sm-icon { padding: 15px 0px 0px 0px; }
 
 .promo h3 { font-size: 1.1em; margin: 0;}
 .promo p { line-height: 1.2em; font-size: .9em; margin-bottom: .5em; }
@@ -683,12 +683,12 @@ div.all-tags-link a:hover {
 div.address {
   float: left;
   width:45%;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 
 div#webform-ajax-wrapper-3 {
   float: right;
-  width: 43%;
+  width: 30%;
 }
 
 form.signup {
@@ -711,27 +711,27 @@ form#immoklink-sitewide-newsletter-form div.signup {
 
 form#immoklink-sitewide-newsletter-form input[name="signup"] {
   background: rgba(255,255,255,0.1);
-  border: 3px solid #cbc6c3;
+  border: 1px solid #cbc6c3;
   font-size: 13px;
   height: auto;
   margin: 0;
   outline: 0;
-  padding: 10px;
-  width: 70%;
+  padding: 6px;
+  width: 60%;
   background-color: #fff;
   color: #8a97a0;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  /*box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;*/
   float: left;
 }
 
 form#immoklink-sitewide-newsletter-form input[type="submit"] {
-  padding: 11px 10px 11px 10px;
-  color: #FFF;
-  background-color: black;
+  padding: 6px 6px 6px 6px;
+  color: #000;
+  background-color: #cbc6c3;
   font-size: 11px;
   text-align: center;
   font-style: normal;
-  width: 20%;
+  width: 33%;
   margin-right: 0px;
   float: right;
   /*border-radius: 5px;
@@ -823,6 +823,15 @@ form#immoklink-sitewide-newsletter-form-single-line input[type="submit"] {
   max-width: 290px;
   width: 25%;
   display: inline-block;
+}
+
+#webform-ajax-wrapper-3 .icons{
+  float:left;
+}
+#webform-ajax-wrapper-3 .signup{
+  float:left;
+  clear: left;
+  margin-bottom: 5px;
 }
 
 /***********social icon*********/

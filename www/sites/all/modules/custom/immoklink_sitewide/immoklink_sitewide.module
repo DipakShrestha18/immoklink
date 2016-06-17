@@ -685,22 +685,31 @@ function tags_listings_page() {
  * Newsletter signup form.
  */
 function immoklink_sitewide_newsletter_form() {
-  $form['#prefix'] = '<div id="webform-ajax-wrapper-3"><div id="signup-error"></div>';
+  global $base_url;
+
+  $form['#prefix'] = '<div id="webform-ajax-wrapper-3">
+                    <div class="icons">
+                    <a href="https://www.facebook.com/immo.klink" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/facebook_about1.png"></a>
+                    <a href="https://twitter.com/ImmoKlink" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
+                    <a href="https://www.instagram.com/immoklink/" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/instagram_about1.png"></a>
+                    </div>
+                    <div class="signup">Sign up for email updates</div>
+                    <div id="signup-error"></div>';
   $form['#suffix'] = '</div><div class="clear-left"></div>';
-  $form['my_markup'] = array(
-      '#markup' => '<div class="signup">Sign up for email updates</div>'
-  );
+//  $form['my_markup'] = array(
+//      '#markup' => '<div class="signup">Sign up for email updates</div>'
+//  );
   $form['signup'] = array(
       '#title' => t(" "),
       '#type' => 'textfield',
       '#default_value' => '',
-      '#attributes' => array(
-          'placeholder' => t('email@there.com'),
-      ),
+//      '#attributes' => array(
+//          'placeholder' => t('email@there.com'),
+//      ),
   );
   $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => t('Signup'),
+      '#value' => t('Subscribe'),
   );
   $form['#validate'] = array('immoklink_sitewide_newsletter_form_validate');
   $form['#submit'] = array('immoklink_sitewide_newsletter_form_submit');
