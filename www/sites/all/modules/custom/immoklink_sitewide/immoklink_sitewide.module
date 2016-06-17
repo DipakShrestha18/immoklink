@@ -689,9 +689,9 @@ function immoklink_sitewide_newsletter_form() {
 
   $form['#prefix'] = '<div id="webform-ajax-wrapper-3">
                     <div class="icons">
-                    <a href="https://www.facebook.com/immo.klink" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/facebook_about1.png"></a>
-                    <a href="https://twitter.com/ImmoKlink" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
-                    <a href="https://www.instagram.com/immoklink/" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/instagram_about1.png"></a>
+                    <a href="https://www.facebook.com/immo.klink" class="sm-icon"><img class="sm-icon about-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/facebook_about1.png"></a>
+                    <a href="https://twitter.com/ImmoKlink" class="sm-icon"><img class="sm-icon about-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
+                    <a href="https://www.instagram.com/immoklink/" class="sm-icon"><img class="sm-icon about-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/instagram_about1.png"></a>
                     </div>
                     <div class="clear-left"></div>
                     <div class="signup">Sign up for email updates</div>

@@ -81,6 +81,7 @@ a.tel {
 	padding: 3px 0px 0px 25px;
 }
 a.sm-icon img.sm-icon { padding: 15px 0px 0px 0px; }
+a.sm-icon img.about-icon { padding: 0px 0px 0px 0px; }
 
 .promo h3 { font-size: 1.1em; margin: 0;}
 .promo p { line-height: 1.2em; font-size: .9em; margin-bottom: .5em; }
