@@ -693,6 +693,7 @@ function immoklink_sitewide_newsletter_form() {
                     <a href="https://twitter.com/ImmoKlink" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
                     <a href="https://www.instagram.com/immoklink/" class="sm-icon"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/instagram_about1.png"></a>
                     </div>
+                    <div class="clear-left"></div>
                     <div class="signup">Sign up for email updates</div>
                     <div id="signup-error"></div>';
   $form['#suffix'] = '</div><div class="clear-left"></div>';
