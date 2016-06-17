@@ -202,3 +202,8 @@ form#immoklink-sitewide-newsletter-form div.signup {
 .share, .share1 {
 	margin: 0px 0px;
 }
+.share img,
+.share1 img {
+	max-height: 5px;
+	max-width: 5px;
+}
