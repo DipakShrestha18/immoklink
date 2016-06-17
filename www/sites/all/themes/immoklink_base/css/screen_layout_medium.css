@@ -50,6 +50,9 @@ form#immoklink-sitewide-newsletter-form div.signup {
 	margin-bottom: 45px;
 	padding-right: 5px;
 }
+.caption span.caption-text {
+	font-size: 0.7em;
+}
 
 .caption a.share1 {
 	margin-right: 10px;
