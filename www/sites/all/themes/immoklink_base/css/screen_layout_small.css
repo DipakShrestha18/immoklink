@@ -188,11 +188,17 @@ form#immoklink-sitewide-newsletter-form div.signup {
 }
 
 .js ul.slide-list li .caption {
-	font-size: 0.8em;
+	font-size: 0.5em;
+	margin-top: -10.5em;
 }
+
 .caption a.share1 {
 	margin-right: 5px;
 }
 .caption a.share {
 	margin-left: 5px;
+}
+
+.share, .share1 {
+	margin: 0px 0px;
 }

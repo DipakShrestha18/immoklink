@@ -173,13 +173,13 @@ function theme_gallery_format(&$variables) {
   $thumbnail_icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/thumbnail.png';
   $share_icon = '/' . drupal_get_path('theme', 'immoklink_base') . '/images/assets/share.png';
 
-  $output .= '<div class="caption"><a href="' . $link . '" class="share1"><img src="' . $thumbnail_icon . '" width="12" height="12"></a>';
+  $output .= '<div class="caption"><a href="' . $link . '" class="share1"><img src="' . $thumbnail_icon . '" width="8" height="8"></a>';
 
 
   if (isset($paragraph->field_gallery_bundle_caption[LANGUAGE_NONE])) {
-    $output .= $paragraph->field_gallery_bundle_caption[LANGUAGE_NONE][0]['value'];
+    $output .= '<span class="caption-text">' . $paragraph->field_gallery_bundle_caption[LANGUAGE_NONE][0]['value'] . '</span>';
   }
-  $output .= '<a class="share no-state sub-nav-item" href="#"><img src="' . $share_icon . '" width="12" height="12"></a></div>';
+  $output .= '<a class="share no-state sub-nav-item" href="#"><img src="' . $share_icon . '" width="8" height="8"></a></div>';
   $output .= '</li>';
 
   return $output;
