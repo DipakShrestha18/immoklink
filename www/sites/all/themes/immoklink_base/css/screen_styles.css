@@ -360,8 +360,8 @@ ul.books.columns-3 li {
 
 .share img,
 .share1 img {
-  max-height: 20px;
-  max-width: 20px;
+  max-height: 8px;
+  max-width: 8px;
 }
 
 .overlay-text-container {
