@@ -145,6 +145,7 @@ h2 { font-weight: 500; }
 .page-index,
 .page-index img {
   height:  80px;
+  object-fit: cover;
 }
 
 #gallery {
