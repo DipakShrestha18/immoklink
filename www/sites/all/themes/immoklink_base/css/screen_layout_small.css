@@ -181,10 +181,10 @@ form#immoklink-sitewide-newsletter-form div.signup {
 }
 
 .page-index-caption p {
-	font-size: 0.6em;
+	font-size: 0.5em;
 	line-height: 1.0em;
 	margin-bottom: 18px;
-	padding-right: 5px;
+	padding: 0px 5px;
 }
 
 .js ul.slide-list li .caption {
