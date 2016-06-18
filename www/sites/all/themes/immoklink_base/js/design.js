@@ -10,7 +10,7 @@ if(window.location.href.indexOf("/gallery/") > -1) {
 }
 $(document).ready(function() {
 	touchhover();
-	setInterval('checkBrowserSize()', 100);
+	//setInterval('checkBrowserSize()', 100);
 
 	$('a.mobile_menu').on('click', function(){
 		var navHeight = $('nav').height();
