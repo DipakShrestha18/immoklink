@@ -742,6 +742,7 @@ form#immoklink-sitewide-newsletter-form input[type="submit"] {
   border-right-width: 0px;
   border-bottom-width: 0px;
   border-left-width: 0px;
+  -webkit-appearance: none;
   /*border-radius: 5px;
   border-width: 1px 1px 3px;
   box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
@@ -831,6 +832,7 @@ form#immoklink-sitewide-newsletter-form-single-line input[type="submit"] {
   max-width: 290px;
   width: 25%;
   display: inline-block;
+  -webkit-appearance: none;
 }
 
 #webform-ajax-wrapper-3 .icons{
