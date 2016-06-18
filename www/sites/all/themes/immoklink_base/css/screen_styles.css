@@ -366,13 +366,16 @@ ul.books.columns-3 li {
 
 .overlay-text-container {
   position: absolute;
+  width: 100%;
 }
 
 .overlay-text {
   position: absolute;
-	font-size: 80%;
+	font-size: 1vw;
 	color:#FFF;
-  padding: 30px 10px 10px 10px;
+  padding: 30px 2% 10px 2%;
+  width: 96%;
+  line-height: 1.5;
 }
 
 

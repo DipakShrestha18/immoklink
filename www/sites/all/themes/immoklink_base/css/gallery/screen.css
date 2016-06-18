@@ -964,7 +964,7 @@ nav.sub-nav {
     list-style-image: none;
     list-style-type: none;
     margin-left: 0;
-    white-space: nowrap;
+    white-space: normal;
     float: left;
     padding-left: 4px;
     padding-right: 4px;
