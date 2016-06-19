@@ -6,6 +6,10 @@ li.media h2 {
 	margin: 0 0 0.7em 0;
 }
 
+h1.gallery-title {
+	padding-left: 15px;
+}
+
 header {
 	float:center;
 	padding:0px 0px 0px 0px;
