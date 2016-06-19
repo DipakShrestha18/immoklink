@@ -687,12 +687,13 @@ div.all-tags-link a:hover {
 div.address {
   float: left;
   width:45%;
-  margin-bottom: 20px;
+  margin: 20px 0px 20px 0px;
 }
 
 div#webform-ajax-wrapper-3 {
   float: right;
   width: 30%;
+  margin: 20px 0px 0px 0px;
 }
 
 form.signup {
@@ -870,5 +871,9 @@ div.icons {
 }
 .caption a.share {
   margin-left: 40px;
+}
+
+.icon-news a {
+  text-decoration: none;
 }
 
