@@ -361,8 +361,8 @@ ul.books.columns-3 li {
 
 .share img,
 .share1 img {
-  max-height: 8px;
-  max-width: 8px;
+  max-height: 10px;
+  max-width: 10px;
 }
 
 .overlay-text-container {
@@ -372,9 +372,9 @@ ul.books.columns-3 li {
 
 .overlay-text {
   position: absolute;
-	font-size: 1vw;
+	font-size: 0.8vw;
 	color:#FFF;
-  padding: 30px 2% 10px 2%;
+  padding: 15% 2% 10px 2%;
   width: 96%;
   line-height: 1.5;
 }
@@ -743,6 +743,7 @@ form#immoklink-sitewide-newsletter-form input[type="submit"] {
   border-bottom-width: 0px;
   border-left-width: 0px;
   -webkit-appearance: none;
+  -webkit-border-radius: 0px;
   /*border-radius: 5px;
   border-width: 1px 1px 3px;
   box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
@@ -833,6 +834,7 @@ form#immoklink-sitewide-newsletter-form-single-line input[type="submit"] {
   width: 25%;
   display: inline-block;
   -webkit-appearance: none;
+  -webkit-border-radius: 0px;
 }
 
 #webform-ajax-wrapper-3 .icons{

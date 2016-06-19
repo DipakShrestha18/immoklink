@@ -222,6 +222,7 @@ function fimmoklink_paragraphs_field_default_field_instances() {
   // 'paragraphs_item-gallery_bundle-field_gallery_bundle_overlay_txt'.
   $field_instances['paragraphs_item-gallery_bundle-field_gallery_bundle_overlay_txt'] = array(
     'bundle' => 'gallery_bundle',
+    'clean_markup' => 1,
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',

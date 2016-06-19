@@ -450,6 +450,10 @@ function news_listings_page() {
 		Gallery.prototype.pageCoverItemClass = ".page-cover-item";
 		Gallery.prototype.pageGridItemClass = ".page-grid-item";
 
+    Gallery.prototype.resetGridLayout = function () {
+      $(this.pageGridClass).masonry("layout");
+    };
+
 		Gallery.prototype.organise = {};
 
 		Gallery.prototype.organiseGrid = function () {
@@ -498,6 +502,10 @@ function news_listings_page() {
 		var g = new Gallery();
 
 		g.getImages();
+
+    $(window).load(function() {
+      g.resetGridLayout();
+    });
 
 	</script>';
   return $output;
@@ -695,6 +703,7 @@ function immoklink_sitewide_newsletter_form() {
                     </div>
                     <div class="clear-left"></div>
                     <div class="signup">Sign up for email updates</div>
+                     <div class="clear-left"></div>
                     <div id="signup-error"></div>';
   $form['#suffix'] = '</div><div class="clear-left"></div>';
 //  $form['my_markup'] = array(
