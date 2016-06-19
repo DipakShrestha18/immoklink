@@ -5,12 +5,18 @@ var windowWidth = 0;
 var actualSize = 0;
 if(window.location.href.indexOf("/gallery/") > -1) {
 	$(window).resize(function () {
-		location.reload();
+		//location.reload();
+		//window.location = window.location;
+
+		clearTimeout(this.timeout);
+		this.timeout = setTimeout(function () {
+			location.reload();
+		}, 500);
 	});
 }
 $(document).ready(function() {
 	touchhover();
-	//setInterval('checkBrowserSize()', 100);
+	setInterval('checkBrowserSize()', 100);
 
 	$('a.mobile_menu').on('click', function(){
 		var navHeight = $('nav').height();
