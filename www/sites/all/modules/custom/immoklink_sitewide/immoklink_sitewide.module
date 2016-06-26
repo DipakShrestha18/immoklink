@@ -451,7 +451,7 @@ function news_listings_page() {
 		Gallery.prototype.pageGridItemClass = ".page-grid-item";
 
     Gallery.prototype.resetGridLayout = function () {
-      $(this.pageGridClass).masonry("layout");
+      this.organise.masonry();
     };
 
 		Gallery.prototype.organise = {};
@@ -491,11 +491,12 @@ function news_listings_page() {
           if ($(self.pageGridClass).length > 0) {
             self.organiseGrid();
             setTimeout(function () {
-              self.organise.masonry();
-            }, 100);
+              self.resetGridLayout();
+            }, 500);
           }
-        }
 
+          $(document).trigger("immo-grid-loaded");
+        }
       });
     }
 
@@ -503,8 +504,10 @@ function news_listings_page() {
 
 		g.getImages();
 
-    $(window).load(function() {
-      g.resetGridLayout();
+    $(document).on("immo-grid-loaded", function () {
+      setTimeout(function () {
+        g.resetGridLayout();
+      }, 100);
     });
 
 	</script>';
@@ -607,6 +610,10 @@ function news_listings_page_by_tag($tid) {
 		Gallery.prototype.pageCoverItemClass = ".page-cover-item";
 		Gallery.prototype.pageGridItemClass = ".page-grid-item";
 
+    Gallery.prototype.resetGridLayout = function () {
+      this.organise.masonry();
+    };
+
 		Gallery.prototype.organise = {};
 
 		Gallery.prototype.organiseGrid = function () {
@@ -644,9 +651,11 @@ function news_listings_page_by_tag($tid) {
           if ($(self.pageGridClass).length > 0) {
             self.organiseGrid();
             setTimeout(function () {
-              self.organise.masonry();
-            }, 100);
+              self.resetGridLayout();
+            }, 500);
           }
+
+          $(document).trigger("immo-grid-loaded");
         }
 
       });
@@ -655,6 +664,12 @@ function news_listings_page_by_tag($tid) {
 		var g = new Gallery();
 
 		g.getImages();
+
+    $(document).on("immo-grid-loaded", function () {
+      setTimeout(function () {
+        g.resetGridLayout();
+      }, 100);
+    });
 
 	</script>';
     }
