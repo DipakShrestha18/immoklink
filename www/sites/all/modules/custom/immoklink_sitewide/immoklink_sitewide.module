@@ -367,7 +367,7 @@ function news_listings_page() {
   $form = drupal_get_form('immoklink_sitewide_newsletter_form_single_line');
   $output .= render($form);
   $output .= '<div class="clear-fix"></div>';
-  $output .= '<section id="gallery-collection" class="page-grid"></section></article></div>';
+  $output .= '<section id="gallery-collection" class="page-grid" style="visibility: hidden;"></section></article></div>';
   $output .= '<script id="page-cover-tpl" type="text/x-jsrender">
 		<div class="page-cover-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
 			<div class="page-cover-wrap">
@@ -422,61 +422,70 @@ function news_listings_page() {
 		</div>
 	</script>';
 
-  $output .= '<script type="text/javascript" src="/sites/all/themes/immoklink_base//js/jquery-1.8.3.min.js"></script>
-  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/masonry.min.js"></script>
-  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/jsrender.min.js"></script>';
+
+
+  $output .= '<script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/masonry.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jsrender.min.js"></script>';
   $output .= '<script type="text/javascript">
 
     $.views.helpers({
-			imageOrientation: function (val) {
-    if (!val || !val.hasOwnProperty("width") || !val.hasOwnProperty("height")) {
-      return "unknown";
+      imageOrientation: function (val) {
+          if (!val || !val.hasOwnProperty("width") || !val.hasOwnProperty("height")) {
+            return "unknown";
+          }
+
+          return parseInt(val.width) > parseInt(val.height) ? "landscape" : "portrait";
+        }
+    });
+
+
+    var Gallery = function () {};
+
+    Gallery.prototype.endpoint = "' . $base_url . '/news/json";
+
+    Gallery.prototype.pageCoverElement = "gallery-highlight";
+    Gallery.prototype.pageGridElement= "gallery-collection";
+
+    Gallery.prototype.pageCoverClass = ".page-cover";
+    Gallery.prototype.pageGridClass = ".page-grid";
+
+    Gallery.prototype.pageCoverItemClass = ".page-cover-item";
+    Gallery.prototype.pageGridItemClass = ".page-grid-item";
+
+      Gallery.prototype.resetGridLayout = function () {
+        var self = this;
+        setTimeout(function () {
+          $(self.pageGridClass).masonry("layout");
+          $("#" + self.pageGridElement).css("visibility","visible");
+        }, 1000);
+        
+      };
+
+    Gallery.prototype.organise = {};
+
+    Gallery.prototype.organiseGrid = function () {
+
+          this.organise = $(this.pageGridClass).masonry({
+        // options
+        itemSelector: this.pageGridItemClass,
+        columnWidth: 290,
+        //percentPosition: true,
+        gutter: 25,
+        initLayout: false,
+        fitWidth: true
+      });
     }
-    return parseInt(val.width) > parseInt(val.height) ? "landscape" : "portrait";
-  }
-		});
 
-
-		var Gallery = function () {};
-
-		Gallery.prototype.endpoint = "' . $base_url . '/news/json";
-
-		Gallery.prototype.pageCoverElement = "gallery-highlight";
-		Gallery.prototype.pageGridElement= "gallery-collection";
-
-		Gallery.prototype.pageCoverClass = ".page-cover";
-		Gallery.prototype.pageGridClass = ".page-grid";
-
-		Gallery.prototype.pageCoverItemClass = ".page-cover-item";
-		Gallery.prototype.pageGridItemClass = ".page-grid-item";
-
-    Gallery.prototype.resetGridLayout = function () {
-      this.organise.masonry();
-    };
-
-		Gallery.prototype.organise = {};
-
-		Gallery.prototype.organiseGrid = function () {
-      //if (typeof $.masonry === "function") {
-      this.organise = $(this.pageGridClass).masonry({
-				  // options
-				  itemSelector: this.pageGridItemClass,
-				  columnWidth: 290,
-				  //percentPosition: true,
-				  gutter: 25,
-				  initLayout: false,
-				  fitWidth: true
-				});
-			//}
-		}
-
-		Gallery.prototype.getImages = function () {
+    Gallery.prototype.getImages = function () {
       var pageGridHtml = $.templates("#page-grid-tpl");
       var pageCoverHtml = $.templates("#page-cover-tpl");
 
       var self = this;
+      var count = 0;
 
       return $.getJSON(this.endpoint, function (results) {
+      
         if (results && results.hasOwnProperty("data") && results.data.length > 0) {
           $.each(results.data, function(k, v) {
             //populate first three image as cover
@@ -486,28 +495,31 @@ function news_listings_page() {
             } else {
               $("#" + self.pageGridElement).append(pageGridHtml.render(v));
             }
+            count++;
           });
-
-          if ($(self.pageGridClass).length > 0) {
-            self.organiseGrid();
-            setTimeout(function () {
-              self.resetGridLayout();
-            }, 500);
-          }
-
-          $(document).trigger("immo-grid-loaded");
         }
+
+        if (count === results.data.length) {
+          $(document).trigger("immo-image-ready", results.data.length);
+        } else {
+          $(document).trigger("immo-image-error");
+        }
+
       });
-    }
+      }
 
-		var g = new Gallery();
+    $(function () {
+      var g = new Gallery();
 
-		g.getImages();
-
-    $(document).on("immo-grid-loaded", function () {
-      setTimeout(function () {
+      $(document).on("immo-image-ready", function (e, d) {
+        e.preventDefault();
+        g.organiseGrid();
         g.resetGridLayout();
-      }, 100);
+        
+      });
+
+      g.getImages();
+
     });
 
 	</script>';
@@ -530,7 +542,7 @@ function news_listings_page_by_tag($tid) {
       $form = drupal_get_form('immoklink_sitewide_newsletter_form_single_line');
       $output .= render($form);
       $output .= '<div class="clear-fix"></div>';
-      $output .= '<section id="gallery-collection" class="page-grid"></section></article></div>';
+      $output .= '<section id="gallery-collection" class="page-grid" style="visibility: hidden;"></section></article></div>';
       $output .= '<script id="page-cover-tpl" type="text/x-jsrender">
 		<div class="page-cover-item clearfix image-{{:~imageOrientation(image)}}" data-id="{{:id}}">
 			<div class="page-cover-wrap">
@@ -582,61 +594,68 @@ function news_listings_page_by_tag($tid) {
 		</div>
 	</script>';
 
-      $output .= '<script type="text/javascript" src="/sites/all/themes/immoklink_base//js/jquery-1.8.3.min.js"></script>
-  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/masonry.min.js"></script>
-  <script type="text/javascript" src="/sites/all/themes/immoklink_base//js/jsrender.min.js"></script>';
+      $output .= '<script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/masonry.min.js"></script>
+  <script type="text/javascript" src="/sites/all/themes/immoklink_base/js/jsrender.min.js"></script>';
       $output .= '<script type="text/javascript">
 
-    $.views.helpers({
-			imageOrientation: function (val) {
-    if (!val || !val.hasOwnProperty("width") || !val.hasOwnProperty("height")) {
-      return "unknown";
+     $.views.helpers({
+      imageOrientation: function (val) {
+          if (!val || !val.hasOwnProperty("width") || !val.hasOwnProperty("height")) {
+            return "unknown";
+          }
+
+          return parseInt(val.width) > parseInt(val.height) ? "landscape" : "portrait";
+        }
+    });
+
+
+    var Gallery = function () {};
+
+    Gallery.prototype.endpoint = "' . $base_url . '/news/json/' . $tid . '"
+
+    Gallery.prototype.pageCoverElement = "gallery-highlight";
+    Gallery.prototype.pageGridElement= "gallery-collection";
+
+    Gallery.prototype.pageCoverClass = ".page-cover";
+    Gallery.prototype.pageGridClass = ".page-grid";
+
+    Gallery.prototype.pageCoverItemClass = ".page-cover-item";
+    Gallery.prototype.pageGridItemClass = ".page-grid-item";
+
+      Gallery.prototype.resetGridLayout = function () {
+        var self = this;
+        setTimeout(function () {
+          $(self.pageGridClass).masonry("layout");
+          $("#" + self.pageGridElement).css("visibility","visible");
+        }, 1000);
+        
+      };
+
+    Gallery.prototype.organise = {};
+
+    Gallery.prototype.organiseGrid = function () {
+
+          this.organise = $(this.pageGridClass).masonry({
+        // options
+        itemSelector: this.pageGridItemClass,
+        columnWidth: 290,
+        //percentPosition: true,
+        gutter: 25,
+        initLayout: false,
+        fitWidth: true
+      });
     }
-    return parseInt(val.width) > parseInt(val.height) ? "landscape" : "portrait";
-  }
-		});
 
-
-		var Gallery = function () {};';
-
-      $output .= 'Gallery.prototype.endpoint = "' . $base_url . '/news/json/' . $tid . '";
-
-		Gallery.prototype.pageCoverElement = "gallery-highlight";
-		Gallery.prototype.pageGridElement= "gallery-collection";
-
-		Gallery.prototype.pageCoverClass = ".page-cover";
-		Gallery.prototype.pageGridClass = ".page-grid";
-
-		Gallery.prototype.pageCoverItemClass = ".page-cover-item";
-		Gallery.prototype.pageGridItemClass = ".page-grid-item";
-
-    Gallery.prototype.resetGridLayout = function () {
-      this.organise.masonry();
-    };
-
-		Gallery.prototype.organise = {};
-
-		Gallery.prototype.organiseGrid = function () {
-      //if (typeof $.masonry === "function") {
-      this.organise = $(this.pageGridClass).masonry({
-				  // options
-				  itemSelector: this.pageGridItemClass,
-				  columnWidth: 290,
-				  //percentPosition: true,
-				  gutter: 25,
-				  initLayout: false,
-				  fitWidth: true
-				});
-			//}
-		}
-
-		Gallery.prototype.getImages = function () {
+    Gallery.prototype.getImages = function () {
       var pageGridHtml = $.templates("#page-grid-tpl");
       var pageCoverHtml = $.templates("#page-cover-tpl");
 
       var self = this;
+      var count = 0;
 
       return $.getJSON(this.endpoint, function (results) {
+      
         if (results && results.hasOwnProperty("data") && results.data.length > 0) {
           $.each(results.data, function(k, v) {
             //populate first three image as cover
@@ -646,32 +665,34 @@ function news_listings_page_by_tag($tid) {
             } else {
               $("#" + self.pageGridElement).append(pageGridHtml.render(v));
             }
+            count++;
           });
+        }
 
-          if ($(self.pageGridClass).length > 0) {
-            self.organiseGrid();
-            setTimeout(function () {
-              self.resetGridLayout();
-            }, 500);
-          }
-
-          $(document).trigger("immo-grid-loaded");
+        if (count === results.data.length) {
+          $(document).trigger("immo-image-ready", results.data.length);
+        } else {
+          $(document).trigger("immo-image-error");
         }
 
       });
-    }
+      }
 
-		var g = new Gallery();
+    $(function () {
+      var g = new Gallery();
 
-		g.getImages();
-
-    $(document).on("immo-grid-loaded", function () {
-      setTimeout(function () {
+      $(document).on("immo-image-ready", function (e, d) {
+        e.preventDefault();
+        g.organiseGrid();
         g.resetGridLayout();
-      }, 100);
+        
+      });
+
+      g.getImages();
+
     });
 
-	</script>';
+      </script>';
     }
     return $output;
   }
