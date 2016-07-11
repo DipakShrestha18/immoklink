@@ -214,7 +214,7 @@ a.logo { padding: 15px 0 15px 10px !important; }
   html { font-size: 100%; }
   .page-gallery { max-width: 980px; }
   .page-index,
-  .page-index img { height: 200px; }
+  .page-index img { height: 200px; width: 100%;}
 }
 
 /* Only need to apply for news article*/
@@ -225,5 +225,9 @@ table td img {
 img.sm-icon {
   max-height: 20px;
   max-width: 20px;
+}
+
+.icons-news a {
+  text-decoration: none;
 }
 

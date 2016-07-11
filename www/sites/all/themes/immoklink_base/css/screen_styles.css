@@ -688,13 +688,13 @@ div.all-tags-link a:hover {
 div.address {
   float: left;
   width:45%;
-  margin: 20px 0px 20px 0px;
+  margin: 40px 0px 20px 0px;
 }
 
 div#webform-ajax-wrapper-3 {
   float: right;
   width: 30%;
-  margin: 20px 0px 0px 0px;
+  margin: 40px 0px 0px 0px;
 }
 
 form.signup {

@@ -95,6 +95,10 @@ function immoklink_sitewide_menu_content_type_render($subtype, $conf, $panel_arg
     }
   }
 
+  if (strpos(request_uri(), '/news/') !== false) {
+    $output .= '<script type="text/javascript">$("nav a#News").addClass("selected");</script>';
+  }
+
   $info_url = array(
     "/info/about",
     "/info/exhibitions",
