@@ -31,6 +31,9 @@ $(document).ready(function() {
 		}
 	});
 
+	//signup form load in news landing page.
+	$('#update-signup').delay(1000).fadeIn(100);
+
 	//video in image gallery
 	$('.venoboxvid').venobox({bgcolor: '#000'});
 

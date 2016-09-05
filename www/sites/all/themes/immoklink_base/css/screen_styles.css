@@ -848,6 +848,10 @@ form#immoklink-sitewide-newsletter-form-single-line input[type="submit"] {
   margin-bottom: 5px;
 }
 
+#update-signup {
+  display: none;
+}
+
 /***********social icon*********/
 div.social-icon {
   border-top-style: solid;
