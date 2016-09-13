@@ -47,6 +47,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = yes">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   <link rel="icon" type="image/png" href="/<?php print drupal_get_path('theme', 'immoklink_base') ?>/images/assets/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/<?php print drupal_get_path('theme', 'immoklink_base') ?>/images/assets/favicon.ico" sizes="16x16">
+    <link rel="icon" type="image/png" href="/<?php print drupal_get_path('theme', 'immoklink_base') ?>/images/assets/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/<?php print drupal_get_path('theme', 'immoklink_base') ?>/images/assets/favicon-16x16.png" sizes="16x16">
   <script src="https://use.typekit.net/uls5qrj.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
   <link rel="stylesheet" type="text/css" href="/sites/all/themes/immoklink_base/css/news.css" />
