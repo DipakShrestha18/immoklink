@@ -810,6 +810,10 @@ function immoklink_sitewide_newsletter_form_single_line() {
  * Implements hook_form_alter().
  */
 function immoklink_sitewide_form_alter($form, &$form_state, $form_id) {
+
+  $form['options']['promote']['#access'] = FALSE;
+  $form['options']['sticky']['#access'] = FALSE;
+
   if ($form_id == 'gallery_node_form') {
     $form['field_gallery_lading_ordering']['#access'] = FALSE;
   }
@@ -824,4 +828,21 @@ function immoklink_sitewide_form_alter($form, &$form_state, $form_id) {
 function immoklink_sitewide_form_taxonomy_form_term_alter(&$form, &$form_state) {
   $form['description']['#access'] = FALSE;
   $form['relations']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function immoklink_sitewide_menu_local_tasks_alter(&$data, $router_item, $root_path){
+  if($router_item['path'] == 'user' && $root_path == 'user') {
+    unset($data['tabs'][0]['output'][0]);
+    unset($data['tabs'][0]['output'][2]);
+  }
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function immoklink_sitewide_user_login(&$edit, $account) {
+  $edit['redirect'] = 'home';
 }
