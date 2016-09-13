@@ -386,7 +386,7 @@ function news_listings_page() {
 				</ul>
 
   <div class="icons">
-  <a href="http://www.facebook.com/share.php?u={{:link}}&title={{:title}} target="_blank">
+    <a href="http://www.facebook.com/share.php?u={{:link}}&title={{:title}} target="_blank">
   <img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/facebook_about1.png">
    </a>
   <a class="icon twitter-link" href="https://twitter.com/intent/tweet?original_referer=' . $base_url . '&amp;url={{:link}}&amp;text={{:description}}&amp;via=Immoklink" target="_blank"><img class="sm-icon" src="' . $base_url . '/sites/all/themes/immoklink_base/images/assets/twitter_about1.png"></a>
@@ -458,15 +458,15 @@ function news_listings_page() {
         setTimeout(function () {
           $(self.pageGridClass).masonry("layout");
           $("#" + self.pageGridElement).css("visibility","visible");
-        }, 1000);
-        
+        }, 3000);
+
       };
 
     Gallery.prototype.organise = {};
 
     Gallery.prototype.organiseGrid = function () {
 
-          this.organise = $(this.pageGridClass).masonry({
+      this.organise = $(this.pageGridClass).masonry({
         // options
         itemSelector: this.pageGridItemClass,
         columnWidth: 290,
@@ -485,7 +485,7 @@ function news_listings_page() {
       var count = 0;
 
       return $.getJSON(this.endpoint, function (results) {
-      
+
         if (results && results.hasOwnProperty("data") && results.data.length > 0) {
           $.each(results.data, function(k, v) {
             //populate first three image as cover
@@ -515,7 +515,7 @@ function news_listings_page() {
         e.preventDefault();
         g.organiseGrid();
         g.resetGridLayout();
-        
+
       });
 
       g.getImages();
@@ -628,8 +628,8 @@ function news_listings_page_by_tag($tid) {
         setTimeout(function () {
           $(self.pageGridClass).masonry("layout");
           $("#" + self.pageGridElement).css("visibility","visible");
-        }, 1000);
-        
+        }, 3000);
+
       };
 
     Gallery.prototype.organise = {};
@@ -655,7 +655,7 @@ function news_listings_page_by_tag($tid) {
       var count = 0;
 
       return $.getJSON(this.endpoint, function (results) {
-      
+
         if (results && results.hasOwnProperty("data") && results.data.length > 0) {
           $.each(results.data, function(k, v) {
             //populate first three image as cover
@@ -685,7 +685,7 @@ function news_listings_page_by_tag($tid) {
         e.preventDefault();
         g.organiseGrid();
         g.resetGridLayout();
-        
+
       });
 
       g.getImages();
