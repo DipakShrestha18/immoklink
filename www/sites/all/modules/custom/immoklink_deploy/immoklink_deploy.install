@@ -79,3 +79,10 @@ function immoklink_deploy_update_7007() {
 function immoklink_deploy_update_7008() {
   module_enable(array('fimmoklink_publications'));
 }
+
+/**
+ * Enable metatag modules.
+ */
+function immoklink_deploy_udpate_7009() {
+  module_enable(array('metatag_twitter_cards', 'metatag_opengraph'));
+}
