@@ -32,7 +32,7 @@ function immoklink_news_json_menu() {
       'access arguments' => array('access content'),
       'type' => MENU_CALLBACK,
   );
-
+    
   return $items;
 }
 
@@ -65,23 +65,34 @@ function news_json() {
  * @param $tid
  */
 function news_json_argument($tid) {
+//  //if (!cache_get('news_' . $tid . '_json', 'cache')) {
+//    $query = new EntityFieldQuery();
+//    $results = $query->entityCondition('entity_type', 'node')
+//      ->entityCondition('bundle', 'news')
+//      ->propertyCondition('status', 1, '=')
+//      ->fieldCondition('field_news_tags', 'tid', $tid)
+//      //->fieldOrderBy('field_news_date', 'value', 'DESC')
+//      //->propertyOrderBy('created', 'DESC')
+//      ->execute();
+//
+//    if (!empty($results['node'])) {
+//      $nodes = node_load_multiple(array_keys($results['node']));
+//    }
   if (!cache_get('news_' . $tid . '_json', 'cache')) {
-    $query = new EntityFieldQuery();
-    $results = $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'news')
-      ->propertyCondition('status', 1, '=')
-      ->fieldCondition('field_news_tags', 'tid', $tid)
-      // ->fieldOrderBy('field_news_date', 'value', 'DESC')
-      ->execute();
-
-    if (!empty($results['node'])) {
-      $nodes = node_load_multiple(array_keys($results['node']));
+    $results = views_get_view_result('news_listings_by_tag', 'master');
+    $nids = array();
+    foreach ($results as $result) {
+      $nids[] = $result->nid;
     }
-    $json = get_json_form_nodes($nodes);
-    cache_set('news_' . $tid . '_json', $json, 'cache', REQUEST_TIME + (3600 * 24 * 30 * 6));
+
+    if (!empty($nids)) {
+      $nodes = node_load_multiple($nids);
+    }
+      $json = get_json_form_nodes($nodes);
+      cache_set('news_' . $tid . '_json', $json, 'cache', REQUEST_TIME + (3600 * 24 * 30 * 6));
   } else {
-    $cacheobject = cache_get('news_' . $tid . '_json', 'cache');
-    $json = $cacheobject->data;
+      $cacheobject = cache_get('news_' . $tid . '_json', 'cache');
+      $json = $cacheobject->data;
   }
   echo $json;
 }
